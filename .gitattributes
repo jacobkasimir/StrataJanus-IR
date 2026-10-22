@@ -1,0 +1,15 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.parquet binary
+*.npy binary
+*.npz binary
+*.faiss binary
+*.bin binary
+*.idx binary
+*.pkl binary
+data/** linguist-generated=true
+indexes/** linguist-generated=true

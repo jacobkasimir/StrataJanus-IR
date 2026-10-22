@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.benchmarks/
+.coverage
+htmlcov/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Data and index artifacts (preserve directory markers)
+data/*
+!data/.gitkeep
+indexes/*
+!indexes/.gitkeep
+*.parquet
+*.npy
+*.npz
+*.faiss
+*.bin
+*.idx
+*.pkl
+
+# Model files and experiment tracking
+models/
+*.pt
+*.safetensors
+*.onnx
+*.gguf
+wandb/
+mlruns/
+lightning_logs/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+
+# Keep small tracked JSON results; omit temporary and compressed dumps
+results/**/*.tmp
+results/**/*.jsonl.gz
