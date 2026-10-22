@@ -1,0 +1,1 @@
+"""Auxiliary data structures package."""
