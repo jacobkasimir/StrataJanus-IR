@@ -14,6 +14,11 @@ DATASET_URL = (
 
 
 def main():
+    """Download and extract the SciFact BEIR dataset.
+
+    Returns:
+        None: The function prints the extracted dataset path.
+    """
     DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
     dataset_path = util.download_and_unzip(

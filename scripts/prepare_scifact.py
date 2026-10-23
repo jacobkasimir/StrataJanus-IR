@@ -13,6 +13,17 @@ OUTPUT_DIR = PROJECT_ROOT / "data" / "processed" / "scifact"
 SCHEMA_VERSION = 1
 
 def read_jsonl(path):
+    """Read nonblank JSON Lines records with their source line numbers.
+
+    Args:
+        path (Path): JSONL file to read.
+
+    Returns:
+        Iterator[tuple[int, dict[str, Any]]]: Source line numbers and decoded objects.
+
+    Raises:
+        ValueError: If a nonblank line is invalid JSON or is not a JSON object.
+    """
     with path.open("r", encoding="utf-8") as file:
         for line_number, line in enumerate(file, start=1):
             if not line.strip():
@@ -35,6 +46,19 @@ def read_jsonl(path):
 
 
 def require_id(row, field, location):
+    """Return a required nonempty string identifier from a record.
+
+    Args:
+        row (dict[str, Any]): Record containing the identifier.
+        field (str): Identifier field name.
+        location (str): Source location used in validation errors.
+
+    Returns:
+        str: The validated identifier.
+
+    Raises:
+        ValueError: If the field is missing, not a string, or blank.
+    """
     value = row.get(field)
 
     if not isinstance(value, str) or not value.strip():
@@ -46,6 +70,20 @@ def require_id(row, field, location):
 
 
 def require_text(row, field, location, default=None):
+    """Return a string field, using a default only when it is absent.
+
+    Args:
+        row (dict[str, Any]): Record containing the text field.
+        field (str): Text field name.
+        location (str): Source location used in validation errors.
+        default (str | None): Value to use when the field is absent.
+
+    Returns:
+        str: The field value or its default.
+
+    Raises:
+        ValueError: If the selected value is not a string.
+    """
     value = row.get(field, default)
 
     if not isinstance(value, str):
@@ -57,6 +95,18 @@ def require_text(row, field, location, default=None):
 
 
 def prepare_metadata(row, location):
+    """Copy a record's metadata and mark it as originating from SciFact.
+
+    Args:
+        row (dict[str, Any]): Input record containing optional metadata.
+        location (str): Source location used in validation errors.
+
+    Returns:
+        dict[str, Any]: Metadata with its source set to ``scifact``.
+
+    Raises:
+        ValueError: If metadata is not a JSON object.
+    """
     metadata = row.get("metadata", {})
 
     if not isinstance(metadata, dict):
@@ -71,11 +121,28 @@ def prepare_metadata(row, location):
 
 
 def write_jsonl_row(file, row):
+    """Serialize one object as a UTF-8-compatible JSON Lines record.
+
+    Args:
+        file (TextIO): Writable text stream.
+        row (dict[str, Any]): Object to serialize.
+
+    Returns:
+        None: Writes one JSON record followed by a newline.
+    """
     file.write(
         json.dumps(row, ensure_ascii=False) + "\n"
     )
 
 def convert_documents():
+    """Convert the raw SciFact corpus and create its external ID mapping.
+
+    Returns:
+        tuple[set[str], int]: Document IDs and the count of empty documents.
+
+    Raises:
+        ValueError: If a record is invalid or contains a duplicate document ID.
+    """
     input_path = RAW_DIR / "corpus.jsonl"
     documents_path = OUTPUT_DIR / "documents.jsonl"
     mapping_path = OUTPUT_DIR / "doc_ids.jsonl"
@@ -124,6 +191,14 @@ def convert_documents():
 
 
 def convert_queries():
+    """Convert raw SciFact queries into the processed JSONL format.
+
+    Returns:
+        set[str]: IDs of the converted queries.
+
+    Raises:
+        ValueError: If a record is invalid, has a duplicate ID, or blank query text.
+    """
     input_path = RAW_DIR / "queries.jsonl"
     output_path = OUTPUT_DIR / "queries.jsonl"
 
@@ -160,6 +235,18 @@ def convert_queries():
 
 
 def convert_qrels(document_ids, query_ids):
+    """Convert qrels splits and validate referenced queries and documents.
+
+    Args:
+        document_ids (set[str]): Valid document IDs from the converted corpus.
+        query_ids (set[str]): Valid query IDs from the converted queries.
+
+    Returns:
+        dict[str, dict[str, int]]: Per-split counts of judgments, queries, and positives.
+
+    Raises:
+        ValueError: If qrels are missing, malformed, duplicated, or reference unknown IDs.
+    """
     input_dir = RAW_DIR / "qrels"
     output_dir = OUTPUT_DIR / "qrels"
 
@@ -258,6 +345,16 @@ def convert_qrels(document_ids, query_ids):
     return split_statistics
 
 def main():
+    """Convert raw SciFact files and write processed data with a manifest.
+
+    Returns:
+        None: Writes converted files and prints a conversion summary.
+
+    Raises:
+        FileNotFoundError: If a required raw input path does not exist.
+        FileExistsError: If the output directory already exists.
+        ValueError: If converted collections are empty or contain invalid records.
+    """
     required_paths = [
         RAW_DIR / "corpus.jsonl",
         RAW_DIR / "queries.jsonl",

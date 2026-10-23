@@ -7,7 +7,15 @@ from scripts import prepare_scifact as converter
 
 
 def write_jsonl(path, rows):
-    """Write a small JSONL file for a test."""
+    """Write test records to a JSON Lines file.
+
+    Args:
+        path (Path): Destination file path.
+        rows (Iterable[dict[str, Any]]): Records to serialize.
+
+    Returns:
+        None: Creates parent directories and writes the records.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with path.open("w", encoding="utf-8") as file:
@@ -18,7 +26,14 @@ def write_jsonl(path, rows):
 
 
 def read_jsonl(path):
-    """Read a generated JSONL file into a list."""
+    """Load nonblank records from a JSON Lines file.
+
+    Args:
+        path (Path): Source file path.
+
+    Returns:
+        list[dict[str, Any]]: Decoded JSON objects in file order.
+    """
     with path.open("r", encoding="utf-8") as file:
         return [
             json.loads(line)
@@ -28,7 +43,15 @@ def read_jsonl(path):
 
 
 def write_qrels(path, rows):
-    """Write relevance judgments in the original BEIR format."""
+    """Write relevance judgments using the original BEIR TSV columns.
+
+    Args:
+        path (Path): Destination TSV path.
+        rows (Iterable[tuple[str, str, int]]): Query ID, document ID, and score rows.
+
+    Returns:
+        None: Creates parent directories and writes the TSV data.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with path.open("w", encoding="utf-8", newline="") as file:
@@ -43,11 +66,14 @@ def write_qrels(path, rows):
 
 @pytest.fixture
 def dataset(tmp_path, monkeypatch):
-    """
-    Create a valid miniature SciFact dataset.
+    """Create a miniature SciFact dataset isolated in a temporary directory.
 
-    Redirect the converter to temporary directories so that
-    the real dataset is never touched.
+    Args:
+        tmp_path (Path): Pytest temporary directory.
+        monkeypatch (pytest.MonkeyPatch): Fixture for redirecting converter paths.
+
+    Returns:
+        dict[str, Path]: Raw and processed dataset directory paths.
     """
     project_root = tmp_path / "strata"
 
@@ -112,6 +138,14 @@ def dataset(tmp_path, monkeypatch):
 
 #---TEST1---
 def test_two_valid_documents_get_contiguous_ids(dataset):
+    """Verify document conversion preserves order and assigns contiguous IDs.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Assertions validate converted documents, mappings, and manifest.
+    """
     converter.main()
 
     documents = read_jsonl(
@@ -141,6 +175,14 @@ def test_two_valid_documents_get_contiguous_ids(dataset):
 
 #---TEST2---
 def test_duplicate_document_id_is_rejected(dataset):
+    """Verify duplicate corpus identifiers cause conversion to fail.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Asserts that conversion raises ``ValueError``.
+    """
     write_jsonl(
         dataset["raw"] / "corpus.jsonl",
         [
@@ -165,6 +207,14 @@ def test_duplicate_document_id_is_rejected(dataset):
 
 #---TEST3---
 def test_missing_document_text_is_rejected(dataset):
+    """Verify corpus records without text are rejected.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Asserts that conversion raises ``ValueError``.
+    """
     write_jsonl(
         dataset["raw"] / "corpus.jsonl",
         [
@@ -183,6 +233,14 @@ def test_missing_document_text_is_rejected(dataset):
 
 #---TEST4---
 def test_missing_title_defaults_to_empty_string(dataset):
+    """Verify an omitted document title is converted to an empty string.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Assertions validate the converted title and text.
+    """
     write_jsonl(
         dataset["raw"] / "corpus.jsonl",
         [
@@ -211,6 +269,15 @@ def test_missing_title_defaults_to_empty_string(dataset):
     ["", "   ", "\n\t"],
 )
 def test_empty_query_text_is_rejected(dataset, query_text):
+    """Verify blank query text is rejected.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+        query_text (str): Blank or whitespace-only query text.
+
+    Returns:
+        None: Asserts that conversion raises ``ValueError``.
+    """
     write_jsonl(
         dataset["raw"] / "queries.jsonl",
         [
@@ -230,6 +297,14 @@ def test_empty_query_text_is_rejected(dataset, query_text):
 
 #---TEST6---
 def test_qrel_with_unknown_document_is_rejected(dataset):
+    """Verify qrels referencing an unknown document are rejected.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Asserts that conversion raises ``ValueError``.
+    """
     write_qrels(
         dataset["raw"] / "qrels" / "train.tsv",
         [
@@ -245,6 +320,14 @@ def test_qrel_with_unknown_document_is_rejected(dataset):
 
 #---TEST7---
 def test_qrel_with_unknown_query_is_rejected(dataset):
+    """Verify qrels referencing an unknown query are rejected.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Asserts that conversion raises ``ValueError``.
+    """
     write_qrels(
         dataset["raw"] / "qrels" / "train.tsv",
         [
@@ -260,6 +343,14 @@ def test_qrel_with_unknown_query_is_rejected(dataset):
 
 #---TEST8---
 def test_unicode_text_is_preserved(dataset):
+    """Verify Unicode document and query text survives conversion unchanged.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Assertions validate decoded content and UTF-8 output.
+    """
     title = "Überprüfung der Wirkung"
     text = "Café, β-cells, inflammation — 日本語."
     query_text = "Verändert β die Wirkung?"
@@ -307,6 +398,14 @@ def test_unicode_text_is_preserved(dataset):
 
 #---TEST9---
 def test_document_id_leading_zeros_are_preserved(dataset):
+    """Verify identifiers with leading zeroes remain strings in all outputs.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Assertions validate corpus, mapping, and qrels identifiers.
+    """
     write_jsonl(
         dataset["raw"] / "corpus.jsonl",
         [
@@ -364,6 +463,14 @@ def test_document_id_leading_zeros_are_preserved(dataset):
 
 #---TEST10---
 def test_existing_output_directory_is_not_overwritten(dataset):
+    """Verify a second conversion preserves an existing output directory.
+
+    Args:
+        dataset (dict[str, Path]): Miniature dataset fixture.
+
+    Returns:
+        None: Asserts that conversion fails without changing existing files.
+    """
     converter.main()
 
     output_dir = dataset["output"]

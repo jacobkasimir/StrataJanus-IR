@@ -8,6 +8,15 @@ DATASET_DIR = PROJECT_ROOT / "data" / "raw" / "scifact"
 
 
 def main():
+    """Load SciFact splits, validate their references, and print an example.
+
+    Returns:
+        None: The function prints split statistics and one judged example.
+
+    Raises:
+        FileNotFoundError: If no qrels splits exist or the train split is missing.
+        AssertionError: If a loaded split is empty or contains dangling references.
+    """
     split = "train"
 
     qrels_dir = DATASET_DIR / "qrels"
