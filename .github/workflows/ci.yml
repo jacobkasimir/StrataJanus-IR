@@ -16,4 +16,4 @@ jobs:
           python-version: "3.14"
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e . pytest
-      - run: python -m pytest src/stratajanus/tests
+      - run: python -m pytest tests
