@@ -1,1 +1,0 @@
-"""Posting list compression formats."""

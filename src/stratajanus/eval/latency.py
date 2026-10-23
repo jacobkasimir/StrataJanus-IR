@@ -1,1 +1,0 @@
-"""Latency measurement harness."""
