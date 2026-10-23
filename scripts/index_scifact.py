@@ -1,3 +1,5 @@
+"""Build and validate the processed SciFact index in memory."""
+
 import json
 from pathlib import Path
 
@@ -9,7 +11,18 @@ DATA_DIR = PROJECT_ROOT / "data" / "processed" / "scifact"
 
 
 def read_jsonl(path: Path):
-    """Yield one JSON object at a time."""
+    """Yield nonblank JSONL objects in file order.
+
+    Args:
+        path: UTF-8 JSON Lines file.
+
+    Each yielded value is decoded JSON; the index builder validates document
+    records.
+
+    Raises:
+        FileNotFoundError: If the file is absent.
+        ValueError: If a nonblank line contains malformed JSON.
+    """
     with path.open("r", encoding="utf-8") as file:
         for line_number, line in enumerate(file, start=1):
             if not line.strip():
@@ -24,6 +37,15 @@ def read_jsonl(path: Path):
 
 
 def main():
+    """Build an in-memory index and validate it against the processed manifest.
+
+    Reads ``documents.jsonl``, ``doc_ids.jsonl``, and ``manifest.json``;
+    prints index statistics and sample postings. Does not persist the index.
+
+    Raises:
+        FileNotFoundError: If any required processed file is missing.
+        ValueError: If counts or internal/external ID mappings disagree.
+    """
     documents_path = DATA_DIR / "documents.jsonl"
     mapping_path = DATA_DIR / "doc_ids.jsonl"
     manifest_path = DATA_DIR / "manifest.json"
@@ -107,3 +129,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""Build and validate the processed SciFact index in memory."""

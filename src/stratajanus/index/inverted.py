@@ -1,3 +1,10 @@
+"""Build and inspect an in-memory inverted index.
+
+Documents receive zero-based internal IDs in input order. Posting lists map
+each term to ``(internal_id, term_frequency)`` pairs in ascending internal ID
+order; external IDs are kept separately for display and lookup.
+"""
+
 from dataclasses import dataclass
 from collections import defaultdict, Counter
 from stratajanus.text.tokenizer import tokenize
@@ -5,11 +12,19 @@ from stratajanus.text.tokenizer import tokenize
 
 @dataclass
 class InvertedIndex:
-    """
-    An in-memory inverted index.
+    """Hold postings and per-document statistics for an in-memory collection.
 
-    Posting lists use internal document IDs, which are positions in
-    doc_lengths and internal_to_external.
+    Args:
+        postings: Mapping from token strings to lists of
+            ``(internal_id, term_frequency)`` pairs. Lists produced by
+            :func:`build_index` follow ascending internal-ID order.
+        doc_lengths: Token count for each internal document ID.
+        internal_to_external: External ``doc_id`` for each internal ID.
+
+    Internal IDs are zero-based positions shared by ``doc_lengths`` and
+    ``internal_to_external``. External IDs are the caller's original strings.
+    The dataclass does not validate manually supplied structures; builders
+    return aligned lists and valid posting IDs.
     """
 
     postings: dict[str, list[tuple[int, int]]]
@@ -18,24 +33,40 @@ class InvertedIndex:
 
     @property
     def document_count(self) -> int:
+        """Number of documents, including documents with no tokens."""
         return len(self.internal_to_external)
 
     @property
     def average_document_length(self) -> float:
+        """Mean token count, or ``0.0`` for an empty collection."""
         if self.document_count == 0:
             return 0.0
 
         return sum(self.doc_lengths) / self.document_count
 
     def document_frequency(self, term: str) -> int:
+        """Return the number of postings for the exact term; unknown terms yield 0."""
         return len(self.postings.get(term, []))
 
 def build_index(documents: list[dict]) -> InvertedIndex:
-    """
-    Build an in-memory inverted index from canonical documents.
+    """Tokenize documents and produce an in-memory inverted index.
 
-    Documents are assigned internal IDs 0, 1, 2, ... in input order.
-    Each document must have string fields: doc_id, title, and text.
+    Args:
+        documents: Ordered iterable of mappings with a nonempty string
+            ``doc_id`` and string ``title`` and ``text`` fields. Extra fields
+            are ignored.
+
+    Returns:
+        An :class:`InvertedIndex` whose internal IDs follow input order,
+        lengths count title and body tokens together, and postings contain
+        ``(internal_id, term_frequency)`` pairs in that same order.
+
+    Raises:
+        TypeError: If an item is not a dictionary.
+        ValueError: If required fields are invalid or an external ID repeats.
+
+    Empty input produces an empty index. Input mappings are not modified.
+    The title and body are separated by a newline before tokenization.
     """
     postings: dict[str, list[tuple[int, int]]] = defaultdict(list)
     doc_lengths: list[int] = []

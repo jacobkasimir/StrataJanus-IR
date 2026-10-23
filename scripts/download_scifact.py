@@ -1,3 +1,5 @@
+"""Download and extract the BEIR-format SciFact source dataset."""
+
 from pathlib import Path
 
 from beir import util
@@ -16,8 +18,10 @@ DATASET_URL = (
 def main():
     """Download and extract the SciFact BEIR dataset.
 
-    Returns:
-        None: The function prints the extracted dataset path.
+    Side effects:
+        Creates ``data/raw`` if needed and downloads/extracts SciFact there.
+        Requires the optional ``beir`` dependency and network access. The
+        extracted path is printed to standard output.
     """
     DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -31,3 +35,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""Download and extract the BEIR-format SciFact source dataset."""

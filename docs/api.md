@@ -1,20 +1,67 @@
 # API Reference
 
-StrataJanus-IR currently exposes a small, script-oriented Python API for
-preparing and inspecting the SciFact dataset. The functions below are the
-public functions found in the existing `scripts` modules. They are useful both
-as command-line entry points and as building blocks for dataset workflows.
+The package API is documented from its Python docstrings using
+`mkdocstrings`. See [Quickstart](quickstart.md) for a runnable example,
+[Indexing](indexing.md) for the data structures, and [Architecture](architecture.md)
+for the ranking behavior.
 
-The conversion pipeline reads BEIR-format SciFact files, validates identifiers
-and relevance judgments, then writes normalized JSONL and TSV files together
-with a manifest. The download and loading scripts provide the corresponding
-dataset acquisition and inspection entry points.
+## Tokenizer
 
-## SciFact conversion
+::: stratajanus.text.tokenizer
+    options:
+      heading_level: 3
+      members:
+        - TokenizerConfig
+        - CONFIG
+        - tokenize
+        - save_tokenizer_config
+        - verify_tokenizer_config
+
+## Inverted index
+
+::: stratajanus.index.inverted
+    options:
+      heading_level: 3
+      members:
+        - InvertedIndex
+        - build_index
+
+## BM25 retrieval
+
+::: stratajanus.retrieval.bm25
+    options:
+      heading_level: 3
+      members:
+        - SearchResult
+        - BM25
+
+## SciFact workflow scripts
+
+These functions expose the reusable portions of the dataset workflow. The
+scripts can also be invoked from the repository root as shown on the
+[home page](index.md).
+
+### Download
+
+::: scripts.download_scifact
+    options:
+      heading_level: 4
+      members:
+        - main
+
+### Load and inspect source splits
+
+::: scripts.load_scifact
+    options:
+      heading_level: 4
+      members:
+        - main
+
+### Prepare processed data
 
 ::: scripts.prepare_scifact
     options:
-      heading_level: 3
+      heading_level: 4
       members:
         - read_jsonl
         - require_id
@@ -26,18 +73,20 @@ dataset acquisition and inspection entry points.
         - convert_qrels
         - main
 
-## Dataset download
+### Validate an index
 
-::: scripts.download_scifact
+::: scripts.index_scifact
     options:
-      heading_level: 3
+      heading_level: 4
       members:
+        - read_jsonl
         - main
 
-## Dataset loading and inspection
+### Search SciFact
 
-::: scripts.load_scifact
+::: scripts.search_scifact
     options:
-      heading_level: 3
+      heading_level: 4
       members:
+        - read_documents
         - main

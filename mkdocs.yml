@@ -6,7 +6,10 @@ theme:
 
 plugins:
   - search
-  - mkdocstrings
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src, .]
 
 markdown_extensions:
   - toc:
@@ -28,4 +31,6 @@ nav:
   - Home: index.md
   - Architecture: architecture.md
   - Quickstart: quickstart.md
+  - Indexing: indexing.md
   - API Reference: api.md
+  - SciFact data: datasets/scifact.md

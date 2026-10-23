@@ -1,3 +1,5 @@
+"""Validate BEIR SciFact files and convert them to stratajanus JSONL/TSV."""
+
 import csv
 import json
 from datetime import datetime, timezone
@@ -16,10 +18,9 @@ def read_jsonl(path):
     """Read nonblank JSON Lines records with their source line numbers.
 
     Args:
-        path (Path): JSONL file to read.
+        path (Path): UTF-8 JSONL file to read.
 
-    Returns:
-        Iterator[tuple[int, dict[str, Any]]]: Source line numbers and decoded objects.
+    Each yielded pair contains the source line number and decoded JSON object.
 
     Raises:
         ValueError: If a nonblank line is invalid JSON or is not a JSON object.
@@ -53,8 +54,7 @@ def require_id(row, field, location):
         field (str): Identifier field name.
         location (str): Source location used in validation errors.
 
-    Returns:
-        str: The validated identifier.
+    The validated identifier is returned unchanged.
 
     Raises:
         ValueError: If the field is missing, not a string, or blank.
@@ -78,8 +78,7 @@ def require_text(row, field, location, default=None):
         location (str): Source location used in validation errors.
         default (str | None): Value to use when the field is absent.
 
-    Returns:
-        str: The field value or its default.
+    The selected string value is returned unchanged.
 
     Raises:
         ValueError: If the selected value is not a string.
@@ -101,8 +100,7 @@ def prepare_metadata(row, location):
         row (dict[str, Any]): Input record containing optional metadata.
         location (str): Source location used in validation errors.
 
-    Returns:
-        dict[str, Any]: Metadata with its source set to ``scifact``.
+    The returned metadata copy has its source set to ``scifact``.
 
     Raises:
         ValueError: If metadata is not a JSON object.
@@ -127,8 +125,9 @@ def write_jsonl_row(file, row):
         file (TextIO): Writable text stream.
         row (dict[str, Any]): Object to serialize.
 
-    Returns:
-        None: Writes one JSON record followed by a newline.
+    Side effects:
+        Writes one JSON record and newline to the supplied open text stream;
+        this helper does not open or close files itself.
     """
     file.write(
         json.dumps(row, ensure_ascii=False) + "\n"
@@ -137,8 +136,7 @@ def write_jsonl_row(file, row):
 def convert_documents():
     """Convert the raw SciFact corpus and create its external ID mapping.
 
-    Returns:
-        tuple[set[str], int]: Document IDs and the count of empty documents.
+    Returns the set of document IDs and the number of empty documents.
 
     Raises:
         ValueError: If a record is invalid or contains a duplicate document ID.
@@ -193,8 +191,7 @@ def convert_documents():
 def convert_queries():
     """Convert raw SciFact queries into the processed JSONL format.
 
-    Returns:
-        set[str]: IDs of the converted queries.
+    Returns the set of converted query IDs.
 
     Raises:
         ValueError: If a record is invalid, has a duplicate ID, or blank query text.
@@ -241,8 +238,9 @@ def convert_qrels(document_ids, query_ids):
         document_ids (set[str]): Valid document IDs from the converted corpus.
         query_ids (set[str]): Valid query IDs from the converted queries.
 
-    Returns:
-        dict[str, dict[str, int]]: Per-split counts of judgments, queries, and positives.
+    Returns per-split counts of judgments, queries, and positive judgments.
+    Writes one normalized TSV under ``data/processed/scifact/qrels`` for each
+    raw split.
 
     Raises:
         ValueError: If qrels are missing, malformed, duplicated, or reference unknown IDs.
@@ -347,13 +345,16 @@ def convert_qrels(document_ids, query_ids):
 def main():
     """Convert raw SciFact files and write processed data with a manifest.
 
-    Returns:
-        None: Writes converted files and prints a conversion summary.
-
     Raises:
         FileNotFoundError: If a required raw input path does not exist.
         FileExistsError: If the output directory already exists.
         ValueError: If converted collections are empty or contain invalid records.
+
+    Side effects:
+        Creates a new ``data/processed/scifact`` tree containing converted
+        documents, queries, ID mappings, qrels, and a manifest. It refuses to
+        overwrite an existing output directory, and prints a conversion
+        summary when complete.
     """
     required_paths = [
         RAW_DIR / "corpus.jsonl",

@@ -1,3 +1,5 @@
+"""Load SciFact splits with BEIR and print consistency checks and an example."""
+
 from pathlib import Path
 
 from beir.datasets.data_loader import GenericDataLoader
@@ -10,12 +12,10 @@ DATASET_DIR = PROJECT_ROOT / "data" / "raw" / "scifact"
 def main():
     """Load SciFact splits, validate their references, and print an example.
 
-    Returns:
-        None: The function prints split statistics and one judged example.
-
     Raises:
         FileNotFoundError: If no qrels splits exist or the train split is missing.
         AssertionError: If a loaded split is empty or contains dangling references.
+        ImportError: If the optional ``beir`` dependency is unavailable.
     """
     split = "train"
 
@@ -84,3 +84,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""Load SciFact splits with BEIR and print consistency checks and an example."""
