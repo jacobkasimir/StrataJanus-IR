@@ -26,6 +26,26 @@ for the ranking behavior.
         - InvertedIndex
         - build_index
 
+## Index storage
+
+JSON and fixed-width binary storage use separate modules and expose the same
+save/load function names. Import them from their respective modules to choose
+a format.
+
+::: stratajanus.index.storage
+    options:
+      heading_level: 3
+      members:
+        - save_index
+        - load_index
+
+::: stratajanus.index.binary_storage
+    options:
+      heading_level: 3
+      members:
+        - save_index
+        - load_index
+
 ## BM25 retrieval
 
 ::: stratajanus.retrieval.bm25
@@ -49,7 +69,7 @@ scripts can also be invoked from the repository root as shown on the
       members:
         - main
 
-### Load and inspect source splits
+### Search saved JSON index
 
 ::: scripts.load_scifact
     options:
@@ -90,3 +110,9 @@ scripts can also be invoked from the repository root as shown on the
       members:
         - read_documents
         - main
+
+### Build and convert indexes
+
+`build_scifact_index.py` creates the JSON index. `convert_index_to_binary.py`
+creates the fixed-width binary variant from the saved JSON index; both
+commands are documented on the [Index Storage](index_storage.md) page.

@@ -2,7 +2,8 @@
 
 **StrataJanus-IR** is a small educational search engine for exploring lexical
 information retrieval. Its implemented search path uses SciFact documents, a
-versioned tokenizer, a saved JSON inverted index, and BM25 ranking.
+versioned tokenizer, saved JSON or fixed-width binary inverted indexes, and
+BM25 ranking.
 
 ## Current capabilities
 
@@ -10,7 +11,8 @@ versioned tokenizer, a saved JSON inverted index, and BM25 ranking.
 - Convert source records into normalized JSONL and TSV files with a manifest
   and stable document ID mapping.
 - Normalize and tokenize text consistently for indexing and queries.
-- Build and save an inverted index, then rank matching documents with BM25.
+- Build and save a JSON index or convert it to fixed-width binary, then rank
+  matching documents with BM25.
 - Search processed SciFact from the command line.
 
 The index is loaded into memory for each search. The project does not yet
@@ -24,10 +26,13 @@ directions, not current search features.
 flowchart LR
     A[BEIR SciFact corpus] --> B[Prepare JSONL and ID mapping]
     B --> C[Tokenize title and text]
-    C --> D[Build and save JSON index]
+    C --> D[Build index]
+    D --> J[Save JSON]
+    J --> B[Optional fixed-width binary conversion]
     Q[User query] --> E[Same tokenizer]
     E --> F[BM25 scores]
-    D --> L[Load index]
+    J --> L[Load selected index]
+    B --> L
     L --> F
     F --> G[Ranked SearchResult values]
 ```
@@ -47,11 +52,12 @@ the data flow and structures.
 | `src/stratajanus/index/inverted.py` | In-memory postings and index builder |
 | `src/stratajanus/retrieval/bm25.py` | BM25 scoring and search results |
 | `scripts/download_scifact.py` | Download source dataset |
-| `scripts/load_scifact.py` | Load a saved index and search SciFact |
+| `scripts/load_scifact.py` | Search the saved JSON index |
 | `scripts/prepare_scifact.py` | Validate and convert raw SciFact files |
 | `scripts/index_scifact.py` | Build and validate the in-memory index |
 | `scripts/build_scifact_index.py` | Build and save the SciFact index |
-| `scripts/search_scifact.py` | Search SciFact by building an in-memory index |
+| `scripts/search_scifact.py` | Search using either saved index format |
+| `scripts/convert_index_to_binary.py` | Convert JSON index to fixed-width binary |
 | `tests/` | Tokenizer, index, BM25, and data preparation tests |
 | `docs/` | MkDocs documentation pages |
 
@@ -83,13 +89,20 @@ Download and prepare SciFact, build the saved index once, then search it:
 python scripts/download_scifact.py
 python scripts/prepare_scifact.py
 python scripts/build_scifact_index.py
-python scripts/load_scifact.py "evidence for a scientific claim" --top-k 10
+python scripts/search_scifact.py "evidence for a scientific claim" --format json --top-k 10
 ```
 
 The download and preparation commands create data under ignored `data/`
-directories. The build command refuses to overwrite an existing index.
-`load_scifact.py` reads that saved index for each query. The separate
-`search_scifact.py` command remains available for an in-memory search.
+directories. The build and conversion commands refuse to overwrite existing
+index directories. To create and search the binary variant:
+
+```bash
+python scripts/convert_index_to_binary.py
+python scripts/search_scifact.py "evidence for a scientific claim" --format fixed32
+```
+
+`search_scifact.py` defaults to JSON. `load_scifact.py` remains a JSON-only
+search command. See [Index Storage](index_storage.md) for the file layouts.
 
 Preview the documentation locally with:
 

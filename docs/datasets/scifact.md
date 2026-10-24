@@ -15,7 +15,7 @@
 - `queries.jsonl`: query IDs and text.
 - `qrels/train.tsv` and `qrels/test.tsv`: judged query-document relevance labels.
 
-The dataset as extracted here has 5,183 documents, 809 training queries with judgments, and 300 test queries with judgments. `scripts/load_scifact.py` checks that every judged query and document ID resolves in the loaded source data and prints a training query with its positively judged documents.
+The dataset as extracted here has 5,183 documents, 809 training queries with judgments, and 300 test queries with judgments. The preparation workflow validates the query and document references in each qrels split. After preparation, use `scripts/build_scifact_index.py` to save the JSON index. Optionally convert it to fixed-width binary with `scripts/convert_index_to_binary.py`; both formats can be searched with `scripts/search_scifact.py`.
 
 ## SHA-256 checksums
 

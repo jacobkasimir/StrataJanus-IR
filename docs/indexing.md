@@ -59,15 +59,16 @@ once, then run queries against it:
 
 ```bash
 python scripts/build_scifact_index.py
-python scripts/load_scifact.py "evidence for a scientific claim" --top-k 10
+python scripts/search_scifact.py "evidence for a scientific claim" --format json --top-k 10
 ```
 
-The build script reads the processed JSONL and saves the index under
+The build script reads the processed JSONL and saves the JSON index under
 `data/indexes/scifact/`. The search script loads it and prints the result ID,
-BM25 score, and title. Both require the SciFact preparation workflow
-described in [dataset documentation](datasets/scifact.md). The alternative
-`scripts/search_scifact.py` command builds an in-memory index for one-off
-searches.
+BM25 score, and title. To search the fixed-width binary format instead, first
+run `python scripts/convert_index_to_binary.py` and pass `--format fixed32`.
+Both formats require the SciFact preparation workflow described in
+[dataset documentation](datasets/scifact.md). The storage layouts and
+commands are described in [Index Storage](index_storage.md).
 
 ## API
 

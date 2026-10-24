@@ -60,14 +60,16 @@ search script:
 python scripts/download_scifact.py
 python scripts/prepare_scifact.py
 python scripts/build_scifact_index.py
-python scripts/load_scifact.py "evidence for a scientific claim" --top-k 10
+python scripts/search_scifact.py "evidence for a scientific claim" --format json --top-k 10
 ```
 
-Build the index once after preparing the corpus. The search CLI loads the
-saved index instead of rebuilding it. The data download, conversion, and
+Build the JSON index once after preparing the corpus. The search CLI loads
+the saved index instead of rebuilding it. To use fixed-width binary, convert
+the JSON index with `python scripts/convert_index_to_binary.py`, then pass
+`--format fixed32` to `search_scifact.py`. The data download, conversion, and
 index files are written under ignored `data/` directories. See
-[Index Storage](index_storage.md) for the saved format and
-[SciFact data](datasets/scifact.md) for dataset preparation details.
+[Index Storage](index_storage.md) for both formats and [SciFact data](datasets/scifact.md)
+for dataset preparation details.
 
 ## Tests and documentation preview
 
