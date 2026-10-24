@@ -5,18 +5,19 @@ For a full SciFact workflow, see the [home page](index.md).
 
 ## Install
 
-stratajanus requires Python 3.13 or newer. From the repository root:
+`pyproject.toml` declares Python 3.13 or newer. Python 3.14 is used for
+development and testing; other versions have not been verified. From the
+repository root:
 
 ```bash
-python3.13 -m venv .venv
+python3.14 -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
 python -m pip install -e .
 python -m pip install -r requirements.txt
 ```
 
-The package itself uses the standard library. The pinned requirements include
-the tools needed for tests, SciFact scripts, and documentation.
+The package modules use the standard library. The pinned requirements include
+the dependencies needed by SciFact scripts, tests, and documentation.
 
 ## Build an index and search
 
@@ -68,8 +69,13 @@ the saved index instead of rebuilding it. To use fixed-width binary, convert
 the JSON index with `python scripts/convert_index_to_binary.py`, then pass
 `--format fixed32` to `search_scifact.py`. The data download, conversion, and
 index files are written under ignored `data/` directories. See
-[Index Storage](index_storage.md) for both formats and [SciFact data](datasets/scifact.md)
+[Index Storage](index_storage.md) for the saved formats and [SciFact data](datasets/scifact.md)
 for dataset preparation details.
+
+To create the compressed-postings index, first create the fixed32 index, then
+run `python scripts/compress_scifact_index.py` and search with
+`--format vb`. Its loader expands all postings into memory; document lengths
+remain fixed-width.
 
 ## Tests and documentation preview
 

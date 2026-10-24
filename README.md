@@ -4,7 +4,7 @@
 
 The project currently uses the BEIR-formatted SciFact dataset as its example corpus. An index can be saved as readable JSON, fixed-width binary, or with gap-encoded variable-byte postings.
 
-> **Status:** stratajanus supports lexical search with JSON, fixed-width, and compressed-postings storage. Retrieval evaluation, autocomplete, dense retrieval, and RAG are planned but not yet implemented.
+> **Status:** stratajanus implements lexical search with JSON, fixed-width, and compressed-postings storage, plus an initial SciFact performance benchmark. Retrieval-quality evaluation, autocomplete, large-corpus scalability evaluation, dense/hybrid retrieval, learning to rank, and RAG are not implemented.
 
 ## Features
 
@@ -14,6 +14,7 @@ The project currently uses the BEIR-formatted SciFact dataset as its example cor
 - **Persistent index storage:** JSON, fixed-width binary, and gap-encoded variable-byte postings.
 - **Validation:** Checks for malformed indexes and incompatible tokenizer configurations.
 - **Automated tests:** Tests for tokenization, indexing, ranking, and index-storage round trips.
+- **Performance benchmark:** Measures index construction, saving/loading, file sizes, and warmed sequential query latency on SciFact. Existing reports are initial small-corpus baselines, not scalability evidence.
 
 ## How it works
 
@@ -26,7 +27,7 @@ Tokenizer
        ↓
 Inverted index
        ↓
-JSON or fixed-width binary storage
+JSON, fixed-width, or compressed-postings storage
        ↓
 Load saved index
        ↓
@@ -81,13 +82,11 @@ Install the project in editable mode:
 python -m pip install -e .
 ```
 
-Install the development tools used in this guide if they are not already declared by your project dependencies:
+Install the pinned dependencies used by the SciFact scripts, tests, and documentation:
 
 ```bash
-python -m pip install pytest mkdocs
+python -m pip install -r requirements.txt
 ```
-
-> If `mkdocs.yml` enables plugins such as `mkdocstrings`, install their dependencies as specified in `pyproject.toml` or your documentation setup. `mkdocs` alone does not install every possible plugin.
 
 After activating the virtual environment, `python` should refer to the environment's Python 3.14 interpreter. Check with:
 
@@ -165,9 +164,23 @@ The fixed-width format stores:
 
 Document IDs and term frequencies together occupy **eight bytes per posting**. Metadata, vocabulary entries, and external document IDs remain in JSON files.
 
-**This format is not compressed.** It provides a baseline for future compression experiments.
+**This format is not compressed.** It serves as the fixed-width comparison for the compressed-postings format.
 
 If the binary index directory already exists, the conversion script refuses to overwrite it.
+
+## Create the compressed-postings index
+
+After creating the fixed-width index, encode posting document IDs as gaps and
+unsigned variable-byte integers:
+
+```bash
+python scripts/compress_scifact_index.py
+```
+
+This writes `data/indexes/scifact-vb/` and checks that loading it reconstructs
+the same index. Posting lists are compressed; document lengths remain
+fixed-width unsigned 32-bit integers. The loader decodes the full index into
+memory.
 
 ## Search SciFact
 
@@ -183,7 +196,13 @@ Search the saved binary index:
 python scripts/search_scifact.py "immune response" --format fixed32 --top-k 5
 ```
 
-For the same query, both formats should return the same ranked document IDs and BM25 scores.
+Search the compressed-postings index:
+
+```bash
+python scripts/search_scifact.py "immune response" --format vb --top-k 5
+```
+
+For the same query, all three formats should return the same ranked document IDs and BM25 scores.
 
 The search script loads the selected saved index. It does **not** rebuild the index for every query. It may read the processed documents separately to display titles.
 
@@ -201,13 +220,28 @@ Run the complete test suite:
 python -m pytest -v
 ```
 
-Run only the index-storage tests:
+Run the index-storage tests:
 
 ```bash
 python -m pytest tests/test_index_storage.py tests/test_binary_storage.py -v
 ```
 
-The tests cover the tokenizer, inverted index, BM25 scoring, save/load round trips, and validation of incorrect index files.
+The tests cover tokenization, index construction, BM25, dataset preparation,
+storage round trips, compression codecs, and malformed index validation.
+
+## Run the SciFact benchmark
+
+With processed SciFact data present, generate a new report at a path that does
+not already exist:
+
+```bash
+python scripts/benchmark_scifact.py --output reports/benchmarks/my-run.json
+```
+
+The script measures construction, save/load, logical file sizes, and warmed,
+sequential query latency for all three formats. It does not overwrite reports.
+See [the benchmark documentation](docs/benchmarks/scifact.md) for its workload,
+timing boundaries, and existing report details.
 
 ## Documentation
 
@@ -221,13 +255,15 @@ mkdocs serve
 
 Open the local URL shown in your terminal.
 
-To build the documentation site without starting a server:
+To build the documentation site and treat warnings as errors:
 
 ```bash
-mkdocs build
+mkdocs build --strict
 ```
 
-The README is a quick-start guide. The MkDocs site is intended to contain the more detailed architecture, storage-format, and API documentation.
+The README is a quick-start guide. The [MkDocs pages](docs/index.md) cover
+architecture, indexing, storage formats, dataset preparation, benchmarks, and
+the public API.
 
 ## Repository structure
 
@@ -250,14 +286,17 @@ The `data/` directory contains downloaded and generated files and should not be 
 - Search is lexical: different words with similar meanings do not automatically match.
 - Search results are ranked with BM25, but retrieval quality has not yet been formally reported using SciFact relevance judgments.
 - Each search command loads the saved index into memory. The current implementation does not search postings directly from disk.
-- The `fixed32` index is uncompressed; the `vb` format compresses postings while document lengths remain fixed-width.
+- The `fixed32` index is uncompressed; the `vb` format compresses postings while document lengths remain fixed-width and the loader expands postings into memory.
+- Benchmarking currently covers the SciFact corpus only. It does not measure peak memory or retrieval quality, and its sequential query timings are not concurrent throughput results.
 - Result-title lookup may read the processed corpus separately.
 - Autocomplete, dense retrieval, learning to rank, and grounded answer generation are not yet implemented.
 
 ## Roadmap
 
 - [x] Add document-ID gap encoding and variable-byte compression for postings.
-- [ ] Benchmark index size, build time, and query latency.
+- [x] Add an initial SciFact benchmark for index size, build/save/load time, and warmed query latency.
+- [ ] Compare retrieval and storage behavior with a standard implementation.
+- [ ] Benchmark scalability on larger corpora.
 - [ ] Evaluate retrieval quality using relevance labels.
 - [ ] Add autocomplete using a trie or another measured approach.
 - [ ] Add dense and hybrid retrieval.

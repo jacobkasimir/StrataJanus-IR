@@ -24,10 +24,11 @@ variable-byte compressed postings. All formats load into the same in-memory
 - The loader checks format and tokenizer compatibility.
 - Posting order, document references, and frequencies are validated.
 
-The JSON index is loaded into memory for searching. Queries do not rebuild
-the index from the processed corpus. The default format for
+All three formats are loaded and validated into memory for searching. Queries
+do not rebuild the index from the processed corpus. The default format for
 `search_scifact.py` is `json`; `scripts/load_scifact.py` is also a JSON-only
-search command.
+search command. The title lookup reads processed documents separately for
+display and does not affect ranking.
 
 ### JSON limitations
 
@@ -62,16 +63,16 @@ index. Numerical data uses unsigned 32-bit little-endian integers.
 
 - The complete index is reconstructed in memory.
 - Numerical values must fit in unsigned 32-bit integers.
-- This is uncompressed storage.
-- The format is a baseline for later compression experiments.
+- This format is uncompressed and serves as the comparison for vb postings.
 
 ## Compressed postings
 
 The `vb` format compresses posting lists with document-ID gaps and unsigned
 LEB128 integers. For each posting, the encoder writes the gap followed by the
 term frequency. A posting list starts with its previous document ID set to
-zero; each gap is the current ID minus the previous ID. Term frequencies are
-encoded directly, without transformation.
+zero; each gap is the current ID minus the previous ID, so an initial document
+ID of zero has a zero gap. Term frequencies are encoded directly, without
+transformation.
 
 Unsigned LEB128 stores seven payload bits per byte, least-significant group
 first. The high bit is set when another byte follows. Every encoded value is
@@ -79,8 +80,9 @@ an unsigned 32-bit integer, so IDs, gaps, term frequencies, and document
 lengths must fit the uint32 range. Document lengths are not compressed: they
 remain four-byte unsigned little-endian integers in `doc_lengths.bin`.
 
-The loader decodes every posting list into the existing in-memory index
-representation before BM25 search.
+The loader reads and decodes every posting list into the existing in-memory
+index representation before BM25 search. Document lengths remain fixed-width
+four-byte unsigned little-endian integers; they are not variable-byte encoded.
 
 ### Create and search the compressed index
 
@@ -115,4 +117,4 @@ document-length file contribute to total directory size.
 - The complete index is decompressed into memory before searching.
 - Values must fit in unsigned 32-bit integers.
 - Document lengths remain uncompressed.
-- The format is a baseline for later compression experiments.
+- Posting compression does not provide disk-backed or lazy query access.

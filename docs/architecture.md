@@ -47,10 +47,10 @@ order are retained. Index and query strings use this same function.
 `verify_tokenizer_config` raises `ValueError` if a saved configuration differs.
 `build_scifact_index.py` saves the JSON inverted index, tokenizer
 configuration, and manifest. `convert_index_to_binary.py` loads that JSON
-index and saves its fixed-width variant. `search_scifact.py` selects either
-format with `--format json` or `--format fixed32`, verifies tokenizer
-settings, and reconstructs the index before searching. `load_scifact.py` is
-a JSON-only search command.
+index and saves its fixed-width variant. `search_scifact.py` selects `json`,
+`fixed32`, or `vb` with `--format`, verifies tokenizer settings, and
+reconstructs the index before searching. `load_scifact.py` is a JSON-only
+search command.
 
 ## Inverted index and identifiers
 
@@ -100,10 +100,10 @@ index as read-only during ranking.
 
 ## Scope and future work
 
-The implemented pipeline is lexical. Both saved formats are uncompressed and
-loaded into memory for retrieval; fixed-width binary stores posting pairs and
-document lengths as unsigned 32-bit little-endian integers. Dense or hybrid
-retrieval, benchmark metric evaluation, reranking, RAG, and domain-specific
-financial analysis are not implemented in the current package. They can be
-explored as future extensions without implying that this codebase already
-provides them.
+The implemented pipeline is lexical. JSON and fixed-width binary are
+uncompressed; the `vb` format compresses posting values using document-ID gaps
+and unsigned LEB128. Fixed-width numerical values use unsigned 32-bit
+little-endian integers. All three loaders reconstruct the complete index in
+memory. Dense or hybrid retrieval, retrieval-quality metric evaluation,
+reranking, RAG, and domain-specific financial analysis are not implemented in
+the current package.

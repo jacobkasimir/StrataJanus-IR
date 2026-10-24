@@ -46,6 +46,20 @@ a format.
         - save_index
         - load_index
 
+::: stratajanus.index.compressed_storage
+    options:
+      heading_level: 3
+      members:
+        - save_index
+        - load_index
+
+::: stratajanus.index.codecs
+    options:
+      heading_level: 3
+      members:
+        - encode_uint
+        - decode_uints
+
 ## BM25 retrieval
 
 ::: stratajanus.retrieval.bm25
@@ -54,6 +68,16 @@ a format.
       members:
         - SearchResult
         - BM25
+
+## Benchmark utility
+
+::: stratajanus.evaluation.performance
+    options:
+      heading_level: 3
+      members:
+        - percentile
+        - latency_summary
+        - benchmark_queries
 
 ## SciFact workflow scripts
 
@@ -114,5 +138,7 @@ scripts can also be invoked from the repository root as shown on the
 ### Build and convert indexes
 
 `build_scifact_index.py` creates the JSON index. `convert_index_to_binary.py`
-creates the fixed-width binary variant from the saved JSON index; both
+creates the fixed-width binary variant from the saved JSON index, and
+`compress_scifact_index.py` writes the compressed-postings variant from the
+fixed-width index; these
 commands are documented on the [Index Storage](index_storage.md) page.
