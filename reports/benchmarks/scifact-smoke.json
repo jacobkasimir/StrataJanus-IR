@@ -1,0 +1,598 @@
+{
+  "created_at_utc": "2026-10-24T17:34:17.772550+00:00",
+  "dataset": "scifact",
+  "environment": {
+    "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "processor": "arm",
+    "logical_cpu_count": 8,
+    "hardware_notes": ""
+  },
+  "configuration": {
+    "requested_queries": 10,
+    "actual_queries": 10,
+    "query_repeats": 2,
+    "index_repeats": 1,
+    "warmup_rounds": 1,
+    "top_k": 10,
+    "seed": 42,
+    "bm25": {
+      "k1": 1.2,
+      "b": 0.75
+    },
+    "query_execution": "sequential, warmed, index in memory",
+    "file_cache": "not cleared; indexes freshly written",
+    "format_order": [
+      "json",
+      "fixed32",
+      "vb"
+    ],
+    "save_durability": "file close; no explicit fsync"
+  },
+  "corpus": {
+    "documents": 5183,
+    "terms": 35954,
+    "average_document_length": 225.32510129268763
+  },
+  "workload": [
+    {
+      "query_id": "758",
+      "text": "Marmosets have a brain region homologous to Broca's area."
+    },
+    {
+      "query_id": "1174",
+      "text": "The PPR MDA5 has twenty N-terminal CARD domains."
+    },
+    {
+      "query_id": "1035",
+      "text": "Removal of H3K9me3 by ectopic expression of other H3K9 demethylases improves reprogramming efficiency in SCNT experiments."
+    },
+    {
+      "query_id": "926",
+      "text": "Patients with common epithelial cancers  are more likely to have an emergency event as their first hospital admission if they live in resource-deprived areas."
+    },
+    {
+      "query_id": "177",
+      "text": "Binding of p53 to enhancer regions (p53BERs) regulates the activity of p53 transcription and cell cycle arrest through the production of p53-dependent eRNAs."
+    },
+    {
+      "query_id": "1401",
+      "text": "qSOFA scores are associated with length of stay in emergency department patients."
+    },
+    {
+      "query_id": "1372",
+      "text": "Walking in traffic areas in London did not improve lung function in elderly adults."
+    },
+    {
+      "query_id": "122",
+      "text": "Antimicrobial agents are more effective due to the pressure of antimicrobial usage."
+    },
+    {
+      "query_id": "917",
+      "text": "PTEN is a regulator for the transcriptional activity of SRF"
+    },
+    {
+      "query_id": "1161",
+      "text": "The DEXI promoter region is bound by multiple transcription factors in a murine haematopoietic progenitor cell line."
+    }
+  ],
+  "ingestion_ms": 42.658459,
+  "build": {
+    "samples_ms": [
+      522.14075
+    ],
+    "median_ms": 522.14075,
+    "min_ms": 522.14075,
+    "max_ms": 522.14075
+  },
+  "formats": {
+    "json": {
+      "save": {
+        "samples_ms": [
+          1767.061417
+        ],
+        "median_ms": 1767.061417,
+        "min_ms": 1767.061417,
+        "max_ms": 1767.061417
+      },
+      "files_bytes": {
+        "index.json": 26845356,
+        "manifest.json": 122,
+        "tokenizer_config.json": 108
+      },
+      "total_bytes": 26845586,
+      "load": {
+        "samples_ms": [
+          586.134916
+        ],
+        "median_ms": 586.134916,
+        "min_ms": 586.134916,
+        "max_ms": 586.134916
+      },
+      "bm25_initialization_ms": 0.072834,
+      "query": {
+        "summary": {
+          "count": 20,
+          "mean_ms": 7.7665604,
+          "p50_ms": 7.9290415,
+          "p95_ms": 11.562068450000002,
+          "min_ms": 3.66625,
+          "max_ms": 11.614042
+        },
+        "samples": [
+          {
+            "query_id": "122",
+            "repeat": 0,
+            "latency_ms": 7.962875,
+            "result_count": 10
+          },
+          {
+            "query_id": "926",
+            "repeat": 0,
+            "latency_ms": 11.559333,
+            "result_count": 10
+          },
+          {
+            "query_id": "1035",
+            "repeat": 0,
+            "latency_ms": 6.789084,
+            "result_count": 10
+          },
+          {
+            "query_id": "917",
+            "repeat": 0,
+            "latency_ms": 9.385625,
+            "result_count": 10
+          },
+          {
+            "query_id": "1401",
+            "repeat": 0,
+            "latency_ms": 7.899958,
+            "result_count": 10
+          },
+          {
+            "query_id": "1372",
+            "repeat": 0,
+            "latency_ms": 4.255375,
+            "result_count": 10
+          },
+          {
+            "query_id": "1161",
+            "repeat": 0,
+            "latency_ms": 10.332791,
+            "result_count": 10
+          },
+          {
+            "query_id": "177",
+            "repeat": 0,
+            "latency_ms": 10.314875,
+            "result_count": 10
+          },
+          {
+            "query_id": "758",
+            "repeat": 0,
+            "latency_ms": 5.554666,
+            "result_count": 10
+          },
+          {
+            "query_id": "1174",
+            "repeat": 0,
+            "latency_ms": 3.716583,
+            "result_count": 10
+          },
+          {
+            "query_id": "926",
+            "repeat": 1,
+            "latency_ms": 11.614042,
+            "result_count": 10
+          },
+          {
+            "query_id": "1401",
+            "repeat": 1,
+            "latency_ms": 7.886209,
+            "result_count": 10
+          },
+          {
+            "query_id": "1035",
+            "repeat": 1,
+            "latency_ms": 6.745417,
+            "result_count": 10
+          },
+          {
+            "query_id": "177",
+            "repeat": 1,
+            "latency_ms": 10.305041,
+            "result_count": 10
+          },
+          {
+            "query_id": "1174",
+            "repeat": 1,
+            "latency_ms": 3.66625,
+            "result_count": 10
+          },
+          {
+            "query_id": "917",
+            "repeat": 1,
+            "latency_ms": 9.343958,
+            "result_count": 10
+          },
+          {
+            "query_id": "122",
+            "repeat": 1,
+            "latency_ms": 7.958125,
+            "result_count": 10
+          },
+          {
+            "query_id": "758",
+            "repeat": 1,
+            "latency_ms": 5.546,
+            "result_count": 10
+          },
+          {
+            "query_id": "1372",
+            "repeat": 1,
+            "latency_ms": 4.213334,
+            "result_count": 10
+          },
+          {
+            "query_id": "1161",
+            "repeat": 1,
+            "latency_ms": 10.281667,
+            "result_count": 10
+          }
+        ]
+      }
+    },
+    "fixed32": {
+      "save": {
+        "samples_ms": [
+          662.713333
+        ],
+        "median_ms": 662.713333,
+        "min_ms": 662.713333,
+        "max_ms": 662.713333
+      },
+      "files_bytes": {
+        "doc_ids.json": 70677,
+        "doc_lengths.bin": 20732,
+        "manifest.json": 125,
+        "postings.bin": 5071568,
+        "tokenizer_config.json": 108,
+        "vocabulary.json": 2577659
+      },
+      "total_bytes": 7740869,
+      "load": {
+        "samples_ms": [
+          272.111667
+        ],
+        "median_ms": 272.111667,
+        "min_ms": 272.111667,
+        "max_ms": 272.111667
+      },
+      "bm25_initialization_ms": 0.060792,
+      "query": {
+        "summary": {
+          "count": 20,
+          "mean_ms": 7.82646455,
+          "p50_ms": 7.9579165,
+          "p95_ms": 11.7139622,
+          "min_ms": 3.664375,
+          "max_ms": 11.813792
+        },
+        "samples": [
+          {
+            "query_id": "122",
+            "repeat": 0,
+            "latency_ms": 7.954458,
+            "result_count": 10
+          },
+          {
+            "query_id": "926",
+            "repeat": 0,
+            "latency_ms": 11.708708,
+            "result_count": 10
+          },
+          {
+            "query_id": "1035",
+            "repeat": 0,
+            "latency_ms": 6.743667,
+            "result_count": 10
+          },
+          {
+            "query_id": "917",
+            "repeat": 0,
+            "latency_ms": 9.37525,
+            "result_count": 10
+          },
+          {
+            "query_id": "1401",
+            "repeat": 0,
+            "latency_ms": 8.060791,
+            "result_count": 10
+          },
+          {
+            "query_id": "1372",
+            "repeat": 0,
+            "latency_ms": 4.324333,
+            "result_count": 10
+          },
+          {
+            "query_id": "1161",
+            "repeat": 0,
+            "latency_ms": 10.420917,
+            "result_count": 10
+          },
+          {
+            "query_id": "177",
+            "repeat": 0,
+            "latency_ms": 10.457167,
+            "result_count": 10
+          },
+          {
+            "query_id": "758",
+            "repeat": 0,
+            "latency_ms": 5.729708,
+            "result_count": 10
+          },
+          {
+            "query_id": "1174",
+            "repeat": 0,
+            "latency_ms": 3.687833,
+            "result_count": 10
+          },
+          {
+            "query_id": "926",
+            "repeat": 1,
+            "latency_ms": 11.813792,
+            "result_count": 10
+          },
+          {
+            "query_id": "1401",
+            "repeat": 1,
+            "latency_ms": 7.919833,
+            "result_count": 10
+          },
+          {
+            "query_id": "1035",
+            "repeat": 1,
+            "latency_ms": 6.781417,
+            "result_count": 10
+          },
+          {
+            "query_id": "177",
+            "repeat": 1,
+            "latency_ms": 10.404584,
+            "result_count": 10
+          },
+          {
+            "query_id": "1174",
+            "repeat": 1,
+            "latency_ms": 3.664375,
+            "result_count": 10
+          },
+          {
+            "query_id": "917",
+            "repeat": 1,
+            "latency_ms": 9.426,
+            "result_count": 10
+          },
+          {
+            "query_id": "122",
+            "repeat": 1,
+            "latency_ms": 7.961375,
+            "result_count": 10
+          },
+          {
+            "query_id": "758",
+            "repeat": 1,
+            "latency_ms": 5.561375,
+            "result_count": 10
+          },
+          {
+            "query_id": "1372",
+            "repeat": 1,
+            "latency_ms": 4.256375,
+            "result_count": 10
+          },
+          {
+            "query_id": "1161",
+            "repeat": 1,
+            "latency_ms": 10.277333,
+            "result_count": 10
+          }
+        ]
+      }
+    },
+    "vb": {
+      "save": {
+        "samples_ms": [
+          916.909375
+        ],
+        "median_ms": 916.909375,
+        "min_ms": 916.909375,
+        "max_ms": 916.909375
+      },
+      "files_bytes": {
+        "doc_ids.json": 70677,
+        "doc_lengths.bin": 20732,
+        "manifest.json": 120,
+        "postings.bin": 1389292,
+        "tokenizer_config.json": 108,
+        "vocabulary.json": 3360489
+      },
+      "total_bytes": 4841418,
+      "load": {
+        "samples_ms": [
+          517.613125
+        ],
+        "median_ms": 517.613125,
+        "min_ms": 517.613125,
+        "max_ms": 517.613125
+      },
+      "bm25_initialization_ms": 0.059291,
+      "query": {
+        "summary": {
+          "count": 20,
+          "mean_ms": 7.7492396,
+          "p50_ms": 7.8942705,
+          "p95_ms": 11.62822355,
+          "min_ms": 3.652416,
+          "max_ms": 11.659375
+        },
+        "samples": [
+          {
+            "query_id": "122",
+            "repeat": 0,
+            "latency_ms": 8.0025,
+            "result_count": 10
+          },
+          {
+            "query_id": "926",
+            "repeat": 0,
+            "latency_ms": 11.659375,
+            "result_count": 10
+          },
+          {
+            "query_id": "1035",
+            "repeat": 0,
+            "latency_ms": 6.765375,
+            "result_count": 10
+          },
+          {
+            "query_id": "917",
+            "repeat": 0,
+            "latency_ms": 9.3415,
+            "result_count": 10
+          },
+          {
+            "query_id": "1401",
+            "repeat": 0,
+            "latency_ms": 7.85025,
+            "result_count": 10
+          },
+          {
+            "query_id": "1372",
+            "repeat": 0,
+            "latency_ms": 4.221542,
+            "result_count": 10
+          },
+          {
+            "query_id": "1161",
+            "repeat": 0,
+            "latency_ms": 10.244958,
+            "result_count": 10
+          },
+          {
+            "query_id": "177",
+            "repeat": 0,
+            "latency_ms": 10.293792,
+            "result_count": 10
+          },
+          {
+            "query_id": "758",
+            "repeat": 0,
+            "latency_ms": 5.529625,
+            "result_count": 10
+          },
+          {
+            "query_id": "1174",
+            "repeat": 0,
+            "latency_ms": 3.667584,
+            "result_count": 10
+          },
+          {
+            "query_id": "926",
+            "repeat": 1,
+            "latency_ms": 11.626584,
+            "result_count": 10
+          },
+          {
+            "query_id": "1401",
+            "repeat": 1,
+            "latency_ms": 7.853791,
+            "result_count": 10
+          },
+          {
+            "query_id": "1035",
+            "repeat": 1,
+            "latency_ms": 6.721375,
+            "result_count": 10
+          },
+          {
+            "query_id": "177",
+            "repeat": 1,
+            "latency_ms": 10.290333,
+            "result_count": 10
+          },
+          {
+            "query_id": "1174",
+            "repeat": 1,
+            "latency_ms": 3.652416,
+            "result_count": 10
+          },
+          {
+            "query_id": "917",
+            "repeat": 1,
+            "latency_ms": 9.334,
+            "result_count": 10
+          },
+          {
+            "query_id": "122",
+            "repeat": 1,
+            "latency_ms": 7.93475,
+            "result_count": 10
+          },
+          {
+            "query_id": "758",
+            "repeat": 1,
+            "latency_ms": 5.527167,
+            "result_count": 10
+          },
+          {
+            "query_id": "1372",
+            "repeat": 1,
+            "latency_ms": 4.22325,
+            "result_count": 10
+          },
+          {
+            "query_id": "1161",
+            "repeat": 1,
+            "latency_ms": 10.244625,
+            "result_count": 10
+          }
+        ]
+      }
+    }
+  },
+  "input_sha256": {
+    "data/processed/scifact/documents.jsonl": "3a1d5f56b96f2df661579849800cb22be55c0272ca103503d29c083d1e3b7286",
+    "data/processed/scifact/doc_ids.jsonl": "b399824f0d031f078c7f80c265d3c30f71b83832e498cade581db40f530d1703",
+    "data/processed/scifact/manifest.json": "8e9da93a2bdad7cfa6a59d9762fa35704ad65623e536da113684aae9b9ffbe3c",
+    "data/processed/scifact/queries.jsonl": "4a2f9389807c1ac7503ab3fe2357db782c0fd0d69405a12430f78b9083cb59fc",
+    "data/processed/scifact/qrels/train.tsv": "3ef691aea3985486301e80c3e8c8e4d179736bd1e42510c8e2631b9253175493"
+  },
+  "source_sha256": {
+    "src/stratajanus/__init__.py": "8cee3198ca84bb04ed440ae59cc9de3244b970ec8be57cbfbb6a0f50d1e7bd61",
+    "src/stratajanus/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/stratajanus/evaluation/performance.py": "f9e02e2cdc13cc42ce36a31b1e527d557e5c7c7fdf3a1945c688e99a2728e8db",
+    "src/stratajanus/index/__init__.py": "82c608669b184725cccffb0ecb90b25be5ba0273f900ecdcfa97ce7dcf150a6c",
+    "src/stratajanus/index/binary_storage.py": "d4b33eb6da963e2467fe03bb46603f53f0af2d69908c19889da81d5348edc2be",
+    "src/stratajanus/index/codecs.py": "659fadee7eeefb063d0e58e12bb3b56e38c37587e02cdd1212c865fd01662477",
+    "src/stratajanus/index/compressed_storage.py": "4972a27f114b1b7a1873896528f27a81fceab7c39a60223c3766b8237865c8b3",
+    "src/stratajanus/index/inverted.py": "ad8f86f394c16d8085d69ca916a7d5add17c1a4484540d62fbda3103254cd53a",
+    "src/stratajanus/index/storage.py": "c613d1ea4aa3931d9802ef2bd562f1ed50ea42388933c06363222b41b0d52643",
+    "src/stratajanus/index/validation.py": "8bd02612fbd176d721312e8e34a96d152cb185501c9bff81433082373b696ae8",
+    "src/stratajanus/retrieval/__init__.py": "28f157d89e0da23cb05162d558ebf69dab0951b96409b092b2c2676c5ec020af",
+    "src/stratajanus/retrieval/bm25.py": "1d55d36d290d81b482c34f5e517c520a6234107c315886267936e62b3a4dbd66",
+    "src/stratajanus/text/__init__.py": "dabe231d78af72c1e8d3fcabbd056ce30a02d92619455f6542736bfc87e8dc05",
+    "src/stratajanus/text/tokenizer.py": "a5197f01c41acefcdf04a621f96ee7b94d2bef3318758cd861dc72acbdb2379a",
+    "scripts/benchmark_scifact.py": "7408bb352fff7533a8afe1a07ea965100f2fc0ddeff31bda9f214c34762bd60c"
+  },
+  "tokenizer_config": {
+    "schema_version": 1,
+    "unicode_normalization": "NFC",
+    "lowercase": true,
+    "token_pattern": "\\w+"
+  }
+}

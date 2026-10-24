@@ -35,3 +35,4 @@ nav:
   - Index Storage: index_storage.md
   - API Reference: api.md
   - SciFact data: datasets/scifact.md
+  - Benchmarks: benchmarks/scifact.md
