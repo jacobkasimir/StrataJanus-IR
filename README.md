@@ -2,16 +2,16 @@
 
 **StrataJanus-IR** is an educational search engine built from first principles in Python. It uses a deterministic tokenizer, an inverted index, and BM25 ranking to search documents.
 
-The project currently uses the BEIR-formatted SciFact dataset as its example corpus. An index can be saved as readable JSON or in an uncompressed, fixed-width binary format.
+The project currently uses the BEIR-formatted SciFact dataset as its example corpus. An index can be saved as readable JSON, fixed-width binary, or with gap-encoded variable-byte postings.
 
-> **Status:** stratajanus currently supports lexical search. Compression, retrieval evaluation, autocomplete, dense retrieval, and RAG are planned but not yet implemented.
+> **Status:** stratajanus supports lexical search with JSON, fixed-width, and compressed-postings storage. Retrieval evaluation, autocomplete, dense retrieval, and RAG are planned but not yet implemented.
 
 ## Features
 
 - **Deterministic tokenization:** Unicode NFC normalization, lowercasing, and regex-based token extraction.
 - **Inverted indexing:** Posting lists containing internal document IDs and term frequencies.
 - **BM25 ranking:** Search results ranked using term frequency, document frequency, and document-length normalization.
-- **Persistent index storage:** JSON and fixed-width binary formats.
+- **Persistent index storage:** JSON, fixed-width binary, and gap-encoded variable-byte postings.
 - **Validation:** Checks for malformed indexes and incompatible tokenizer configurations.
 - **Automated tests:** Tests for tokenization, indexing, ranking, and index-storage round trips.
 
@@ -250,13 +250,13 @@ The `data/` directory contains downloaded and generated files and should not be 
 - Search is lexical: different words with similar meanings do not automatically match.
 - Search results are ranked with BM25, but retrieval quality has not yet been formally reported using SciFact relevance judgments.
 - Each search command loads the saved index into memory. The current implementation does not search postings directly from disk.
-- The binary index is fixed-width and uncompressed.
+- The `fixed32` index is uncompressed; the `vb` format compresses postings while document lengths remain fixed-width.
 - Result-title lookup may read the processed corpus separately.
-- Compression, autocomplete, dense retrieval, learning to rank, and grounded answer generation are not yet implemented.
+- Autocomplete, dense retrieval, learning to rank, and grounded answer generation are not yet implemented.
 
 ## Roadmap
 
-- [ ] Add document-ID gap encoding and variable-byte compression.
+- [x] Add document-ID gap encoding and variable-byte compression for postings.
 - [ ] Benchmark index size, build time, and query latency.
 - [ ] Evaluate retrieval quality using relevance labels.
 - [ ] Add autocomplete using a trie or another measured approach.

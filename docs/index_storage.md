@@ -1,8 +1,8 @@
 # Index storage
 
-stratajanus supports two uncompressed saved index formats: JSON and
-fixed-width binary. Both load into the same in-memory `InvertedIndex` and
-produce the same BM25 rankings.
+stratajanus supports three saved index formats: JSON, fixed-width binary, and
+variable-byte compressed postings. All formats load into the same in-memory
+`InvertedIndex` and produce the same BM25 rankings.
 
 ## Build an index
 
@@ -63,4 +63,56 @@ index. Numerical data uses unsigned 32-bit little-endian integers.
 - The complete index is reconstructed in memory.
 - Numerical values must fit in unsigned 32-bit integers.
 - This is uncompressed storage.
+- The format is a baseline for later compression experiments.
+
+## Compressed postings
+
+The `vb` format compresses posting lists with document-ID gaps and unsigned
+LEB128 integers. For each posting, the encoder writes the gap followed by the
+term frequency. A posting list starts with its previous document ID set to
+zero; each gap is the current ID minus the previous ID. Term frequencies are
+encoded directly, without transformation.
+
+Unsigned LEB128 stores seven payload bits per byte, least-significant group
+first. The high bit is set when another byte follows. Every encoded value is
+an unsigned 32-bit integer, so IDs, gaps, term frequencies, and document
+lengths must fit the uint32 range. Document lengths are not compressed: they
+remain four-byte unsigned little-endian integers in `doc_lengths.bin`.
+
+The loader decodes every posting list into the existing in-memory index
+representation before BM25 search.
+
+### Create and search the compressed index
+
+    python scripts/compress_scifact_index.py
+
+    python scripts/search_scifact.py "immune response" --format vb
+
+### Files
+
+- `postings.bin`: gap and term-frequency values encoded with unsigned LEB128.
+- `doc_lengths.bin`: uncompressed four-byte document lengths.
+- `vocabulary.json`: byte offset, byte length, and document frequency per
+  posting list.
+- `doc_ids.json`: external IDs in internal-ID order.
+- `tokenizer_config.json` and `manifest.json`: tokenizer and format metadata.
+
+### Measured SciFact sizes
+
+These are logical byte counts from the SciFact index directories in this
+checkout. Total size includes all data and metadata files in each directory.
+
+| Format | Posting file | Total directory |
+| --- | ---: | ---: |
+| Fixed-width binary | 5,071,568 bytes | 7,740,869 bytes |
+| Compressed postings (`vb`) | 1,389,292 bytes | 4,841,418 bytes |
+
+The compressed posting file is smaller, while metadata and the unchanged
+document-length file contribute to total directory size.
+
+### Compressed-format limitations
+
+- The complete index is decompressed into memory before searching.
+- Values must fit in unsigned 32-bit integers.
+- Document lengths remain uncompressed.
 - The format is a baseline for later compression experiments.

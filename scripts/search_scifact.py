@@ -3,7 +3,9 @@
 import argparse
 import json
 from pathlib import Path
-
+from stratajanus.index.compressed_storage import (
+    load_index as load_compressed_index,
+)
 from stratajanus.index.binary_storage import (
     load_index as load_binary_index,
 )
@@ -17,6 +19,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 JSON_INDEX_DIR = (
     PROJECT_ROOT / "data" / "indexes" / "scifact"
+)
+
+COMPRESSED_INDEX_DIR = (
+    PROJECT_ROOT / "data" / "indexes" / "scifact-vb"
 )
 
 BINARY_INDEX_DIR = (
@@ -110,14 +116,18 @@ def main():
 
     parser.add_argument(
         "--format",
-        choices=["json", "fixed32"],
+        choices=["json", "fixed32", "vb"],
         default="json",
         help="Saved index format to load.",
     )
 
     args = parser.parse_args()
 
-    if args.format == "fixed32":
+    if args.format == "vb":
+        index_directory = COMPRESSED_INDEX_DIR
+        loader = load_compressed_index
+        build_command = "python scripts/compress_scifact_index.py"
+    elif args.format == "fixed32":
         index_directory = BINARY_INDEX_DIR
         loader = load_binary_index
         build_command = "python scripts/convert_index_to_binary.py"
