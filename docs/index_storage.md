@@ -115,9 +115,7 @@ document-length file contribute to total directory size.
 To calculate the posting-size reduction relative to the fixed-width format,
 compare the compressed posting bytes with the fixed-width posting bytes:
 
-$$
-\mathrm{reduction}
-=
+$$\mathrm{reduction}=
 100\left(
 1-\frac{\mathrm{compressed\ posting\ bytes}}
 {\mathrm{fixed\text{-}width\ posting\ bytes}}
