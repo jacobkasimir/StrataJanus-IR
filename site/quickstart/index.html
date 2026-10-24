@@ -23,7 +23,7 @@
     
     
       
-        <title>Quickstart - stratajanus Documentation</title>
+        <title>Quickstart - StrataJanus-IR Documentation</title>
       
     
     
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="stratajanus Documentation" class="md-header__button md-logo" aria-label="stratajanus Documentation" data-md-component="logo">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-header__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            stratajanus Documentation
+            StrataJanus-IR Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -188,13 +188,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="stratajanus Documentation" class="md-nav__button md-logo" aria-label="stratajanus Documentation" data-md-component="logo">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-nav__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    stratajanus Documentation
+    StrataJanus-IR Documentation
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -405,6 +405,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../index_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../api/" class="md-nav__link">
         
   
@@ -586,11 +613,16 @@ public package and script APIs.</p>
 search script:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/download_scifact.py
 python<span class="w"> </span>scripts/prepare_scifact.py
-python<span class="w"> </span>scripts/search_scifact.py<span class="w"> </span><span class="s2">"evidence for a scientific claim"</span><span class="w"> </span>--top-k<span class="w"> </span><span class="m">10</span>
+python<span class="w"> </span>scripts/build_scifact_index.py
+python<span class="w"> </span>scripts/search_scifact.py<span class="w"> </span><span class="s2">"evidence for a scientific claim"</span><span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>--top-k<span class="w"> </span><span class="m">10</span>
 </code></pre></div>
-<p>The CLI builds the index in memory on each run. The data download and
-conversion steps write under ignored <code>data/</code> directories. Dataset structure
-and preparation details are in <a href="../datasets/scifact/">SciFact data</a>.</p>
+<p>Build the JSON index once after preparing the corpus. The search CLI loads
+the saved index instead of rebuilding it. To use fixed-width binary, convert
+the JSON index with <code>python scripts/convert_index_to_binary.py</code>, then pass
+<code>--format fixed32</code> to <code>search_scifact.py</code>. The data download, conversion, and
+index files are written under ignored <code>data/</code> directories. See
+<a href="../index_storage/">Index Storage</a> for both formats and <a href="../datasets/scifact/">SciFact data</a>
+for dataset preparation details.</p>
 <h2 id="tests-and-documentation-preview">Tests and documentation preview</h2>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest
 mkdocs<span class="w"> </span>serve

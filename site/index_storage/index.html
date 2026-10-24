@@ -1,0 +1,793 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../indexing/">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Index Storage - StrataJanus-IR Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#index-storage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-header__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            StrataJanus-IR Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index Storage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-nav__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    StrataJanus-IR Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index Storage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build an index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-an-existing-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search an existing index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saved-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saved files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safety checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-width-binary-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed-width binary format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compressed-postings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compressed postings
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datasets/scifact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SciFact data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build an index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-an-existing-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search an existing index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saved-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saved files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safety checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-width-binary-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed-width binary format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compressed-postings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compressed postings
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="index-storage">Index storage</h1>
+<p>stratajanus supports three saved index formats: JSON, fixed-width binary, and
+variable-byte compressed postings. All formats load into the same in-memory
+<code>InvertedIndex</code> and produce the same BM25 rankings.</p>
+<h2 id="build-an-index">Build an index</h2>
+<pre><code>python scripts/build_scifact_index.py
+</code></pre>
+<h2 id="search-an-existing-index">Search an existing index</h2>
+<pre><code>python scripts/search_scifact.py "immune response" --format json --top-k 5
+</code></pre>
+<h2 id="saved-files">Saved files</h2>
+<ul>
+<li><code>index.json</code>: postings, document lengths, and external IDs.</li>
+<li><code>tokenizer_config.json</code>: tokenizer settings.</li>
+<li><code>manifest.json</code>: format version and counts.</li>
+</ul>
+<h2 id="safety-checks">Safety checks</h2>
+<ul>
+<li>Existing index directories are not overwritten.</li>
+<li>The loader checks format and tokenizer compatibility.</li>
+<li>Posting order, document references, and frequencies are validated.</li>
+</ul>
+<p>The JSON index is loaded into memory for searching. Queries do not rebuild
+the index from the processed corpus. The default format for
+<code>search_scifact.py</code> is <code>json</code>; <code>scripts/load_scifact.py</code> is also a JSON-only
+search command.</p>
+<h3 id="json-limitations">JSON limitations</h3>
+<ul>
+<li>The entire index is loaded into memory.</li>
+<li>JSON is a correctness baseline, not a compact storage format.</li>
+<li>Result titles are retrieved separately from the processed corpus.</li>
+<li>Failed saves may leave a partial directory.</li>
+</ul>
+<h2 id="fixed-width-binary-format">Fixed-width binary format</h2>
+<p>stratajanus supports a second storage format for the same inverted
+index. Numerical data uses unsigned 32-bit little-endian integers.</p>
+<h3 id="files">Files</h3>
+<ul>
+<li><code>postings.bin</code>: document ID and term-frequency pairs, 8 bytes per pair.</li>
+<li><code>doc_lengths.bin</code>: 4 bytes per document.</li>
+<li><code>vocabulary.json</code>: byte offsets and document frequencies.</li>
+<li><code>doc_ids.json</code>: external document IDs in internal-ID order.</li>
+<li><code>tokenizer_config.json</code>: tokenizer settings.</li>
+<li><code>manifest.json</code>: format version and counts.</li>
+</ul>
+<h3 id="convert-the-json-index">Convert the JSON index</h3>
+<pre><code>python scripts/convert_index_to_binary.py
+</code></pre>
+<h3 id="search-the-binary-index">Search the binary index</h3>
+<pre><code>python scripts/search_scifact.py "immune response" --format fixed32 --top-k 5
+</code></pre>
+<h3 id="current-limitations">Current limitations</h3>
+<ul>
+<li>The complete index is reconstructed in memory.</li>
+<li>Numerical values must fit in unsigned 32-bit integers.</li>
+<li>This is uncompressed storage.</li>
+<li>The format is a baseline for later compression experiments.</li>
+</ul>
+<h2 id="compressed-postings">Compressed postings</h2>
+<p>The <code>vb</code> format compresses posting lists with document-ID gaps and unsigned
+LEB128 integers. For each posting, the encoder writes the gap followed by the
+term frequency. A posting list starts with its previous document ID set to
+zero; each gap is the current ID minus the previous ID. Term frequencies are
+encoded directly, without transformation.</p>
+<p>Unsigned LEB128 stores seven payload bits per byte, least-significant group
+first. The high bit is set when another byte follows. Every encoded value is
+an unsigned 32-bit integer, so IDs, gaps, term frequencies, and document
+lengths must fit the uint32 range. Document lengths are not compressed: they
+remain four-byte unsigned little-endian integers in <code>doc_lengths.bin</code>.</p>
+<p>The loader decodes every posting list into the existing in-memory index
+representation before BM25 search.</p>
+<h3 id="create-and-search-the-compressed-index">Create and search the compressed index</h3>
+<pre><code>python scripts/compress_scifact_index.py
+
+python scripts/search_scifact.py "immune response" --format vb
+</code></pre>
+<h3 id="files_1">Files</h3>
+<ul>
+<li><code>postings.bin</code>: gap and term-frequency values encoded with unsigned LEB128.</li>
+<li><code>doc_lengths.bin</code>: uncompressed four-byte document lengths.</li>
+<li><code>vocabulary.json</code>: byte offset, byte length, and document frequency per
+  posting list.</li>
+<li><code>doc_ids.json</code>: external IDs in internal-ID order.</li>
+<li><code>tokenizer_config.json</code> and <code>manifest.json</code>: tokenizer and format metadata.</li>
+</ul>
+<h3 id="measured-scifact-sizes">Measured SciFact sizes</h3>
+<p>These are logical byte counts from the SciFact index directories in this
+checkout. Total size includes all data and metadata files in each directory.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th style="text-align: right;">Posting file</th>
+<th style="text-align: right;">Total directory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fixed-width binary</td>
+<td style="text-align: right;">5,071,568 bytes</td>
+<td style="text-align: right;">7,740,869 bytes</td>
+</tr>
+<tr>
+<td>Compressed postings (<code>vb</code>)</td>
+<td style="text-align: right;">1,389,292 bytes</td>
+<td style="text-align: right;">4,841,418 bytes</td>
+</tr>
+</tbody>
+</table>
+<p>The compressed posting file is smaller, while metadata and the unchanged
+document-length file contribute to total directory size.</p>
+<h3 id="compressed-format-limitations">Compressed-format limitations</h3>
+<ul>
+<li>The complete index is decompressed into memory before searching.</li>
+<li>Values must fit in unsigned 32-bit integers.</li>
+<li>Document lengths remain uncompressed.</li>
+<li>The format is a baseline for later compression experiments.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>

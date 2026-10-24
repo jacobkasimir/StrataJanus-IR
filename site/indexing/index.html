@@ -12,7 +12,7 @@
         <link rel="prev" href="../quickstart/">
       
       
-        <link rel="next" href="../api/">
+        <link rel="next" href="../index_storage/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>Indexing - stratajanus Documentation</title>
+        <title>Indexing - StrataJanus-IR Documentation</title>
       
     
     
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="stratajanus Documentation" class="md-header__button md-logo" aria-label="stratajanus Documentation" data-md-component="logo">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-header__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            stratajanus Documentation
+            StrataJanus-IR Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -188,13 +188,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="stratajanus Documentation" class="md-nav__button md-logo" aria-label="stratajanus Documentation" data-md-component="logo">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-nav__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    stratajanus Documentation
+    StrataJanus-IR Documentation
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -405,6 +405,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../index_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../api/" class="md-nav__link">
         
   
@@ -584,12 +611,18 @@ settings differ from the active configuration.</p>
 <h2 id="bm25-and-command-line-search">BM25 and command-line search</h2>
 <p>The <a href="../architecture/#bm25-retrieval">architecture page</a> explains BM25's IDF,
 parameters, query term handling, result ordering, and score meaning. A
-processed SciFact collection can be searched with:</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/search_scifact.py<span class="w"> </span><span class="s2">"evidence for a scientific claim"</span><span class="w"> </span>--top-k<span class="w"> </span><span class="m">10</span>
+processed SciFact collection can be searched using a saved index. Build it
+once, then run queries against it:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/build_scifact_index.py
+python<span class="w"> </span>scripts/search_scifact.py<span class="w"> </span><span class="s2">"evidence for a scientific claim"</span><span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>--top-k<span class="w"> </span><span class="m">10</span>
 </code></pre></div>
-<p>That script loads the processed JSONL, builds the index in memory, and prints
-the result ID, BM25 score, and title. It requires the SciFact preparation
-workflow described in <a href="../datasets/scifact/">dataset documentation</a>.</p>
+<p>The build script reads the processed JSONL and saves the JSON index under
+<code>data/indexes/scifact/</code>. The search script loads it and prints the result ID,
+BM25 score, and title. To search the fixed-width binary format instead, first
+run <code>python scripts/convert_index_to_binary.py</code> and pass <code>--format fixed32</code>.
+Both formats require the SciFact preparation workflow described in
+<a href="../datasets/scifact/">dataset documentation</a>. The storage layouts and
+commands are described in <a href="../index_storage/">Index Storage</a>.</p>
 <h2 id="api">API</h2>
 <p>See the <a href="../api/">API reference</a> for generated documentation of
 <code>InvertedIndex</code>, <code>build_index</code>, <code>TokenizerConfig</code>, <code>tokenize</code>, <code>BM25</code>, and

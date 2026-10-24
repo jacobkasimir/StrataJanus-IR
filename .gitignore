@@ -24,6 +24,7 @@ htmlcov/
 
 # Data and index artifacts (preserve directory markers)
 data/*
+sites/*
 !data/.gitkeep
 indexes/*
 !indexes/.gitkeep

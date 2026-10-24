@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../indexing/">
+        <link rel="prev" href="../index_storage/">
       
       
         <link rel="next" href="../datasets/scifact/">
@@ -23,7 +23,7 @@
     
     
       
-        <title>API Reference - stratajanus Documentation</title>
+        <title>API Reference - StrataJanus-IR Documentation</title>
       
     
     
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="stratajanus Documentation" class="md-header__button md-logo" aria-label="stratajanus Documentation" data-md-component="logo">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-header__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            stratajanus Documentation
+            StrataJanus-IR Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -188,13 +188,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="stratajanus Documentation" class="md-nav__button md-logo" aria-label="stratajanus Documentation" data-md-component="logo">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-nav__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    stratajanus Documentation
+    StrataJanus-IR Documentation
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -311,6 +311,33 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../index_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -389,6 +416,17 @@
     <span class="md-ellipsis">
       
         Inverted index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index storage
       
     </span>
   </a>
@@ -501,6 +539,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#index-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bm25-retrieval" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -553,6 +602,10 @@ for the ranking behavior.</p>
 
 <a id="stratajanus.text.tokenizer"></a>
     <div class="doc doc-contents first">
+
+        <p>Versioned Unicode normalization and token extraction for stratajanus.</p>
+<p>The active configuration is :data:<code>CONFIG</code>; index and query text should use
+the same tokenizer configuration.</p>
 
 
 
@@ -628,18 +681,18 @@ analysis behavior.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/stratajanus/text/tokenizer.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">TokenizerConfig</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Describe the tokenizer settings recorded alongside an index.</span>
 
@@ -785,13 +838,7 @@ analysis behavior.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/stratajanus/text/tokenizer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
@@ -819,7 +866,13 @@ analysis behavior.</p>
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert text into tokens using stratajanus' version-1 rules.</span>
 
@@ -940,13 +993,7 @@ analysis behavior.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/stratajanus/text/tokenizer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
 <span class="normal">74</span>
@@ -959,7 +1006,13 @@ analysis behavior.</p>
 <span class="normal">81</span>
 <span class="normal">82</span>
 <span class="normal">83</span>
-<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_tokenizer_config</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_tokenizer_config</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Write active tokenizer settings as formatted UTF-8 JSON.</span>
 
 <span class="sd">    Args:</span>
@@ -1098,13 +1151,7 @@ analysis behavior.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/stratajanus/text/tokenizer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 93</span>
 <span class="normal"> 94</span>
 <span class="normal"> 95</span>
 <span class="normal"> 96</span>
@@ -1122,7 +1169,13 @@ analysis behavior.</p>
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
-<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">verify_tokenizer_config</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">verify_tokenizer_config</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Check that a saved tokenizer configuration matches :data:`CONFIG`.</span>
 
 <span class="sd">    Args:</span>
@@ -1168,6 +1221,11 @@ analysis behavior.</p>
 
 <a id="stratajanus.index.inverted"></a>
     <div class="doc doc-contents first">
+
+        <p>Build and inspect an in-memory inverted index.</p>
+<p>Documents receive zero-based internal IDs in input order. Posting lists map
+each term to <code>(internal_id, term_frequency)</code> pairs in ascending internal ID
+order; external IDs are kept separately for display and lookup.</p>
 
 
 
@@ -1287,14 +1345,7 @@ return aligned lists and valid posting IDs.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/stratajanus/index/inverted.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
@@ -1323,7 +1374,14 @@ return aligned lists and valid posting IDs.</p>
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
-<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">InvertedIndex</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Hold postings and per-document statistics for an in-memory collection.</span>
 
@@ -1436,9 +1494,9 @@ return aligned lists and valid posting IDs.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/stratajanus/index/inverted.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">document_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">document_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Return the number of postings for the exact term; unknown terms yield 0."""</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">postings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="p">[]))</span>
 </code></pre></div></td></tr></table></div>
@@ -1598,14 +1656,7 @@ The title and body are separated by a newline before tokenization.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/stratajanus/index/inverted.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 44</span>
-<span class="normal"> 45</span>
-<span class="normal"> 46</span>
-<span class="normal"> 47</span>
-<span class="normal"> 48</span>
-<span class="normal"> 49</span>
-<span class="normal"> 50</span>
-<span class="normal"> 51</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 51</span>
 <span class="normal"> 52</span>
 <span class="normal"> 53</span>
 <span class="normal"> 54</span>
@@ -1666,7 +1717,14 @@ The title and body are separated by a newline before tokenization.</p>
 <span class="normal">109</span>
 <span class="normal">110</span>
 <span class="normal">111</span>
-<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_index</span><span class="p">(</span><span class="n">documents</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">InvertedIndex</span><span class="p">:</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_index</span><span class="p">(</span><span class="n">documents</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">InvertedIndex</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Tokenize documents and produce an in-memory inverted index.</span>
 
 <span class="sd">    Args:</span>
@@ -1747,6 +1805,1286 @@ The title and body are separated by a newline before tokenization.</p>
 
     </div>
 
+</div><h2 id="index-storage">Index storage</h2>
+<p>JSON and fixed-width binary storage use separate modules and expose the same
+save/load function names. Import them from their respective modules to choose
+a format.</p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="stratajanus.index.storage"></a>
+    <div class="doc doc-contents first">
+
+        <p>Save and load stratajanus inverted indexes using JSON.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="stratajanus.index.storage.save_index" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">save_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Save a complete index to a new directory.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>index</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvertedIndex
+
+
+  
+      dataclass
+   (stratajanus.index.inverted.InvertedIndex)" href="#stratajanus.index.inverted.InvertedIndex">InvertedIndex</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>In-memory index to save.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>directory</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Destination directory. It must not already exist.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the index is structurally inconsistent.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileExistsError">FileExistsError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the destination already exists.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+        <p>The manifest is written last. A failed save may leave a partial
+directory that must be inspected before retrying.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/stratajanus/index/storage.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_index</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">InvertedIndex</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Save a complete index to a new directory.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        index: In-memory index to save.</span>
+<span class="sd">        directory: Destination directory. It must not already exist.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the index is structurally inconsistent.</span>
+<span class="sd">        FileExistsError: If the destination already exists.</span>
+
+<span class="sd">    The manifest is written last. A failed save may leave a partial</span>
+<span class="sd">    directory that must be inspected before retrying.</span>
+<span class="sd">    """</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">directory</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Index directory already exists: </span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+    <span class="n">validate_index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">directory</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"postings"</span><span class="p">:</span> <span class="n">index</span><span class="o">.</span><span class="n">postings</span><span class="p">,</span>
+        <span class="s2">"doc_lengths"</span><span class="p">:</span> <span class="n">index</span><span class="o">.</span><span class="n">doc_lengths</span><span class="p">,</span>
+        <span class="s2">"internal_to_external"</span><span class="p">:</span> <span class="n">index</span><span class="o">.</span><span class="n">internal_to_external</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">with</span> <span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"index.json"</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+        <span class="s2">"w"</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+            <span class="n">payload</span><span class="p">,</span>
+            <span class="n">file</span><span class="p">,</span>
+            <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">save_tokenizer_config</span><span class="p">(</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"tokenizer_config.json"</span>
+    <span class="p">)</span>
+
+    <span class="n">manifest</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"format"</span><span class="p">:</span> <span class="n">FORMAT_NAME</span><span class="p">,</span>
+        <span class="s2">"format_version"</span><span class="p">:</span> <span class="n">FORMAT_VERSION</span><span class="p">,</span>
+        <span class="s2">"document_count"</span><span class="p">:</span> <span class="n">index</span><span class="o">.</span><span class="n">document_count</span><span class="p">,</span>
+        <span class="s2">"term_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">postings</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Write this only after the index and tokenizer settings exist.</span>
+    <span class="k">with</span> <span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"manifest.json"</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+        <span class="s2">"w"</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="stratajanus.index.storage.load_index" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">load_index</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Load and validate a saved JSON index.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>directory</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory containing the saved index files.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvertedIndex
+
+
+  
+      dataclass
+   (stratajanus.index.inverted.InvertedIndex)" href="#stratajanus.index.inverted.InvertedIndex">InvertedIndex</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A reconstructed InvertedIndex.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a required file is missing.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the format, tokenizer configuration, or index
+structure is incompatible or invalid.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/stratajanus/index/storage.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_index</span><span class="p">(</span><span class="n">directory</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InvertedIndex</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Load and validate a saved JSON index.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        directory: Directory containing the saved index files.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A reconstructed InvertedIndex.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If a required file is missing.</span>
+<span class="sd">        ValueError: If the format, tokenizer configuration, or index</span>
+<span class="sd">            structure is incompatible or invalid.</span>
+<span class="sd">    """</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+
+    <span class="n">required_files</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"manifest.json"</span><span class="p">,</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"tokenizer_config.json"</span><span class="p">,</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"index.json"</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">required_files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Required index file is missing: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+    <span class="k">with</span> <span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"manifest.json"</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+        <span class="s2">"r"</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Index manifest must be a JSON object."</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"format"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">FORMAT_NAME</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unsupported index format."</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"format_version"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">FORMAT_VERSION</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unsupported index format version."</span><span class="p">)</span>
+
+    <span class="n">verify_tokenizer_config</span><span class="p">(</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"tokenizer_config.json"</span>
+    <span class="p">)</span>
+
+    <span class="k">with</span> <span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"index.json"</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+        <span class="s2">"r"</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">InvertedIndex</span><span class="p">(</span>
+            <span class="n">postings</span><span class="o">=</span><span class="p">{</span>
+                <span class="n">term</span><span class="p">:</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">posting</span><span class="p">)</span> <span class="k">for</span> <span class="n">posting</span> <span class="ow">in</span> <span class="n">postings</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">term</span><span class="p">,</span> <span class="n">postings</span> <span class="ow">in</span> <span class="n">payload</span><span class="p">[</span><span class="s2">"postings"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">},</span>
+            <span class="n">doc_lengths</span><span class="o">=</span><span class="n">payload</span><span class="p">[</span><span class="s2">"doc_lengths"</span><span class="p">],</span>
+            <span class="n">internal_to_external</span><span class="o">=</span><span class="n">payload</span><span class="p">[</span><span class="s2">"internal_to_external"</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"Saved index has an invalid structure."</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+    <span class="n">validate_index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">document_count</span> <span class="o">!=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"document_count"</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"Index document count does not match the manifest."</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">postings</span><span class="p">)</span> <span class="o">!=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"term_count"</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"Index term count does not match the manifest."</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">index</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="stratajanus.index.binary_storage"></a>
+    <div class="doc doc-contents first">
+
+        <p>Store inverted indexes using fixed-width binary integers.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="stratajanus.index.binary_storage.save_index" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">save_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Save an index using fixed-width binary integers.</p>
+<p>Document IDs, term frequencies, and document lengths use
+unsigned 32-bit little-endian integers.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>index</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvertedIndex
+
+
+  
+      dataclass
+   (stratajanus.index.inverted.InvertedIndex)" href="#stratajanus.index.inverted.InvertedIndex">InvertedIndex</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Complete in-memory inverted index.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>directory</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>New destination directory.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileExistsError">FileExistsError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the destination already exists.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the index is invalid or contains values
+outside the supported integer range.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+        <p>A failed write may leave a partial directory. The manifest
+is written last.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/stratajanus/index/binary_storage.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_index</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">InvertedIndex</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Save an index using fixed-width binary integers.</span>
+
+<span class="sd">    Document IDs, term frequencies, and document lengths use</span>
+<span class="sd">    unsigned 32-bit little-endian integers.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        index: Complete in-memory inverted index.</span>
+<span class="sd">        directory: New destination directory.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileExistsError: If the destination already exists.</span>
+<span class="sd">        ValueError: If the index is invalid or contains values</span>
+<span class="sd">            outside the supported integer range.</span>
+
+<span class="sd">    A failed write may leave a partial directory. The manifest</span>
+<span class="sd">    is written last.</span>
+<span class="sd">    """</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">directory</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Index directory already exists: </span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+    <span class="n">validate_index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">doc_lengths</span><span class="p">:</span>
+        <span class="n">_check_uint32</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="s2">"Document length"</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">postings</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">postings</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">internal_id</span><span class="p">,</span> <span class="n">frequency</span> <span class="ow">in</span> <span class="n">postings</span><span class="p">:</span>
+            <span class="n">_check_uint32</span><span class="p">(</span><span class="n">internal_id</span><span class="p">,</span> <span class="s2">"Internal document ID"</span><span class="p">)</span>
+            <span class="n">_check_uint32</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="s2">"Term frequency"</span><span class="p">)</span>
+
+    <span class="n">directory</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"doc_lengths.bin"</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">doc_lengths</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">UINT32</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+
+    <span class="n">vocabulary</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">with</span> <span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"postings.bin"</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">postings</span><span class="p">):</span>
+            <span class="n">postings</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">postings</span><span class="p">[</span><span class="n">term</span><span class="p">]</span>
+
+            <span class="n">vocabulary</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"offset"</span><span class="p">:</span> <span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">(),</span>
+                <span class="s2">"document_frequency"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">postings</span><span class="p">),</span>
+            <span class="p">}</span>
+
+            <span class="k">for</span> <span class="n">internal_id</span><span class="p">,</span> <span class="n">frequency</span> <span class="ow">in</span> <span class="n">postings</span><span class="p">:</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                    <span class="n">POSTING</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">internal_id</span><span class="p">,</span> <span class="n">frequency</span><span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="n">_write_json</span><span class="p">(</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"vocabulary.json"</span><span class="p">,</span>
+        <span class="n">vocabulary</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">_write_json</span><span class="p">(</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"doc_ids.json"</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">.</span><span class="n">internal_to_external</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">save_tokenizer_config</span><span class="p">(</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"tokenizer_config.json"</span>
+    <span class="p">)</span>
+
+    <span class="n">_write_json</span><span class="p">(</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"manifest.json"</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">"format"</span><span class="p">:</span> <span class="n">FORMAT_NAME</span><span class="p">,</span>
+            <span class="s2">"format_version"</span><span class="p">:</span> <span class="n">FORMAT_VERSION</span><span class="p">,</span>
+            <span class="s2">"document_count"</span><span class="p">:</span> <span class="n">index</span><span class="o">.</span><span class="n">document_count</span><span class="p">,</span>
+            <span class="s2">"term_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">postings</span><span class="p">),</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="stratajanus.index.binary_storage.load_index" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">load_index</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Load and validate a fixed-width binary index.</p>
+<p>The complete index is reconstructed in memory.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>directory</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory containing a saved binary index.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvertedIndex
+
+
+  
+      dataclass
+   (stratajanus.index.inverted.InvertedIndex)" href="#stratajanus.index.inverted.InvertedIndex">InvertedIndex</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An InvertedIndex with tuple-based posting lists.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a required file is missing.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If metadata, tokenizer settings, binary layout,
+or index contents are inconsistent.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/stratajanus/index/binary_storage.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_index</span><span class="p">(</span><span class="n">directory</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InvertedIndex</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Load and validate a fixed-width binary index.</span>
+
+<span class="sd">    The complete index is reconstructed in memory.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        directory: Directory containing a saved binary index.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An InvertedIndex with tuple-based posting lists.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If a required file is missing.</span>
+<span class="sd">        ValueError: If metadata, tokenizer settings, binary layout,</span>
+<span class="sd">            or index contents are inconsistent.</span>
+<span class="sd">    """</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+
+    <span class="n">required_files</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"manifest.json"</span><span class="p">,</span>
+        <span class="s2">"tokenizer_config.json"</span><span class="p">,</span>
+        <span class="s2">"vocabulary.json"</span><span class="p">,</span>
+        <span class="s2">"doc_ids.json"</span><span class="p">,</span>
+        <span class="s2">"doc_lengths.bin"</span><span class="p">,</span>
+        <span class="s2">"postings.bin"</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">required_files</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">directory</span> <span class="o">/</span> <span class="n">name</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Required index file is missing: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+    <span class="n">manifest</span> <span class="o">=</span> <span class="n">_read_json</span><span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"manifest.json"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Index manifest must be a JSON object."</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"format"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">FORMAT_NAME</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unsupported binary index format."</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"format_version"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">FORMAT_VERSION</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unsupported binary index format version."</span><span class="p">)</span>
+
+    <span class="n">verify_tokenizer_config</span><span class="p">(</span>
+        <span class="n">directory</span> <span class="o">/</span> <span class="s2">"tokenizer_config.json"</span>
+    <span class="p">)</span>
+
+    <span class="n">document_ids</span> <span class="o">=</span> <span class="n">_read_json</span><span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"doc_ids.json"</span><span class="p">)</span>
+    <span class="n">vocabulary</span> <span class="o">=</span> <span class="n">_read_json</span><span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="s2">"vocabulary.json"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Document IDs must be a JSON list."</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Vocabulary must be a JSON object."</span><span class="p">)</span>
+
+    <span class="n">document_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">document_ids</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"document_count"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">document_count</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"Document count does not match the manifest."</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"term_count"</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"Term count does not match the manifest."</span>
+        <span class="p">)</span>
+
+    <span class="n">lengths_path</span> <span class="o">=</span> <span class="n">directory</span> <span class="o">/</span> <span class="s2">"doc_lengths.bin"</span>
+    <span class="n">expected_length_bytes</span> <span class="o">=</span> <span class="n">document_count</span> <span class="o">*</span> <span class="n">UINT32</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">if</span> <span class="n">lengths_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="o">!=</span> <span class="n">expected_length_bytes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid document-length file size."</span><span class="p">)</span>
+
+    <span class="n">lengths_data</span> <span class="o">=</span> <span class="n">lengths_path</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+
+    <span class="n">document_lengths</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">length</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">length</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">UINT32</span><span class="o">.</span><span class="n">iter_unpack</span><span class="p">(</span><span class="n">lengths_data</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">postings_path</span> <span class="o">=</span> <span class="n">directory</span> <span class="o">/</span> <span class="s2">"postings.bin"</span>
+    <span class="n">postings_file_size</span> <span class="o">=</span> <span class="n">postings_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span>
+
+    <span class="n">postings</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">with</span> <span class="n">postings_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">):</span>
+            <span class="n">entry</span> <span class="o">=</span> <span class="n">vocabulary</span><span class="p">[</span><span class="n">term</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Invalid vocabulary entry for </span><span class="si">{</span><span class="n">term</span><span class="si">!r}</span><span class="s2">."</span>
+                <span class="p">)</span>
+
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"offset"</span><span class="p">)</span>
+            <span class="n">document_frequency</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">"document_frequency"</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">type</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span>
+                <span class="ow">or</span> <span class="n">offset</span> <span class="o">!=</span> <span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Invalid posting offset for </span><span class="si">{</span><span class="n">term</span><span class="si">!r}</span><span class="s2">."</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">type</span><span class="p">(</span><span class="n">document_frequency</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span>
+                <span class="ow">or</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">document_frequency</span> <span class="o">&lt;=</span> <span class="n">document_count</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Invalid document frequency for </span><span class="si">{</span><span class="n">term</span><span class="si">!r}</span><span class="s2">."</span>
+                <span class="p">)</span>
+
+            <span class="n">byte_count</span> <span class="o">=</span> <span class="n">document_frequency</span> <span class="o">*</span> <span class="n">POSTING</span><span class="o">.</span><span class="n">size</span>
+
+            <span class="k">if</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">byte_count</span> <span class="o">&gt;</span> <span class="n">postings_file_size</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Truncated postings for </span><span class="si">{</span><span class="n">term</span><span class="si">!r}</span><span class="s2">."</span>
+                <span class="p">)</span>
+
+            <span class="n">block</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">byte_count</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="o">!=</span> <span class="n">byte_count</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Truncated postings for </span><span class="si">{</span><span class="n">term</span><span class="si">!r}</span><span class="s2">."</span>
+                <span class="p">)</span>
+
+            <span class="n">postings</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                <span class="n">POSTING</span><span class="o">.</span><span class="n">iter_unpack</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">!=</span> <span class="n">postings_file_size</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Unexpected trailing data in postings.bin."</span>
+            <span class="p">)</span>
+
+    <span class="n">index</span> <span class="o">=</span> <span class="n">InvertedIndex</span><span class="p">(</span>
+        <span class="n">postings</span><span class="o">=</span><span class="n">postings</span><span class="p">,</span>
+        <span class="n">doc_lengths</span><span class="o">=</span><span class="n">document_lengths</span><span class="p">,</span>
+        <span class="n">internal_to_external</span><span class="o">=</span><span class="n">document_ids</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">validate_index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">index</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
 </div><h2 id="bm25-retrieval">BM25 retrieval</h2>
 
 
@@ -1756,6 +3094,8 @@ The title and body are separated by a newline before tokenization.</p>
 
 <a id="stratajanus.retrieval.bm25"></a>
     <div class="doc doc-contents first">
+
+        <p>Okapi BM25 ranking over :class:<code>~stratajanus.index.inverted.InvertedIndex</code>.</p>
 
 
 
@@ -1796,8 +3136,55 @@ The title and body are separated by a newline before tokenization.</p>
 
 
         <p>One ranked document, with its internal and external identifiers.</p>
-<p><code>score</code> is the nonnegative BM25 contribution sum for the query terms
-matched by this document; it is a ranking score, not a probability.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="stratajanus.retrieval.bm25.SearchResult.internal_id">internal_id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Zero-based position used by the index and input document
+sequence.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="stratajanus.retrieval.bm25.SearchResult.doc_id">doc_id</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Original external document identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="stratajanus.retrieval.bm25.SearchResult.score">score</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Nonnegative BM25 contribution sum for matched query terms. This
+is a ranking score, not a probability.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
 
@@ -1808,21 +3195,29 @@ matched by this document; it is a ranking score, not a probability.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/stratajanus/retrieval/bm25.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SearchResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""One ranked document, with its internal and external identifiers.</span>
 
-<span class="sd">    ``score`` is the nonnegative BM25 contribution sum for the query terms</span>
-<span class="sd">    matched by this document; it is a ranking score, not a probability.</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        internal_id: Zero-based position used by the index and input document</span>
+<span class="sd">            sequence.</span>
+<span class="sd">        doc_id: Original external document identifier.</span>
+<span class="sd">        score: Nonnegative BM25 contribution sum for matched query terms. This</span>
+<span class="sd">            is a ranking score, not a probability.</span>
 <span class="sd">    """</span>
     <span class="n">internal_id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span>
@@ -1952,13 +3347,7 @@ ID spelling. Zero-score documents are omitted.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/stratajanus/retrieval/bm25.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 22</span>
-<span class="normal"> 23</span>
-<span class="normal"> 24</span>
-<span class="normal"> 25</span>
-<span class="normal"> 26</span>
-<span class="normal"> 27</span>
-<span class="normal"> 28</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 28</span>
 <span class="normal"> 29</span>
 <span class="normal"> 30</span>
 <span class="normal"> 31</span>
@@ -2081,7 +3470,13 @@ ID spelling. Zero-score documents are omitted.</p>
 <span class="normal">148</span>
 <span class="normal">149</span>
 <span class="normal">150</span>
-<span class="normal">151</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BM25</span><span class="p">:</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BM25</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Score matching documents with the Okapi BM25 formula.</span>
 
 <span class="sd">    Args:</span>
@@ -2243,13 +3638,7 @@ ID spelling. Zero-score documents are omitted.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/stratajanus/retrieval/bm25.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
@@ -2262,7 +3651,13 @@ ID spelling. Zero-score documents are omitted.</p>
 <span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">index</span><span class="p">:</span> <span class="n">InvertedIndex</span><span class="p">,</span>
     <span class="n">k1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.2</span><span class="p">,</span>
@@ -2462,13 +3857,7 @@ ID spelling. Zero-score documents are omitted.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/stratajanus/retrieval/bm25.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 60</span>
-<span class="normal"> 61</span>
-<span class="normal"> 62</span>
-<span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 66</span>
 <span class="normal"> 67</span>
 <span class="normal"> 68</span>
 <span class="normal"> 69</span>
@@ -2553,7 +3942,13 @@ ID spelling. Zero-score documents are omitted.</p>
 <span class="normal">148</span>
 <span class="normal">149</span>
 <span class="normal">150</span>
-<span class="normal">151</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
@@ -2680,6 +4075,8 @@ scripts can also be invoked from the repository root as shown on the
 <a id="scripts.download_scifact"></a>
     <div class="doc doc-contents first">
 
+        <p>Download and extract the BEIR-format SciFact source dataset.</p>
+
 
 
 
@@ -2714,39 +4111,16 @@ scripts can also be invoked from the repository root as shown on the
         <p>Download and extract the SciFact BEIR dataset.</p>
 
 
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>None</code></td>            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The function prints the extracted dataset path.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
 <details class="side-effects" open>
   <summary>Side effects</summary>
   <p>Creates <code>data/raw</code> if needed and downloads/extracts SciFact there.
-Requires the optional <code>beir</code> dependency and network access.</p>
+Requires the optional <code>beir</code> dependency and network access. The
+extracted path is printed to standard output.</p>
 </details>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/download_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
@@ -2764,12 +4138,10 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 <span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">"""Download and extract the SciFact BEIR dataset.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        None: The function prints the extracted dataset path.</span>
-
 <span class="sd">    Side effects:</span>
 <span class="sd">        Creates ``data/raw`` if needed and downloads/extracts SciFact there.</span>
-<span class="sd">        Requires the optional ``beir`` dependency and network access.</span>
+<span class="sd">        Requires the optional ``beir`` dependency and network access. The</span>
+<span class="sd">        extracted path is printed to standard output.</span>
 <span class="sd">    """</span>
     <span class="n">DOWNLOAD_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -2791,7 +4163,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 
     </div>
 
-</div><h3 id="load-and-inspect-source-splits">Load and inspect source splits</h3>
+</div><h3 id="search-saved-json-index">Search saved JSON index</h3>
 
 
 <div class="doc doc-object doc-module">
@@ -2800,6 +4172,8 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 
 <a id="scripts.load_scifact"></a>
     <div class="doc doc-contents first">
+
+        <p>Search a saved SciFact index using BM25.</p>
 
 
 
@@ -2832,223 +4206,112 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Load SciFact splits, validate their references, and print an example.</p>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>None</code></td>            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The function prints split statistics and one judged example.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If no qrels splits exist or the train split is missing.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="AssertionError">AssertionError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If a loaded split is empty or contains dangling references.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="ImportError">ImportError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If the optional <code>beir</code> dependency is unavailable.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+        <p>Load an existing index and print ranked search results.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/load_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">"""Load SciFact splits, validate their references, and print an example.</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Load an existing index and print ranked search results."""</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Search SciFact using a saved stratajanus index."</span>
+    <span class="p">)</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        None: The function prints split statistics and one judged example.</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"query"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"Search query. Put multiword queries in quotes."</span><span class="p">,</span>
+    <span class="p">)</span>
 
-<span class="sd">    Raises:</span>
-<span class="sd">        FileNotFoundError: If no qrels splits exist or the train split is missing.</span>
-<span class="sd">        AssertionError: If a loaded split is empty or contains dangling references.</span>
-<span class="sd">        ImportError: If the optional ``beir`` dependency is unavailable.</span>
-<span class="sd">    """</span>
-    <span class="n">split</span> <span class="o">=</span> <span class="s2">"train"</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--top-k"</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"Maximum number of results."</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="n">qrels_dir</span> <span class="o">=</span> <span class="n">DATASET_DIR</span> <span class="o">/</span> <span class="s2">"qrels"</span>
-    <span class="n">available</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">stem</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">qrels_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.tsv"</span><span class="p">))</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">available</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No qrels splits found in </span><span class="si">{</span><span class="n">qrels_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Available relevance splits: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">available</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="n">split</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">available</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">INDEX_DIR</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"Split '</span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2">' is unavailable. Available splits: </span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s2">"</span>
+            <span class="sa">f</span><span class="s2">"No saved index found at: </span><span class="si">{</span><span class="n">INDEX_DIR</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"Run: python scripts/build_scifact_index.py"</span>
         <span class="p">)</span>
 
-    <span class="n">corpus</span> <span class="o">=</span> <span class="n">queries</span> <span class="o">=</span> <span class="n">qrels</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">for</span> <span class="n">current_split</span> <span class="ow">in</span> <span class="n">available</span><span class="p">:</span>
-        <span class="n">current_corpus</span><span class="p">,</span> <span class="n">current_queries</span><span class="p">,</span> <span class="n">current_qrels</span> <span class="o">=</span> <span class="n">GenericDataLoader</span><span class="p">(</span>
-            <span class="n">data_folder</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">DATASET_DIR</span><span class="p">)</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="n">current_split</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">current_corpus</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"The corpus is empty for </span><span class="si">{</span><span class="n">current_split</span><span class="si">}</span><span class="s2">."</span>
-        <span class="k">assert</span> <span class="n">current_queries</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"No queries were loaded for </span><span class="si">{</span><span class="n">current_split</span><span class="si">}</span><span class="s2">."</span>
-        <span class="k">assert</span> <span class="n">current_qrels</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"No judgments were loaded for </span><span class="si">{</span><span class="n">current_split</span><span class="si">}</span><span class="s2">."</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Loading saved index..."</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">load_index</span><span class="p">(</span><span class="n">INDEX_DIR</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">query_id</span><span class="p">,</span> <span class="n">judgments</span> <span class="ow">in</span> <span class="n">current_qrels</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">assert</span> <span class="n">query_id</span> <span class="ow">in</span> <span class="n">current_queries</span><span class="p">,</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">current_split</span><span class="si">}</span><span class="s2"> judgments reference missing query: </span><span class="si">{</span><span class="n">query_id</span><span class="si">}</span><span class="s2">"</span>
-            <span class="p">)</span>
-            <span class="k">for</span> <span class="n">doc_id</span> <span class="ow">in</span> <span class="n">judgments</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="n">doc_id</span> <span class="ow">in</span> <span class="n">current_corpus</span><span class="p">,</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">current_split</span><span class="si">}</span><span class="s2"> judgments reference missing document: </span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">"</span>
-                <span class="p">)</span>
+    <span class="n">ranker</span> <span class="o">=</span> <span class="n">BM25</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">ranker</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">top_k</span><span class="p">)</span>
 
+    <span class="n">titles</span> <span class="o">=</span> <span class="n">find_titles</span><span class="p">({</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">doc_id</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span>
+    <span class="p">})</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Query: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">query</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Results returned: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">current_split</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">current_corpus</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> documents, "</span>
-            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">current_queries</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> queries, "</span>
-            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">current_qrels</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> queries with judgments"</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">doc_id</span><span class="si">}</span><span class="s2"> "</span>
+            <span class="sa">f</span><span class="s2">"| BM25 score: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">current_split</span> <span class="o">==</span> <span class="n">split</span><span class="p">:</span>
-            <span class="n">corpus</span><span class="p">,</span> <span class="n">queries</span><span class="p">,</span> <span class="n">qrels</span> <span class="o">=</span> <span class="n">current_corpus</span><span class="p">,</span> <span class="n">current_queries</span><span class="p">,</span> <span class="n">current_qrels</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Dataset consistency checks passed for every available split.</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">titles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">doc_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Split: </span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Documents: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Queries loaded: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">queries</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Queries with judgments: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">qrels</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-    <span class="n">query_id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">qrels</span><span class="p">))</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">EXAMPLE QUERY"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ID: </span><span class="si">{</span><span class="n">query_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Text: </span><span class="si">{</span><span class="n">queries</span><span class="p">[</span><span class="n">query_id</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">RELEVANT DOCUMENTS"</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">doc_id</span><span class="p">,</span> <span class="n">relevance</span> <span class="ow">in</span> <span class="n">qrels</span><span class="p">[</span><span class="n">query_id</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">relevance</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">continue</span>
-
-        <span class="n">document</span> <span class="o">=</span> <span class="n">corpus</span><span class="p">[</span><span class="n">doc_id</span><span class="p">]</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Document ID: </span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Relevance: </span><span class="si">{</span><span class="n">relevance</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Title: </span><span class="si">{</span><span class="n">document</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Text preview: </span><span class="si">{</span><span class="n">document</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'text'</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">)[:</span><span class="mi">500</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3070,6 +4333,8 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 
 <a id="scripts.prepare_scifact"></a>
     <div class="doc doc-contents first">
+
+        <p>Validate BEIR SciFact files and convert them to stratajanus JSONL/TSV.</p>
 
 
 
@@ -3134,28 +4399,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
           </tr>
       </tbody>
     </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Iterator[tuple[int, dict[str, Any]]]: Source line numbers and decoded objects.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+        <p>Each yielded pair contains the source line number and decoded JSON object.</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>
@@ -3183,9 +4427,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/prepare_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
@@ -3213,14 +4455,14 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 <span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_jsonl</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="normal">45</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_jsonl</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Read nonblank JSON Lines records with their source line numbers.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        path (Path): UTF-8 JSONL file to read.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        Iterator[tuple[int, dict[str, Any]]]: Source line numbers and decoded objects.</span>
+<span class="sd">    Each yielded pair contains the source line number and decoded JSON object.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If a nonblank line is invalid JSON or is not a JSON object.</span>
@@ -3325,28 +4567,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
           </tr>
       </tbody>
     </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>str</code></td>            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The validated identifier.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+        <p>The validated identifier is returned unchanged.</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>
@@ -3374,8 +4595,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/prepare_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
-<span class="normal">49</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
@@ -3403,8 +4623,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 <span class="sd">        field (str): Identifier field name.</span>
 <span class="sd">        location (str): Source location used in validation errors.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        str: The validated identifier.</span>
+<span class="sd">    The validated identifier is returned unchanged.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If the field is missing, not a string, or blank.</span>
@@ -3514,28 +4733,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
           </tr>
       </tbody>
     </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>str</code></td>            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The field value or its default.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+        <p>The selected string value is returned unchanged.</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>
@@ -3584,8 +4782,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 <span class="normal">90</span>
 <span class="normal">91</span>
 <span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">require_text</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">require_text</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Return a string field, using a default only when it is absent.</span>
 
 <span class="sd">    Args:</span>
@@ -3594,8 +4791,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 <span class="sd">        location (str): Source location used in validation errors.</span>
 <span class="sd">        default (str | None): Value to use when the field is absent.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        str: The field value or its default.</span>
+<span class="sd">    The selected string value is returned unchanged.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If the selected value is not a string.</span>
@@ -3673,28 +4869,7 @@ Requires the optional <code>beir</code> dependency and network access.</p>
           </tr>
       </tbody>
     </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>dict[str, Any]: Metadata with its source set to <code>scifact</code>.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+        <p>The returned metadata copy has its source set to <code>scifact</code>.</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>
@@ -3722,7 +4897,8 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/prepare_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+<span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
@@ -3743,17 +4919,14 @@ Requires the optional <code>beir</code> dependency and network access.</p>
 <span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prepare_metadata</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prepare_metadata</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Copy a record's metadata and mark it as originating from SciFact.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        row (dict[str, Any]): Input record containing optional metadata.</span>
 <span class="sd">        location (str): Source location used in validation errors.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        dict[str, Any]: Metadata with its source set to ``scifact``.</span>
+<span class="sd">    The returned metadata copy has its source set to ``scifact``.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If metadata is not a JSON object.</span>
@@ -3836,37 +5009,17 @@ Requires the optional <code>beir</code> dependency and network access.</p>
     </table>
 
 
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>None</code></td>            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Writes one JSON record followed by a newline.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
 <details class="side-effects" open>
   <summary>Side effects</summary>
-  <p>Writes to the supplied open text stream; this helper does not open or
-close files itself.</p>
+  <p>Writes one JSON record and newline to the supplied open text stream;
+this helper does not open or close files itself.</p>
 </details>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/prepare_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
 <span class="normal">124</span>
 <span class="normal">125</span>
 <span class="normal">126</span>
@@ -3877,24 +5030,16 @@ close files itself.</p>
 <span class="normal">131</span>
 <span class="normal">132</span>
 <span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">write_jsonl_row</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+<span class="normal">134</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">write_jsonl_row</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Serialize one object as a UTF-8-compatible JSON Lines record.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        file (TextIO): Writable text stream.</span>
 <span class="sd">        row (dict[str, Any]): Object to serialize.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        None: Writes one JSON record followed by a newline.</span>
-
 <span class="sd">    Side effects:</span>
-<span class="sd">        Writes to the supplied open text stream; this helper does not open or</span>
-<span class="sd">        close files itself.</span>
+<span class="sd">        Writes one JSON record and newline to the supplied open text stream;</span>
+<span class="sd">        this helper does not open or close files itself.</span>
 <span class="sd">    """</span>
     <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
         <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
@@ -3917,28 +5062,7 @@ close files itself.</p>
     <div class="doc doc-contents ">
 
         <p>Convert the raw SciFact corpus and create its external ID mapping.</p>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>tuple[set[str], int]: Document IDs and the count of empty documents.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+<p>Returns the set of document IDs and the number of empty documents.</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>
@@ -3966,7 +5090,12 @@ close files itself.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/prepare_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">141</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
 <span class="normal">142</span>
 <span class="normal">143</span>
 <span class="normal">144</span>
@@ -4013,17 +5142,10 @@ close files itself.</p>
 <span class="normal">185</span>
 <span class="normal">186</span>
 <span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_documents</span><span class="p">():</span>
+<span class="normal">188</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_documents</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">"""Convert the raw SciFact corpus and create its external ID mapping.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        tuple[set[str], int]: Document IDs and the count of empty documents.</span>
+<span class="sd">    Returns the set of document IDs and the number of empty documents.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If a record is invalid or contains a duplicate document ID.</span>
@@ -4091,28 +5213,7 @@ close files itself.</p>
     <div class="doc doc-contents ">
 
         <p>Convert raw SciFact queries into the processed JSONL format.</p>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>set[str]: IDs of the converted queries.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+<p>Returns the set of converted query IDs.</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>
@@ -4140,7 +5241,13 @@ close files itself.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/prepare_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">197</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
 <span class="normal">198</span>
 <span class="normal">199</span>
 <span class="normal">200</span>
@@ -4174,18 +5281,10 @@ close files itself.</p>
 <span class="normal">228</span>
 <span class="normal">229</span>
 <span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_queries</span><span class="p">():</span>
+<span class="normal">231</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_queries</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">"""Convert raw SciFact queries into the processed JSONL format.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        set[str]: IDs of the converted queries.</span>
+<span class="sd">    Returns the set of converted query IDs.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If a record is invalid, has a duplicate ID, or blank query text.</span>
@@ -4288,28 +5387,9 @@ close files itself.</p>
           </tr>
       </tbody>
     </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>dict[str, dict[str, int]]: Per-split counts of judgments, queries, and positives.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+        <p>Returns per-split counts of judgments, queries, and positive judgments.
+Writes one normalized TSV under <code>data/processed/scifact/qrels</code> for each
+raw split.</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>
@@ -4337,7 +5417,14 @@ close files itself.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/prepare_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">241</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
 <span class="normal">242</span>
 <span class="normal">243</span>
 <span class="normal">244</span>
@@ -4439,21 +5526,16 @@ close files itself.</p>
 <span class="normal">340</span>
 <span class="normal">341</span>
 <span class="normal">342</span>
-<span class="normal">343</span>
-<span class="normal">344</span>
-<span class="normal">345</span>
-<span class="normal">346</span>
-<span class="normal">347</span>
-<span class="normal">348</span>
-<span class="normal">349</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_qrels</span><span class="p">(</span><span class="n">document_ids</span><span class="p">,</span> <span class="n">query_ids</span><span class="p">):</span>
+<span class="normal">343</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_qrels</span><span class="p">(</span><span class="n">document_ids</span><span class="p">,</span> <span class="n">query_ids</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Convert qrels splits and validate referenced queries and documents.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        document_ids (set[str]): Valid document IDs from the converted corpus.</span>
 <span class="sd">        query_ids (set[str]): Valid query IDs from the converted queries.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        dict[str, dict[str, int]]: Per-split counts of judgments, queries, and positives.</span>
+<span class="sd">    Returns per-split counts of judgments, queries, and positive judgments.</span>
+<span class="sd">    Writes one normalized TSV under ``data/processed/scifact/qrels`` for each</span>
+<span class="sd">    raw split.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If qrels are missing, malformed, duplicated, or reference unknown IDs.</span>
@@ -4574,28 +5656,6 @@ close files itself.</p>
         <p>Convert raw SciFact files and write processed data with a manifest.</p>
 
 
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>None</code></td>            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Writes converted files and prints a conversion summary.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
 <p><span class="doc-section-title">Raises:</span></p>
     <table>
       <thead>
@@ -4643,12 +5703,19 @@ close files itself.</p>
   <summary>Side effects</summary>
   <p>Creates a new <code>data/processed/scifact</code> tree containing converted
 documents, queries, ID mappings, qrels, and a manifest. It refuses to
-overwrite an existing output directory.</p>
+overwrite an existing output directory, and prints a conversion
+summary when complete.</p>
 </details>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/prepare_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">351</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
 <span class="normal">352</span>
 <span class="normal">353</span>
 <span class="normal">354</span>
@@ -4725,19 +5792,8 @@ overwrite an existing output directory.</p>
 <span class="normal">425</span>
 <span class="normal">426</span>
 <span class="normal">427</span>
-<span class="normal">428</span>
-<span class="normal">429</span>
-<span class="normal">430</span>
-<span class="normal">431</span>
-<span class="normal">432</span>
-<span class="normal">433</span>
-<span class="normal">434</span>
-<span class="normal">435</span>
-<span class="normal">436</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="normal">428</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">"""Convert raw SciFact files and write processed data with a manifest.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        None: Writes converted files and prints a conversion summary.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        FileNotFoundError: If a required raw input path does not exist.</span>
@@ -4747,7 +5803,8 @@ overwrite an existing output directory.</p>
 <span class="sd">    Side effects:</span>
 <span class="sd">        Creates a new ``data/processed/scifact`` tree containing converted</span>
 <span class="sd">        documents, queries, ID mappings, qrels, and a manifest. It refuses to</span>
-<span class="sd">        overwrite an existing output directory.</span>
+<span class="sd">        overwrite an existing output directory, and prints a conversion</span>
+<span class="sd">        summary when complete.</span>
 <span class="sd">    """</span>
     <span class="n">required_paths</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">RAW_DIR</span> <span class="o">/</span> <span class="s2">"corpus.jsonl"</span><span class="p">,</span>
@@ -4841,6 +5898,8 @@ overwrite an existing output directory.</p>
 <a id="scripts.index_scifact"></a>
     <div class="doc doc-contents first">
 
+        <p>Build and validate the processed SciFact index in memory.</p>
+
 
 
 
@@ -4904,28 +5963,8 @@ overwrite an existing output directory.</p>
           </tr>
       </tbody>
     </table>
-
-
-    <p><span class="doc-section-title">Yields:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Decoded JSON values (the index builder validates document records).</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+        <p>Each yielded value is decoded JSON; the index builder validates document
+records.</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>
@@ -4963,9 +6002,7 @@ overwrite an existing output directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/index_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
@@ -4986,14 +6023,16 @@ overwrite an existing output directory.</p>
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
-<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_jsonl</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_jsonl</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Yield nonblank JSONL objects in file order.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        path: UTF-8 JSON Lines file.</span>
 
-<span class="sd">    Yields:</span>
-<span class="sd">        Decoded JSON values (the index builder validates document records).</span>
+<span class="sd">    Each yielded value is decoded JSON; the index builder validates document</span>
+<span class="sd">    records.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        FileNotFoundError: If the file is absent.</span>
@@ -5067,9 +6106,7 @@ prints index statistics and sample postings. Does not persist the index.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/index_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 37</span>
-<span class="normal"> 38</span>
-<span class="normal"> 39</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 39</span>
 <span class="normal"> 40</span>
 <span class="normal"> 41</span>
 <span class="normal"> 42</span>
@@ -5155,7 +6192,9 @@ prints index statistics and sample postings. Does not persist the index.</p>
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
-<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">"""Build an in-memory index and validate it against the processed manifest.</span>
 
 <span class="sd">    Reads ``documents.jsonl``, ``doc_ids.jsonl``, and ``manifest.json``;</span>
@@ -5266,6 +6305,8 @@ prints index statistics and sample postings. Does not persist the index.</p>
 <a id="scripts.search_scifact"></a>
     <div class="doc doc-contents first">
 
+        <p>Search SciFact using a saved stratajanus index and BM25 ranking.</p>
+
 
 
 
@@ -5297,7 +6338,7 @@ prints index statistics and sample postings. Does not persist the index.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Yield nonblank JSONL document values in source order.</p>
+        <p>Yield processed SciFact documents in their original order.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -5320,7 +6361,7 @@ prints index statistics and sample postings. Does not persist the index.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>UTF-8 JSON Lines file containing processed documents.</p>
+                <p>UTF-8 JSONL file containing canonical documents.</p>
               </div>
             </td>
             <td>
@@ -5345,7 +6386,7 @@ prints index statistics and sample postings. Does not persist the index.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Decoded JSON values for the index builder.</p>
+                <p>One decoded document dictionary per nonblank line.</p>
               </div>
             </td>
           </tr>
@@ -5368,7 +6409,7 @@ prints index statistics and sample postings. Does not persist the index.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>If the file is missing.</p>
+                <p>If the file does not exist.</p>
               </div>
             </td>
           </tr>
@@ -5388,42 +6429,42 @@ prints index statistics and sample postings. Does not persist the index.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/search_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_documents</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Yield nonblank JSONL document values in source order.</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_documents</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Yield processed SciFact documents in their original order.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path: UTF-8 JSON Lines file containing processed documents.</span>
+<span class="sd">        path: UTF-8 JSONL file containing canonical documents.</span>
 
 <span class="sd">    Yields:</span>
-<span class="sd">        Decoded JSON values for the index builder.</span>
+<span class="sd">        One decoded document dictionary per nonblank line.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        FileNotFoundError: If the file is missing.</span>
+<span class="sd">        FileNotFoundError: If the file does not exist.</span>
 <span class="sd">        ValueError: If a nonblank line contains malformed JSON.</span>
 <span class="sd">    """</span>
     <span class="k">with</span> <span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -5456,104 +6497,12 @@ prints index statistics and sample postings. Does not persist the index.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Parse a query, build the SciFact index, and print ranked results.</p>
-<p>The command accepts one query argument and an optional <code>--top-k</code> count.
-It rebuilds the full in-memory index for each invocation and uses result
-internal IDs to retrieve the corresponding source documents for display.</p>
+        <p>Load a saved index, run BM25, and display ranked SciFact results.</p>
 
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="SystemExit">SystemExit</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>For command-line parsing errors.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If the processed SciFact corpus is not present.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-<details class="side-effects" open>
-  <summary>Side effects</summary>
-  <p>Writes progress and ranked result details to standard output.</p>
-</details>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>scripts/search_scifact.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 48</span>
-<span class="normal"> 49</span>
-<span class="normal"> 50</span>
-<span class="normal"> 51</span>
-<span class="normal"> 52</span>
-<span class="normal"> 53</span>
-<span class="normal"> 54</span>
-<span class="normal"> 55</span>
-<span class="normal"> 56</span>
-<span class="normal"> 57</span>
-<span class="normal"> 58</span>
-<span class="normal"> 59</span>
-<span class="normal"> 60</span>
-<span class="normal"> 61</span>
-<span class="normal"> 62</span>
-<span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
-<span class="normal"> 67</span>
-<span class="normal"> 68</span>
-<span class="normal"> 69</span>
-<span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
 <span class="normal">102</span>
@@ -5563,20 +6512,72 @@ internal IDs to retrieve the corresponding source documents for display.</p>
 <span class="normal">106</span>
 <span class="normal">107</span>
 <span class="normal">108</span>
-<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">"""Parse a query, build the SciFact index, and print ranked results.</span>
-
-<span class="sd">    The command accepts one query argument and an optional ``--top-k`` count.</span>
-<span class="sd">    It rebuilds the full in-memory index for each invocation and uses result</span>
-<span class="sd">    internal IDs to retrieve the corresponding source documents for display.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        SystemExit: For command-line parsing errors.</span>
-<span class="sd">        FileNotFoundError: If the processed SciFact corpus is not present.</span>
-
-<span class="sd">    Side effects:</span>
-<span class="sd">        Writes progress and ranked result details to standard output.</span>
-<span class="sd">    """</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Load a saved index, run BM25, and display ranked SciFact results."""</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">"Search SciFact using stratajanus BM25."</span>
     <span class="p">)</span>
@@ -5593,19 +6594,37 @@ internal IDs to retrieve the corresponding source documents for display.</p>
         <span class="n">help</span><span class="o">=</span><span class="s2">"Maximum number of results."</span><span class="p">,</span>
     <span class="p">)</span>
 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--format"</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"json"</span><span class="p">,</span> <span class="s2">"fixed32"</span><span class="p">,</span> <span class="s2">"vb"</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">"json"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"Saved index format to load."</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">DOCUMENTS_PATH</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s2">"vb"</span><span class="p">:</span>
+        <span class="n">index_directory</span> <span class="o">=</span> <span class="n">COMPRESSED_INDEX_DIR</span>
+        <span class="n">loader</span> <span class="o">=</span> <span class="n">load_compressed_index</span>
+        <span class="n">build_command</span> <span class="o">=</span> <span class="s2">"python scripts/compress_scifact_index.py"</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s2">"fixed32"</span><span class="p">:</span>
+        <span class="n">index_directory</span> <span class="o">=</span> <span class="n">BINARY_INDEX_DIR</span>
+        <span class="n">loader</span> <span class="o">=</span> <span class="n">load_binary_index</span>
+        <span class="n">build_command</span> <span class="o">=</span> <span class="s2">"python scripts/convert_index_to_binary.py"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">index_directory</span> <span class="o">=</span> <span class="n">JSON_INDEX_DIR</span>
+        <span class="n">loader</span> <span class="o">=</span> <span class="n">load_json_index</span>
+        <span class="n">build_command</span> <span class="o">=</span> <span class="s2">"python scripts/build_scifact_index.py"</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">index_directory</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"Missing processed corpus: </span><span class="si">{</span><span class="n">DOCUMENTS_PATH</span><span class="si">}</span><span class="s2">"</span>
+            <span class="sa">f</span><span class="s2">"No saved index found at: </span><span class="si">{</span><span class="n">index_directory</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="sa">f</span><span class="s2">"Run: </span><span class="si">{</span><span class="n">build_command</span><span class="si">}</span><span class="s2">"</span>
         <span class="p">)</span>
 
-    <span class="c1"># SciFact is small enough to retain the documents for display.</span>
-    <span class="n">documents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">read_documents</span><span class="p">(</span><span class="n">DOCUMENTS_PATH</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Loading </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">format</span><span class="si">}</span><span class="s2"> index..."</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="n">index_directory</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Building index for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> documents..."</span><span class="p">)</span>
-
-    <span class="n">index</span> <span class="o">=</span> <span class="n">build_index</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
     <span class="n">ranker</span> <span class="o">=</span> <span class="n">BM25</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 
     <span class="n">results</span> <span class="o">=</span> <span class="n">ranker</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
@@ -5613,17 +6632,24 @@ internal IDs to retrieve the corresponding source documents for display.</p>
         <span class="n">top_k</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">top_k</span><span class="p">,</span>
     <span class="p">)</span>
 
+    <span class="n">titles</span> <span class="o">=</span> <span class="n">find_titles</span><span class="p">(</span>
+        <span class="p">{</span><span class="n">result</span><span class="o">.</span><span class="n">doc_id</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">}</span>
+    <span class="p">)</span>
+
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Query: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">query</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Results returned: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">document</span> <span class="o">=</span> <span class="n">documents</span><span class="p">[</span><span class="n">result</span><span class="o">.</span><span class="n">internal_id</span><span class="p">]</span>
-
         <span class="nb">print</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">doc_id</span><span class="si">}</span><span class="s2"> "</span>
             <span class="sa">f</span><span class="s2">"| BM25 score: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span>
         <span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">document</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">title</span> <span class="o">=</span> <span class="n">titles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">doc_id</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
         <span class="nb">print</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -5637,7 +6663,10 @@ internal IDs to retrieve the corresponding source documents for display.</p>
 
     </div>
 
-</div>
+</div><h3 id="build-and-convert-indexes">Build and convert indexes</h3>
+<p><code>build_scifact_index.py</code> creates the JSON index. <code>convert_index_to_binary.py</code>
+creates the fixed-width binary variant from the saved JSON index; both
+commands are documented on the <a href="../index_storage/">Index Storage</a> page.</p>
 
 
 

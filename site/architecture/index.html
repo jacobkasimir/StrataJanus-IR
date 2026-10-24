@@ -23,7 +23,7 @@
     
     
       
-        <title>Architecture - stratajanus Documentation</title>
+        <title>Architecture - StrataJanus-IR Documentation</title>
       
     
     
@@ -90,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="stratajanus Documentation" class="md-header__button md-logo" aria-label="stratajanus Documentation" data-md-component="logo">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-header__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +104,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            stratajanus Documentation
+            StrataJanus-IR Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -188,13 +188,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="stratajanus Documentation" class="md-nav__button md-logo" aria-label="stratajanus Documentation" data-md-component="logo">
+    <a href=".." title="StrataJanus-IR Documentation" class="md-nav__button md-logo" aria-label="StrataJanus-IR Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    stratajanus Documentation
+    StrataJanus-IR Documentation
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -416,6 +416,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../index_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../api/" class="md-nav__link">
         
   
@@ -570,8 +597,12 @@ canonical format accepted by <code>build_index</code>.</p>
     B --&gt; C[Processed documents JSONL]
     C --&gt; D[build_index]
     D --&gt; E[InvertedIndex]
+    E --&gt; P[Saved JSON index]
+    P --&gt; X[Optional fixed-width conversion]
     Q[Query string] --&gt; T[tokenize]
-    E --&gt; R[BM25.search]
+    P --&gt; L[Load selected format]
+    X --&gt; L
+    L --&gt; R[BM25.search]
     T --&gt; R
     R --&gt; S[SearchResult list]
     S --&gt; V[External ID and score]</code></pre>
@@ -594,8 +625,12 @@ order are retained. Index and query strings use this same function.</p>
 <p><code>TokenizerConfig</code> records the schema version and analysis settings.
 <code>save_tokenizer_config</code> writes the active settings as JSON, while
 <code>verify_tokenizer_config</code> raises <code>ValueError</code> if a saved configuration differs.
-The current scripts do not serialize an index or invoke configuration
-verification automatically.</p>
+<code>build_scifact_index.py</code> saves the JSON inverted index, tokenizer
+configuration, and manifest. <code>convert_index_to_binary.py</code> loads that JSON
+index and saves its fixed-width variant. <code>search_scifact.py</code> selects either
+format with <code>--format json</code> or <code>--format fixed32</code>, verifies tokenizer
+settings, and reconstructs the index before searching. <code>load_scifact.py</code> is
+a JSON-only search command.</p>
 <h2 id="inverted-index-and-identifiers">Inverted index and identifiers</h2>
 <p><code>InvertedIndex</code> stores three aligned structures:</p>
 <ul>
@@ -635,11 +670,13 @@ list. If the index's public mutable structures are changed after constructing
 the ranker, the cached collection statistics may no longer agree; treat the
 index as read-only during ranking.</p>
 <h2 id="scope-and-future-work">Scope and future work</h2>
-<p>The implemented pipeline is lexical and in-memory. Persistent/compressed
-indexes, dense or hybrid retrieval, benchmark metric evaluation, reranking,
-RAG, and domain-specific financial analysis are not implemented in the
-current package. They can be explored as future extensions without implying
-that this codebase already provides them.</p>
+<p>The implemented pipeline is lexical. Both saved formats are uncompressed and
+loaded into memory for retrieval; fixed-width binary stores posting pairs and
+document lengths as unsigned 32-bit little-endian integers. Dense or hybrid
+retrieval, benchmark metric evaluation, reranking, RAG, and domain-specific
+financial analysis are not implemented in the current package. They can be
+explored as future extensions without implying that this codebase already
+provides them.</p>
 
 
 
