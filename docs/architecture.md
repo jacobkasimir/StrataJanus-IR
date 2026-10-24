@@ -10,8 +10,10 @@ flowchart LR
     B --> C[Processed documents JSONL]
     C --> D[build_index]
     D --> E[InvertedIndex]
+    E --> P[Saved JSON index]
     Q[Query string] --> T[tokenize]
-    E --> R[BM25.search]
+    P --> L[Load InvertedIndex]
+    L --> R[BM25.search]
     T --> R
     R --> S[SearchResult list]
     S --> V[External ID and score]
@@ -41,8 +43,9 @@ order are retained. Index and query strings use this same function.
 `TokenizerConfig` records the schema version and analysis settings.
 `save_tokenizer_config` writes the active settings as JSON, while
 `verify_tokenizer_config` raises `ValueError` if a saved configuration differs.
-The current scripts do not serialize an index or invoke configuration
-verification automatically.
+`build_scifact_index.py` saves the inverted index, tokenizer configuration,
+and manifest. `load_scifact.py` verifies the saved tokenizer settings and
+reconstructs the index before searching.
 
 ## Inverted index and identifiers
 
@@ -92,8 +95,8 @@ index as read-only during ranking.
 
 ## Scope and future work
 
-The implemented pipeline is lexical and in-memory. Persistent/compressed
-indexes, dense or hybrid retrieval, benchmark metric evaluation, reranking,
-RAG, and domain-specific financial analysis are not implemented in the
-current package. They can be explored as future extensions without implying
-that this codebase already provides them.
+The implemented pipeline is lexical. The saved JSON index is uncompressed and
+loaded into memory for retrieval. Dense or hybrid retrieval, benchmark metric
+evaluation, reranking, RAG, and domain-specific financial analysis are not
+implemented in the current package. They can be explored as future extensions
+without implying that this codebase already provides them.

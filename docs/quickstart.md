@@ -59,12 +59,15 @@ search script:
 ```bash
 python scripts/download_scifact.py
 python scripts/prepare_scifact.py
-python scripts/search_scifact.py "evidence for a scientific claim" --top-k 10
+python scripts/build_scifact_index.py
+python scripts/load_scifact.py "evidence for a scientific claim" --top-k 10
 ```
 
-The CLI builds the index in memory on each run. The data download and
-conversion steps write under ignored `data/` directories. Dataset structure
-and preparation details are in [SciFact data](datasets/scifact.md).
+Build the index once after preparing the corpus. The search CLI loads the
+saved index instead of rebuilding it. The data download, conversion, and
+index files are written under ignored `data/` directories. See
+[Index Storage](index_storage.md) for the saved format and
+[SciFact data](datasets/scifact.md) for dataset preparation details.
 
 ## Tests and documentation preview
 

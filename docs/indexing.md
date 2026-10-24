@@ -54,15 +54,20 @@ settings differ from the active configuration.
 
 The [architecture page](architecture.md#bm25-retrieval) explains BM25's IDF,
 parameters, query term handling, result ordering, and score meaning. A
-processed SciFact collection can be searched with:
+processed SciFact collection can be searched using a saved index. Build it
+once, then run queries against it:
 
 ```bash
-python scripts/search_scifact.py "evidence for a scientific claim" --top-k 10
+python scripts/build_scifact_index.py
+python scripts/load_scifact.py "evidence for a scientific claim" --top-k 10
 ```
 
-That script loads the processed JSONL, builds the index in memory, and prints
-the result ID, BM25 score, and title. It requires the SciFact preparation
-workflow described in [dataset documentation](datasets/scifact.md).
+The build script reads the processed JSONL and saves the index under
+`data/indexes/scifact/`. The search script loads it and prints the result ID,
+BM25 score, and title. Both require the SciFact preparation workflow
+described in [dataset documentation](datasets/scifact.md). The alternative
+`scripts/search_scifact.py` command builds an in-memory index for one-off
+searches.
 
 ## API
 

@@ -1,87 +1,107 @@
-"""Load SciFact splits with BEIR and print consistency checks and an example."""
+"""Search a saved SciFact index using BM25."""
 
+import argparse
+import json
 from pathlib import Path
 
-from beir.datasets.data_loader import GenericDataLoader
+from stratajanus.index.storage import load_index
+from stratajanus.retrieval.bm25 import BM25
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATASET_DIR = PROJECT_ROOT / "data" / "raw" / "scifact"
+
+INDEX_DIR = PROJECT_ROOT / "data" / "indexes" / "scifact"
+
+DOCUMENTS_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+    / "scifact"
+    / "documents.jsonl"
+)
+
+
+def find_titles(doc_ids: set[str]) -> dict[str, str]:
+    """
+    Look up result titles in the processed corpus.
+
+    Returns an empty mapping if the corpus file is unavailable.
+    This affects display only, not ranking.
+    """
+    if not doc_ids or not DOCUMENTS_PATH.is_file():
+        return {}
+
+    titles = {}
+
+    with DOCUMENTS_PATH.open("r", encoding="utf-8") as file:
+        for line in file:
+            if not line.strip():
+                continue
+
+            document = json.loads(line)
+            doc_id = document["doc_id"]
+
+            if doc_id in doc_ids:
+                titles[doc_id] = document["title"]
+
+            if len(titles) == len(doc_ids):
+                break
+
+    return titles
 
 
 def main():
-    """Load SciFact splits, validate their references, and print an example.
+    """Load an existing index and print ranked search results."""
+    parser = argparse.ArgumentParser(
+        description="Search SciFact using a saved stratajanus index."
+    )
 
-    Raises:
-        FileNotFoundError: If no qrels splits exist or the train split is missing.
-        AssertionError: If a loaded split is empty or contains dangling references.
-        ImportError: If the optional ``beir`` dependency is unavailable.
-    """
-    split = "train"
+    parser.add_argument(
+        "query",
+        help="Search query. Put multiword queries in quotes.",
+    )
 
-    qrels_dir = DATASET_DIR / "qrels"
-    available = sorted(path.stem for path in qrels_dir.glob("*.tsv"))
-    if not available:
-        raise FileNotFoundError(f"No qrels splits found in {qrels_dir}")
-    print(f"Available relevance splits: {', '.join(available)}")
+    parser.add_argument(
+        "--top-k",
+        type=int,
+        default=10,
+        help="Maximum number of results.",
+    )
 
-    if split not in available:
+    args = parser.parse_args()
+
+    if not INDEX_DIR.is_dir():
         raise FileNotFoundError(
-            f"Split '{split}' is unavailable. Available splits: {available}"
+            f"No saved index found at: {INDEX_DIR}\n"
+            "Run: python scripts/build_scifact_index.py"
         )
 
-    corpus = queries = qrels = None
-    for current_split in available:
-        current_corpus, current_queries, current_qrels = GenericDataLoader(
-            data_folder=str(DATASET_DIR)
-        ).load(split=current_split)
-        assert current_corpus, f"The corpus is empty for {current_split}."
-        assert current_queries, f"No queries were loaded for {current_split}."
-        assert current_qrels, f"No judgments were loaded for {current_split}."
+    print("Loading saved index...")
+    index = load_index(INDEX_DIR)
 
-        for query_id, judgments in current_qrels.items():
-            assert query_id in current_queries, (
-                f"{current_split} judgments reference missing query: {query_id}"
-            )
-            for doc_id in judgments:
-                assert doc_id in current_corpus, (
-                    f"{current_split} judgments reference missing document: {doc_id}"
-                )
+    ranker = BM25(index)
+    results = ranker.search(args.query, top_k=args.top_k)
 
+    titles = find_titles({
+        result.doc_id
+        for result in results
+    })
+
+    print(f"\nQuery: {args.query}")
+    print(f"Results returned: {len(results)}\n")
+
+    for rank, result in enumerate(results, start=1):
         print(
-            f"{current_split}: {len(current_corpus):,} documents, "
-            f"{len(current_queries):,} queries, "
-            f"{len(current_qrels):,} queries with judgments"
+            f"{rank}. {result.doc_id} "
+            f"| BM25 score: {result.score:.4f}"
         )
-        if current_split == split:
-            corpus, queries, qrels = current_corpus, current_queries, current_qrels
 
-    print("\nDataset consistency checks passed for every available split.\n")
+        title = titles.get(result.doc_id)
+        if title:
+            print(f"   {title}")
 
-    print(f"Split: {split}")
-    print(f"Documents: {len(corpus):,}")
-    print(f"Queries loaded: {len(queries):,}")
-    print(f"Queries with judgments: {len(qrels):,}")
-
-    query_id = next(iter(qrels))
-
-    print("\nEXAMPLE QUERY")
-    print(f"ID: {query_id}")
-    print(f"Text: {queries[query_id]}")
-
-    print("\nRELEVANT DOCUMENTS")
-    for doc_id, relevance in qrels[query_id].items():
-        if relevance <= 0:
-            continue
-
-        document = corpus[doc_id]
-
-        print(f"\nDocument ID: {doc_id}")
-        print(f"Relevance: {relevance}")
-        print(f"Title: {document.get('title', '')}")
-        print(f"Text preview: {document.get('text', '')[:500]}")
+        print()
 
 
 if __name__ == "__main__":
     main()
-"""Load SciFact splits with BEIR and print consistency checks and an example."""

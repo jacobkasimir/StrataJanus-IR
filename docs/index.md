@@ -2,7 +2,7 @@
 
 **StrataJanus-IR** is a small educational search engine for exploring lexical
 information retrieval. Its implemented search path uses SciFact documents, a
-versioned tokenizer, an in-memory inverted index, and BM25 ranking.
+versioned tokenizer, a saved JSON inverted index, and BM25 ranking.
 
 ## Current capabilities
 
@@ -10,13 +10,13 @@ versioned tokenizer, an in-memory inverted index, and BM25 ranking.
 - Convert source records into normalized JSONL and TSV files with a manifest
   and stable document ID mapping.
 - Normalize and tokenize text consistently for indexing and queries.
-- Build an in-memory inverted index and rank matching documents with BM25.
+- Build and save an inverted index, then rank matching documents with BM25.
 - Search processed SciFact from the command line.
 
-The current index is rebuilt in memory and is not persisted. The project does
-not yet implement benchmark metric evaluation, learning-to-rank, dense or
-hybrid retrieval, RAG, or financial signal extraction. Those are possible
-future directions, not current search features.
+The index is loaded into memory for each search. The project does not yet
+implement benchmark metric evaluation, learning-to-rank, dense or hybrid
+retrieval, RAG, or financial signal extraction. Those are possible future
+directions, not current search features.
 
 ## Retrieval pipeline
 
@@ -24,10 +24,11 @@ future directions, not current search features.
 flowchart LR
     A[BEIR SciFact corpus] --> B[Prepare JSONL and ID mapping]
     B --> C[Tokenize title and text]
-    C --> D[In-memory inverted index]
+    C --> D[Build and save JSON index]
     Q[User query] --> E[Same tokenizer]
     E --> F[BM25 scores]
-    D --> F
+    D --> L[Load index]
+    L --> F
     F --> G[Ranked SearchResult values]
 ```
 
@@ -46,10 +47,11 @@ the data flow and structures.
 | `src/stratajanus/index/inverted.py` | In-memory postings and index builder |
 | `src/stratajanus/retrieval/bm25.py` | BM25 scoring and search results |
 | `scripts/download_scifact.py` | Download source dataset |
-| `scripts/load_scifact.py` | Check BEIR dataset splits and references |
+| `scripts/load_scifact.py` | Load a saved index and search SciFact |
 | `scripts/prepare_scifact.py` | Validate and convert raw SciFact files |
 | `scripts/index_scifact.py` | Build and validate the in-memory index |
-| `scripts/search_scifact.py` | Run a BM25 query against processed SciFact |
+| `scripts/build_scifact_index.py` | Build and save the SciFact index |
+| `scripts/search_scifact.py` | Search SciFact by building an in-memory index |
 | `tests/` | Tokenizer, index, BM25, and data preparation tests |
 | `docs/` | MkDocs documentation pages |
 
@@ -75,19 +77,19 @@ Run the test suite:
 python -m pytest
 ```
 
-Download and prepare SciFact, then build the in-memory index and search it:
+Download and prepare SciFact, build the saved index once, then search it:
 
 ```bash
 python scripts/download_scifact.py
 python scripts/prepare_scifact.py
-python scripts/index_scifact.py
-python scripts/search_scifact.py "evidence for a scientific claim" --top-k 10
+python scripts/build_scifact_index.py
+python scripts/load_scifact.py "evidence for a scientific claim" --top-k 10
 ```
 
 The download and preparation commands create data under ignored `data/`
-directories. `index_scifact.py` validates an in-memory build; it does not
-write an index artifact. `search_scifact.py` independently loads the processed
-documents and rebuilds the index for each invocation.
+directories. The build command refuses to overwrite an existing index.
+`load_scifact.py` reads that saved index for each query. The separate
+`search_scifact.py` command remains available for an in-memory search.
 
 Preview the documentation locally with:
 
