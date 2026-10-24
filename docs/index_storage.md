@@ -112,6 +112,18 @@ checkout. Total size includes all data and metadata files in each directory.
 The compressed posting file is smaller, while metadata and the unchanged
 document-length file contribute to total directory size.
 
+To calculate the posting-size reduction relative to the fixed-width format,
+compare the compressed posting bytes with the fixed-width posting bytes:
+
+$$
+\mathrm{reduction}
+=
+100\left(
+1-\frac{\mathrm{compressed\ posting\ bytes}}
+{\mathrm{fixed\text{-}width\ posting\ bytes}}
+\right)\%
+$$
+
 ### Compressed-format limitations
 
 - The complete index is decompressed into memory before searching.
