@@ -80,9 +80,7 @@ mean of all document lengths and is `0.0` for an empty index.
 `BM25` uses the Okapi BM25 sum with defaults `k1=1.2` and `b=0.75`. For each
 distinct query token with postings, it computes
 
-$$
-\mathrm{BM25}(q,d)
-=
+$$\mathrm{BM25}(q,d)=
 \sum_{t \in \mathrm{unique}(q)}
 \mathrm{IDF}(t)
 \frac{f(t,d)(k_1+1)}
@@ -92,9 +90,7 @@ $$
 with
 
 
-$$
-\mathrm{IDF}(t)
-=
+$$\mathrm{IDF}(t)=
 \ln\left(
 1+\frac{N-\mathrm{df}(t)+0.5}
 {\mathrm{df}(t)+0.5}
