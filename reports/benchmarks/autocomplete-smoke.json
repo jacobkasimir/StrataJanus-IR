@@ -1,0 +1,1299 @@
+{
+  "corpus": "scifact",
+  "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "vocabulary_size": 35954,
+  "configuration": {
+    "terms_sampled": 10,
+    "actual_prefixes": 33,
+    "repeats": 2,
+    "warmup_rounds": 1,
+    "top_k": 10,
+    "seed": 42
+  },
+  "prefixes": [
+    "",
+    "p",
+    "pro",
+    "PRO",
+    "zzzznotintheindex",
+    "c",
+    "chr",
+    "chrom",
+    "5",
+    "530",
+    "53034",
+    "i",
+    "irr",
+    "irrig",
+    "h",
+    "ht2",
+    "ht2cr",
+    "g",
+    "gnp",
+    "gnpda",
+    "cur",
+    "curat",
+    "cd3",
+    "cd317",
+    "y",
+    "you",
+    "youth",
+    "b",
+    "bon",
+    "bony",
+    "r",
+    "rbm",
+    "rbm17"
+  ],
+  "implementations": {
+    "trie": {
+      "build_ms": 64.874708,
+      "query": {
+        "summary": {
+          "count": 66,
+          "mean_ms": 0.1568585,
+          "p50_ms": 0.01125,
+          "p95_ms": 0.94036425,
+          "min_ms": 0.000375,
+          "max_ms": 1.110833
+        },
+        "samples": [
+          {
+            "prefix": "b",
+            "repeat": 0,
+            "latency_ms": 0.388625,
+            "result_count": 10
+          },
+          {
+            "prefix": "c",
+            "repeat": 0,
+            "latency_ms": 1.047667,
+            "result_count": 10
+          },
+          {
+            "prefix": "i",
+            "repeat": 0,
+            "latency_ms": 0.618833,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2cr",
+            "repeat": 0,
+            "latency_ms": 0.003875,
+            "result_count": 2
+          },
+          {
+            "prefix": "youth",
+            "repeat": 0,
+            "latency_ms": 0.003292,
+            "result_count": 2
+          },
+          {
+            "prefix": "irr",
+            "repeat": 0,
+            "latency_ms": 0.016541,
+            "result_count": 10
+          },
+          {
+            "prefix": "cur",
+            "repeat": 0,
+            "latency_ms": 0.022291,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2",
+            "repeat": 0,
+            "latency_ms": 0.005792,
+            "result_count": 5
+          },
+          {
+            "prefix": "53034",
+            "repeat": 0,
+            "latency_ms": 0.003333,
+            "result_count": 1
+          },
+          {
+            "prefix": "h",
+            "repeat": 0,
+            "latency_ms": 0.510333,
+            "result_count": 10
+          },
+          {
+            "prefix": "gnpda",
+            "repeat": 0,
+            "latency_ms": 0.003208,
+            "result_count": 1
+          },
+          {
+            "prefix": "cd3",
+            "repeat": 0,
+            "latency_ms": 0.013708,
+            "result_count": 10
+          },
+          {
+            "prefix": "530",
+            "repeat": 0,
+            "latency_ms": 0.005,
+            "result_count": 4
+          },
+          {
+            "prefix": "bony",
+            "repeat": 0,
+            "latency_ms": 0.002458,
+            "result_count": 1
+          },
+          {
+            "prefix": "y",
+            "repeat": 0,
+            "latency_ms": 0.050042,
+            "result_count": 10
+          },
+          {
+            "prefix": "chr",
+            "repeat": 0,
+            "latency_ms": 0.024791,
+            "result_count": 10
+          },
+          {
+            "prefix": "you",
+            "repeat": 0,
+            "latency_ms": 0.009167,
+            "result_count": 9
+          },
+          {
+            "prefix": "",
+            "repeat": 0,
+            "latency_ms": 0.000667,
+            "result_count": 0
+          },
+          {
+            "prefix": "rbm",
+            "repeat": 0,
+            "latency_ms": 0.0035,
+            "result_count": 2
+          },
+          {
+            "prefix": "irrig",
+            "repeat": 0,
+            "latency_ms": 0.003625,
+            "result_count": 2
+          },
+          {
+            "prefix": "gnp",
+            "repeat": 0,
+            "latency_ms": 0.004084,
+            "result_count": 3
+          },
+          {
+            "prefix": "pro",
+            "repeat": 0,
+            "latency_ms": 0.165417,
+            "result_count": 10
+          },
+          {
+            "prefix": "g",
+            "repeat": 0,
+            "latency_ms": 0.329083,
+            "result_count": 10
+          },
+          {
+            "prefix": "curat",
+            "repeat": 0,
+            "latency_ms": 0.008041,
+            "result_count": 7
+          },
+          {
+            "prefix": "PRO",
+            "repeat": 0,
+            "latency_ms": 0.152542,
+            "result_count": 10
+          },
+          {
+            "prefix": "r",
+            "repeat": 0,
+            "latency_ms": 0.608125,
+            "result_count": 10
+          },
+          {
+            "prefix": "zzzznotintheindex",
+            "repeat": 0,
+            "latency_ms": 0.001417,
+            "result_count": 0
+          },
+          {
+            "prefix": "bon",
+            "repeat": 0,
+            "latency_ms": 0.011125,
+            "result_count": 10
+          },
+          {
+            "prefix": "rbm17",
+            "repeat": 0,
+            "latency_ms": 0.002583,
+            "result_count": 1
+          },
+          {
+            "prefix": "5",
+            "repeat": 0,
+            "latency_ms": 0.049916,
+            "result_count": 10
+          },
+          {
+            "prefix": "cd317",
+            "repeat": 0,
+            "latency_ms": 0.00275,
+            "result_count": 1
+          },
+          {
+            "prefix": "p",
+            "repeat": 0,
+            "latency_ms": 1.110833,
+            "result_count": 10
+          },
+          {
+            "prefix": "chrom",
+            "repeat": 0,
+            "latency_ms": 0.019125,
+            "result_count": 10
+          },
+          {
+            "prefix": "rbm17",
+            "repeat": 1,
+            "latency_ms": 0.003375,
+            "result_count": 1
+          },
+          {
+            "prefix": "youth",
+            "repeat": 1,
+            "latency_ms": 0.003208,
+            "result_count": 2
+          },
+          {
+            "prefix": "chrom",
+            "repeat": 1,
+            "latency_ms": 0.01775,
+            "result_count": 10
+          },
+          {
+            "prefix": "cd317",
+            "repeat": 1,
+            "latency_ms": 0.002583,
+            "result_count": 1
+          },
+          {
+            "prefix": "irrig",
+            "repeat": 1,
+            "latency_ms": 0.003584,
+            "result_count": 2
+          },
+          {
+            "prefix": "",
+            "repeat": 1,
+            "latency_ms": 0.000375,
+            "result_count": 0
+          },
+          {
+            "prefix": "cur",
+            "repeat": 1,
+            "latency_ms": 0.021666,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2",
+            "repeat": 1,
+            "latency_ms": 0.006042,
+            "result_count": 5
+          },
+          {
+            "prefix": "c",
+            "repeat": 1,
+            "latency_ms": 1.045583,
+            "result_count": 10
+          },
+          {
+            "prefix": "530",
+            "repeat": 1,
+            "latency_ms": 0.005958,
+            "result_count": 4
+          },
+          {
+            "prefix": "bony",
+            "repeat": 1,
+            "latency_ms": 0.002458,
+            "result_count": 1
+          },
+          {
+            "prefix": "gnp",
+            "repeat": 1,
+            "latency_ms": 0.004042,
+            "result_count": 3
+          },
+          {
+            "prefix": "g",
+            "repeat": 1,
+            "latency_ms": 0.324042,
+            "result_count": 10
+          },
+          {
+            "prefix": "bon",
+            "repeat": 1,
+            "latency_ms": 0.011375,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2cr",
+            "repeat": 1,
+            "latency_ms": 0.003333,
+            "result_count": 2
+          },
+          {
+            "prefix": "cd3",
+            "repeat": 1,
+            "latency_ms": 0.013458,
+            "result_count": 10
+          },
+          {
+            "prefix": "h",
+            "repeat": 1,
+            "latency_ms": 0.508292,
+            "result_count": 10
+          },
+          {
+            "prefix": "p",
+            "repeat": 1,
+            "latency_ms": 1.06725,
+            "result_count": 10
+          },
+          {
+            "prefix": "r",
+            "repeat": 1,
+            "latency_ms": 0.602042,
+            "result_count": 10
+          },
+          {
+            "prefix": "gnpda",
+            "repeat": 1,
+            "latency_ms": 0.003,
+            "result_count": 1
+          },
+          {
+            "prefix": "rbm",
+            "repeat": 1,
+            "latency_ms": 0.003291,
+            "result_count": 2
+          },
+          {
+            "prefix": "i",
+            "repeat": 1,
+            "latency_ms": 0.624708,
+            "result_count": 10
+          },
+          {
+            "prefix": "you",
+            "repeat": 1,
+            "latency_ms": 0.009666,
+            "result_count": 9
+          },
+          {
+            "prefix": "irr",
+            "repeat": 1,
+            "latency_ms": 0.0165,
+            "result_count": 10
+          },
+          {
+            "prefix": "pro",
+            "repeat": 1,
+            "latency_ms": 0.153291,
+            "result_count": 10
+          },
+          {
+            "prefix": "PRO",
+            "repeat": 1,
+            "latency_ms": 0.152333,
+            "result_count": 10
+          },
+          {
+            "prefix": "53034",
+            "repeat": 1,
+            "latency_ms": 0.003333,
+            "result_count": 1
+          },
+          {
+            "prefix": "y",
+            "repeat": 1,
+            "latency_ms": 0.050916,
+            "result_count": 10
+          },
+          {
+            "prefix": "chr",
+            "repeat": 1,
+            "latency_ms": 0.025292,
+            "result_count": 10
+          },
+          {
+            "prefix": "zzzznotintheindex",
+            "repeat": 1,
+            "latency_ms": 0.001292,
+            "result_count": 0
+          },
+          {
+            "prefix": "5",
+            "repeat": 1,
+            "latency_ms": 0.048042,
+            "result_count": 10
+          },
+          {
+            "prefix": "curat",
+            "repeat": 1,
+            "latency_ms": 0.008167,
+            "result_count": 7
+          },
+          {
+            "prefix": "b",
+            "repeat": 1,
+            "latency_ms": 0.404625,
+            "result_count": 10
+          }
+        ]
+      },
+      "memory": {
+        "rss_before_bytes": 52133888,
+        "rss_after_bytes": 68681728,
+        "rss_delta_bytes": 16547840
+      }
+    },
+    "sorted": {
+      "build_ms": 3.400416,
+      "query": {
+        "summary": {
+          "count": 66,
+          "mean_ms": 0.0808604393939394,
+          "p50_ms": 0.010166,
+          "p95_ms": 0.460177,
+          "min_ms": 0.000417,
+          "max_ms": 0.550125
+        },
+        "samples": [
+          {
+            "prefix": "b",
+            "repeat": 0,
+            "latency_ms": 0.207833,
+            "result_count": 10
+          },
+          {
+            "prefix": "c",
+            "repeat": 0,
+            "latency_ms": 0.550125,
+            "result_count": 10
+          },
+          {
+            "prefix": "i",
+            "repeat": 0,
+            "latency_ms": 0.296666,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2cr",
+            "repeat": 0,
+            "latency_ms": 0.003708,
+            "result_count": 2
+          },
+          {
+            "prefix": "youth",
+            "repeat": 0,
+            "latency_ms": 0.003292,
+            "result_count": 2
+          },
+          {
+            "prefix": "irr",
+            "repeat": 0,
+            "latency_ms": 0.0115,
+            "result_count": 10
+          },
+          {
+            "prefix": "cur",
+            "repeat": 0,
+            "latency_ms": 0.016459,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2",
+            "repeat": 0,
+            "latency_ms": 0.005875,
+            "result_count": 5
+          },
+          {
+            "prefix": "53034",
+            "repeat": 0,
+            "latency_ms": 0.002792,
+            "result_count": 1
+          },
+          {
+            "prefix": "h",
+            "repeat": 0,
+            "latency_ms": 0.241667,
+            "result_count": 10
+          },
+          {
+            "prefix": "gnpda",
+            "repeat": 0,
+            "latency_ms": 0.003125,
+            "result_count": 1
+          },
+          {
+            "prefix": "cd3",
+            "repeat": 0,
+            "latency_ms": 0.010834,
+            "result_count": 10
+          },
+          {
+            "prefix": "530",
+            "repeat": 0,
+            "latency_ms": 0.004917,
+            "result_count": 4
+          },
+          {
+            "prefix": "bony",
+            "repeat": 0,
+            "latency_ms": 0.002666,
+            "result_count": 1
+          },
+          {
+            "prefix": "y",
+            "repeat": 0,
+            "latency_ms": 0.032083,
+            "result_count": 10
+          },
+          {
+            "prefix": "chr",
+            "repeat": 0,
+            "latency_ms": 0.017583,
+            "result_count": 10
+          },
+          {
+            "prefix": "you",
+            "repeat": 0,
+            "latency_ms": 0.008709,
+            "result_count": 9
+          },
+          {
+            "prefix": "",
+            "repeat": 0,
+            "latency_ms": 0.000541,
+            "result_count": 0
+          },
+          {
+            "prefix": "rbm",
+            "repeat": 0,
+            "latency_ms": 0.003,
+            "result_count": 2
+          },
+          {
+            "prefix": "irrig",
+            "repeat": 0,
+            "latency_ms": 0.003167,
+            "result_count": 2
+          },
+          {
+            "prefix": "gnp",
+            "repeat": 0,
+            "latency_ms": 0.003834,
+            "result_count": 3
+          },
+          {
+            "prefix": "pro",
+            "repeat": 0,
+            "latency_ms": 0.0835,
+            "result_count": 10
+          },
+          {
+            "prefix": "g",
+            "repeat": 0,
+            "latency_ms": 0.172708,
+            "result_count": 10
+          },
+          {
+            "prefix": "curat",
+            "repeat": 0,
+            "latency_ms": 0.007541,
+            "result_count": 7
+          },
+          {
+            "prefix": "PRO",
+            "repeat": 0,
+            "latency_ms": 0.083583,
+            "result_count": 10
+          },
+          {
+            "prefix": "r",
+            "repeat": 0,
+            "latency_ms": 0.320083,
+            "result_count": 10
+          },
+          {
+            "prefix": "zzzznotintheindex",
+            "repeat": 0,
+            "latency_ms": 0.002292,
+            "result_count": 0
+          },
+          {
+            "prefix": "bon",
+            "repeat": 0,
+            "latency_ms": 0.009916,
+            "result_count": 10
+          },
+          {
+            "prefix": "rbm17",
+            "repeat": 0,
+            "latency_ms": 0.002708,
+            "result_count": 1
+          },
+          {
+            "prefix": "5",
+            "repeat": 0,
+            "latency_ms": 0.041375,
+            "result_count": 10
+          },
+          {
+            "prefix": "cd317",
+            "repeat": 0,
+            "latency_ms": 0.00275,
+            "result_count": 1
+          },
+          {
+            "prefix": "p",
+            "repeat": 0,
+            "latency_ms": 0.507166,
+            "result_count": 10
+          },
+          {
+            "prefix": "chrom",
+            "repeat": 0,
+            "latency_ms": 0.014,
+            "result_count": 10
+          },
+          {
+            "prefix": "rbm17",
+            "repeat": 1,
+            "latency_ms": 0.002834,
+            "result_count": 1
+          },
+          {
+            "prefix": "youth",
+            "repeat": 1,
+            "latency_ms": 0.003208,
+            "result_count": 2
+          },
+          {
+            "prefix": "chrom",
+            "repeat": 1,
+            "latency_ms": 0.013083,
+            "result_count": 10
+          },
+          {
+            "prefix": "cd317",
+            "repeat": 1,
+            "latency_ms": 0.002667,
+            "result_count": 1
+          },
+          {
+            "prefix": "irrig",
+            "repeat": 1,
+            "latency_ms": 0.003125,
+            "result_count": 2
+          },
+          {
+            "prefix": "",
+            "repeat": 1,
+            "latency_ms": 0.000417,
+            "result_count": 0
+          },
+          {
+            "prefix": "cur",
+            "repeat": 1,
+            "latency_ms": 0.016083,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2",
+            "repeat": 1,
+            "latency_ms": 0.005708,
+            "result_count": 5
+          },
+          {
+            "prefix": "c",
+            "repeat": 1,
+            "latency_ms": 0.544792,
+            "result_count": 10
+          },
+          {
+            "prefix": "530",
+            "repeat": 1,
+            "latency_ms": 0.005125,
+            "result_count": 4
+          },
+          {
+            "prefix": "bony",
+            "repeat": 1,
+            "latency_ms": 0.002625,
+            "result_count": 1
+          },
+          {
+            "prefix": "gnp",
+            "repeat": 1,
+            "latency_ms": 0.003833,
+            "result_count": 3
+          },
+          {
+            "prefix": "g",
+            "repeat": 1,
+            "latency_ms": 0.171833,
+            "result_count": 10
+          },
+          {
+            "prefix": "bon",
+            "repeat": 1,
+            "latency_ms": 0.010416,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2cr",
+            "repeat": 1,
+            "latency_ms": 0.003375,
+            "result_count": 2
+          },
+          {
+            "prefix": "cd3",
+            "repeat": 1,
+            "latency_ms": 0.010833,
+            "result_count": 10
+          },
+          {
+            "prefix": "h",
+            "repeat": 1,
+            "latency_ms": 0.237708,
+            "result_count": 10
+          },
+          {
+            "prefix": "p",
+            "repeat": 1,
+            "latency_ms": 0.506583,
+            "result_count": 10
+          },
+          {
+            "prefix": "r",
+            "repeat": 1,
+            "latency_ms": 0.320959,
+            "result_count": 10
+          },
+          {
+            "prefix": "gnpda",
+            "repeat": 1,
+            "latency_ms": 0.003334,
+            "result_count": 1
+          },
+          {
+            "prefix": "rbm",
+            "repeat": 1,
+            "latency_ms": 0.003209,
+            "result_count": 2
+          },
+          {
+            "prefix": "i",
+            "repeat": 1,
+            "latency_ms": 0.296792,
+            "result_count": 10
+          },
+          {
+            "prefix": "you",
+            "repeat": 1,
+            "latency_ms": 0.009083,
+            "result_count": 9
+          },
+          {
+            "prefix": "irr",
+            "repeat": 1,
+            "latency_ms": 0.011291,
+            "result_count": 10
+          },
+          {
+            "prefix": "pro",
+            "repeat": 1,
+            "latency_ms": 0.083375,
+            "result_count": 10
+          },
+          {
+            "prefix": "PRO",
+            "repeat": 1,
+            "latency_ms": 0.083416,
+            "result_count": 10
+          },
+          {
+            "prefix": "53034",
+            "repeat": 1,
+            "latency_ms": 0.002834,
+            "result_count": 1
+          },
+          {
+            "prefix": "y",
+            "repeat": 1,
+            "latency_ms": 0.032292,
+            "result_count": 10
+          },
+          {
+            "prefix": "chr",
+            "repeat": 1,
+            "latency_ms": 0.017792,
+            "result_count": 10
+          },
+          {
+            "prefix": "zzzznotintheindex",
+            "repeat": 1,
+            "latency_ms": 0.001958,
+            "result_count": 0
+          },
+          {
+            "prefix": "5",
+            "repeat": 1,
+            "latency_ms": 0.041208,
+            "result_count": 10
+          },
+          {
+            "prefix": "curat",
+            "repeat": 1,
+            "latency_ms": 0.007333,
+            "result_count": 7
+          },
+          {
+            "prefix": "b",
+            "repeat": 1,
+            "latency_ms": 0.199667,
+            "result_count": 10
+          }
+        ]
+      },
+      "memory": {
+        "rss_before_bytes": 52330496,
+        "rss_after_bytes": 52428800,
+        "rss_delta_bytes": 98304
+      }
+    },
+    "marisa": {
+      "build_ms": 16.327083,
+      "query": {
+        "summary": {
+          "count": 66,
+          "mean_ms": 0.14440024242424243,
+          "p50_ms": 0.0125205,
+          "p95_ms": 0.841729,
+          "min_ms": 0.000375,
+          "max_ms": 0.981208
+        },
+        "samples": [
+          {
+            "prefix": "b",
+            "repeat": 0,
+            "latency_ms": 0.34875,
+            "result_count": 10
+          },
+          {
+            "prefix": "c",
+            "repeat": 0,
+            "latency_ms": 0.964291,
+            "result_count": 10
+          },
+          {
+            "prefix": "i",
+            "repeat": 0,
+            "latency_ms": 0.557375,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2cr",
+            "repeat": 0,
+            "latency_ms": 0.005958,
+            "result_count": 2
+          },
+          {
+            "prefix": "youth",
+            "repeat": 0,
+            "latency_ms": 0.004417,
+            "result_count": 2
+          },
+          {
+            "prefix": "irr",
+            "repeat": 0,
+            "latency_ms": 0.015334,
+            "result_count": 10
+          },
+          {
+            "prefix": "cur",
+            "repeat": 0,
+            "latency_ms": 0.02125,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2",
+            "repeat": 0,
+            "latency_ms": 0.007125,
+            "result_count": 5
+          },
+          {
+            "prefix": "53034",
+            "repeat": 0,
+            "latency_ms": 0.003333,
+            "result_count": 1
+          },
+          {
+            "prefix": "h",
+            "repeat": 0,
+            "latency_ms": 0.44975,
+            "result_count": 10
+          },
+          {
+            "prefix": "gnpda",
+            "repeat": 0,
+            "latency_ms": 0.003708,
+            "result_count": 1
+          },
+          {
+            "prefix": "cd3",
+            "repeat": 0,
+            "latency_ms": 0.014666,
+            "result_count": 10
+          },
+          {
+            "prefix": "530",
+            "repeat": 0,
+            "latency_ms": 0.005833,
+            "result_count": 4
+          },
+          {
+            "prefix": "bony",
+            "repeat": 0,
+            "latency_ms": 0.003209,
+            "result_count": 1
+          },
+          {
+            "prefix": "y",
+            "repeat": 0,
+            "latency_ms": 0.053583,
+            "result_count": 10
+          },
+          {
+            "prefix": "chr",
+            "repeat": 0,
+            "latency_ms": 0.023625,
+            "result_count": 10
+          },
+          {
+            "prefix": "you",
+            "repeat": 0,
+            "latency_ms": 0.010625,
+            "result_count": 9
+          },
+          {
+            "prefix": "",
+            "repeat": 0,
+            "latency_ms": 0.000666,
+            "result_count": 0
+          },
+          {
+            "prefix": "rbm",
+            "repeat": 0,
+            "latency_ms": 0.00375,
+            "result_count": 2
+          },
+          {
+            "prefix": "irrig",
+            "repeat": 0,
+            "latency_ms": 0.004042,
+            "result_count": 2
+          },
+          {
+            "prefix": "gnp",
+            "repeat": 0,
+            "latency_ms": 0.004375,
+            "result_count": 3
+          },
+          {
+            "prefix": "pro",
+            "repeat": 0,
+            "latency_ms": 0.149208,
+            "result_count": 10
+          },
+          {
+            "prefix": "g",
+            "repeat": 0,
+            "latency_ms": 0.307875,
+            "result_count": 10
+          },
+          {
+            "prefix": "curat",
+            "repeat": 0,
+            "latency_ms": 0.009083,
+            "result_count": 7
+          },
+          {
+            "prefix": "PRO",
+            "repeat": 0,
+            "latency_ms": 0.141833,
+            "result_count": 10
+          },
+          {
+            "prefix": "r",
+            "repeat": 0,
+            "latency_ms": 0.583042,
+            "result_count": 10
+          },
+          {
+            "prefix": "zzzznotintheindex",
+            "repeat": 0,
+            "latency_ms": 0.003041,
+            "result_count": 0
+          },
+          {
+            "prefix": "bon",
+            "repeat": 0,
+            "latency_ms": 0.0125,
+            "result_count": 10
+          },
+          {
+            "prefix": "rbm17",
+            "repeat": 0,
+            "latency_ms": 0.0035,
+            "result_count": 1
+          },
+          {
+            "prefix": "5",
+            "repeat": 0,
+            "latency_ms": 0.057083,
+            "result_count": 10
+          },
+          {
+            "prefix": "cd317",
+            "repeat": 0,
+            "latency_ms": 0.003416,
+            "result_count": 1
+          },
+          {
+            "prefix": "p",
+            "repeat": 0,
+            "latency_ms": 0.981208,
+            "result_count": 10
+          },
+          {
+            "prefix": "chrom",
+            "repeat": 0,
+            "latency_ms": 0.019,
+            "result_count": 10
+          },
+          {
+            "prefix": "rbm17",
+            "repeat": 1,
+            "latency_ms": 0.003542,
+            "result_count": 1
+          },
+          {
+            "prefix": "youth",
+            "repeat": 1,
+            "latency_ms": 0.003958,
+            "result_count": 2
+          },
+          {
+            "prefix": "chrom",
+            "repeat": 1,
+            "latency_ms": 0.01525,
+            "result_count": 10
+          },
+          {
+            "prefix": "cd317",
+            "repeat": 1,
+            "latency_ms": 0.003041,
+            "result_count": 1
+          },
+          {
+            "prefix": "irrig",
+            "repeat": 1,
+            "latency_ms": 0.003959,
+            "result_count": 2
+          },
+          {
+            "prefix": "",
+            "repeat": 1,
+            "latency_ms": 0.000375,
+            "result_count": 0
+          },
+          {
+            "prefix": "cur",
+            "repeat": 1,
+            "latency_ms": 0.020875,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2",
+            "repeat": 1,
+            "latency_ms": 0.007042,
+            "result_count": 5
+          },
+          {
+            "prefix": "c",
+            "repeat": 1,
+            "latency_ms": 0.927958,
+            "result_count": 10
+          },
+          {
+            "prefix": "530",
+            "repeat": 1,
+            "latency_ms": 0.00625,
+            "result_count": 4
+          },
+          {
+            "prefix": "bony",
+            "repeat": 1,
+            "latency_ms": 0.003209,
+            "result_count": 1
+          },
+          {
+            "prefix": "gnp",
+            "repeat": 1,
+            "latency_ms": 0.004459,
+            "result_count": 3
+          },
+          {
+            "prefix": "g",
+            "repeat": 1,
+            "latency_ms": 0.305875,
+            "result_count": 10
+          },
+          {
+            "prefix": "bon",
+            "repeat": 1,
+            "latency_ms": 0.012541,
+            "result_count": 10
+          },
+          {
+            "prefix": "ht2cr",
+            "repeat": 1,
+            "latency_ms": 0.003875,
+            "result_count": 2
+          },
+          {
+            "prefix": "cd3",
+            "repeat": 1,
+            "latency_ms": 0.013834,
+            "result_count": 10
+          },
+          {
+            "prefix": "h",
+            "repeat": 1,
+            "latency_ms": 0.44575,
+            "result_count": 10
+          },
+          {
+            "prefix": "p",
+            "repeat": 1,
+            "latency_ms": 0.955042,
+            "result_count": 10
+          },
+          {
+            "prefix": "r",
+            "repeat": 1,
+            "latency_ms": 0.578333,
+            "result_count": 10
+          },
+          {
+            "prefix": "gnpda",
+            "repeat": 1,
+            "latency_ms": 0.004,
+            "result_count": 1
+          },
+          {
+            "prefix": "rbm",
+            "repeat": 1,
+            "latency_ms": 0.004,
+            "result_count": 2
+          },
+          {
+            "prefix": "i",
+            "repeat": 1,
+            "latency_ms": 0.560666,
+            "result_count": 10
+          },
+          {
+            "prefix": "you",
+            "repeat": 1,
+            "latency_ms": 0.012209,
+            "result_count": 9
+          },
+          {
+            "prefix": "irr",
+            "repeat": 1,
+            "latency_ms": 0.0155,
+            "result_count": 10
+          },
+          {
+            "prefix": "pro",
+            "repeat": 1,
+            "latency_ms": 0.147209,
+            "result_count": 10
+          },
+          {
+            "prefix": "PRO",
+            "repeat": 1,
+            "latency_ms": 0.137792,
+            "result_count": 10
+          },
+          {
+            "prefix": "53034",
+            "repeat": 1,
+            "latency_ms": 0.003542,
+            "result_count": 1
+          },
+          {
+            "prefix": "y",
+            "repeat": 1,
+            "latency_ms": 0.055625,
+            "result_count": 10
+          },
+          {
+            "prefix": "chr",
+            "repeat": 1,
+            "latency_ms": 0.024042,
+            "result_count": 10
+          },
+          {
+            "prefix": "zzzznotintheindex",
+            "repeat": 1,
+            "latency_ms": 0.0025,
+            "result_count": 0
+          },
+          {
+            "prefix": "5",
+            "repeat": 1,
+            "latency_ms": 0.059041,
+            "result_count": 10
+          },
+          {
+            "prefix": "curat",
+            "repeat": 1,
+            "latency_ms": 0.009084,
+            "result_count": 7
+          },
+          {
+            "prefix": "b",
+            "repeat": 1,
+            "latency_ms": 0.403584,
+            "result_count": 10
+          }
+        ]
+      },
+      "memory": {
+        "rss_before_bytes": 52264960,
+        "rss_after_bytes": 54198272,
+        "rss_delta_bytes": 1933312
+      }
+    }
+  }
+}

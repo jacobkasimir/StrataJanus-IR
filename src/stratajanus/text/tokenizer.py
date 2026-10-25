@@ -115,3 +115,39 @@ def verify_tokenizer_config(path: Path) -> None:
             f"Saved:   {saved_config}\n"
             f"Current: {current_config}"
         )
+
+def normalize_prefix(prefix: str) -> str | None:
+    """Normalize one typed autocomplete prefix.
+
+    Applies the tokenizer's Unicode normalization and lowercasing.
+    Returns None for an empty prefix or one that is not a single
+    complete regex word token.
+
+    Args:
+        prefix: Text typed by the user.
+
+    Returns:
+        The normalized prefix, or None if it is unsuitable for
+        vocabulary autocomplete.
+
+    Raises:
+        TypeError: If prefix is not a string.
+    """
+    if not isinstance(prefix, str):
+        raise TypeError(
+            f"normalize_prefix() expected str, "
+            f"got {type(prefix).__name__}"
+        )
+
+    normalized = unicodedata.normalize(
+        CONFIG.unicode_normalization,
+        prefix,
+    )
+
+    if CONFIG.lowercase:
+        normalized = normalized.lower()
+
+    if not normalized or TOKEN_REGEX.fullmatch(normalized) is None:
+        return None
+
+    return normalized

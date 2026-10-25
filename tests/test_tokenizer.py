@@ -7,6 +7,7 @@ from stratajanus.text.tokenizer import (
     tokenize,
     save_tokenizer_config,
     verify_tokenizer_config,
+    normalize_prefix,
 )
 
 
@@ -111,3 +112,19 @@ def test_mismatched_config_is_rejected(tmp_path):
     ):
         verify_tokenizer_config(config_path)
 
+def test_prefix_normalization():
+    assert normalize_prefix("PROT") == "prot"
+    assert normalize_prefix("CAFÉ") == "café"
+    assert normalize_prefix("cafe\u0301") == "café"
+
+
+def test_invalid_prefixes():
+    assert normalize_prefix("") is None
+    assert normalize_prefix("prot!") is None
+    assert normalize_prefix("two words") is None
+    assert normalize_prefix("???") is None
+
+
+def test_non_string_prefix_is_rejected():
+    with pytest.raises(TypeError):
+        normalize_prefix(None)

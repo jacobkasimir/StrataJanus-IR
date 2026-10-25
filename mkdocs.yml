@@ -33,6 +33,7 @@ nav:
   - Quickstart: quickstart.md
   - Indexing: indexing.md
   - Index Storage: index_storage.md
+  - Autocompletion: autocomplete.md
   - API Reference: api.md
   - SciFact data: datasets/scifact.md
   - Benchmarks: benchmarks/scifact.md

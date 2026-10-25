@@ -28,6 +28,7 @@ idna==3.20
 iniconfig==2.3.1
 Jinja2==3.1.6
 joblib==1.6.0
+marisa-trie==1.4.1
 Markdown==3.11.2
 markdown-it-py==4.2.0
 MarkupSafe==3.0.4
@@ -53,6 +54,7 @@ pathspec==1.1.1
 platformdirs==4.13.5
 pluggy==1.7.0
 propcache==0.5.4
+psutil==7.2.2
 pyarrow==26.0.0
 Pygments==2.21.0
 pymdown-extensions==12.3
@@ -71,6 +73,7 @@ sentence-transformers==6.2.0
 setuptools==84.2.1
 shellingham==1.5.4
 six==1.17.0
+-e git+https://github.com/jacobkasimir/StrataJanus-IR.git@6c3c302a38acb41d549d1b67e8248c181ef827bf#egg=stratajanus
 sympy==1.14.0
 threadpoolctl==3.7.0
 tokenizers==0.23.3
