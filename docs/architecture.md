@@ -114,10 +114,13 @@ index as read-only during ranking.
 
 ## Scope and future work
 
-The implemented pipeline is lexical. JSON and fixed-width binary are
-uncompressed; the `vb` format compresses posting values using document-ID gaps
-and unsigned LEB128. Fixed-width numerical values use unsigned 32-bit
-little-endian integers. All three loaders reconstruct the complete index in
-memory. Dense or hybrid retrieval, retrieval-quality metric evaluation,
-reranking, RAG, and domain-specific financial analysis are not implemented in
-the current package.
+The implemented search pipeline is lexical. Vocabulary autocomplete is a
+separate feature that suggests indexed terms; see the
+[autocomplete guide](autocomplete.md). SciFact retrieval quality has also
+been evaluated; see [retrieval evaluation](retrieval-evaluation.md) for the
+validation and held-out reports. JSON and fixed-width binary are uncompressed;
+the `vb` format compresses posting values using document-ID gaps and unsigned
+LEB128. Fixed-width numerical values use unsigned 32-bit little-endian
+integers. All three loaders reconstruct the complete index in memory. Dense or
+hybrid retrieval, reranking, and grounded answer generation remain future
+work.

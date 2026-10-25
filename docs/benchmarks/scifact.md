@@ -56,7 +56,7 @@ SHA-256 fingerprints for required input files, and source files.
 
 ## Existing reports
 
-The repository contains [scifact-run-2.json](../../reports/benchmarks/scifact-run-2.json),
+The repository contains `reports/benchmarks/scifact-run-2.json`,
 a 100-query report with 5 measured rounds per query (500 observations per
 format), 3 index repetitions, one warm-up round, `top_k=10`, and seed 42. It
 records 5,183 documents and 35,954 terms. The following values are copied from

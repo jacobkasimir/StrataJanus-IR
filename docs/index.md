@@ -14,12 +14,12 @@ BM25 ranking.
 - Build and save a JSON index, convert it to fixed-width binary, or encode
   compressed postings, then rank matching documents with BM25.
 - Search processed SciFact from the command line.
+- Suggest indexed SciFact vocabulary terms from a prefix using autocomplete.
 
-The index is loaded into memory for each search. The project includes an
-initial SciFact performance benchmark, but does not yet implement
-retrieval-quality evaluation, large-corpus scalability evaluation,
-learning-to-rank, dense or hybrid retrieval, autocomplete, or RAG. Those are
-future directions, not current search features.
+The index is loaded into memory for each search. The project includes SciFact
+retrieval-quality evaluation on a fixed validation split and an initial
+performance benchmark. Large-corpus scalability evaluation, learning-to-rank,
+dense or hybrid retrieval, and RAG remain future directions.
 
 ## Retrieval pipeline
 
@@ -54,6 +54,7 @@ the data flow and structures.
 | `src/stratajanus/text/tokenizer.py` | Versioned normalization and token extraction |
 | `src/stratajanus/index/inverted.py` | In-memory postings and index builder |
 | `src/stratajanus/retrieval/bm25.py` | BM25 scoring and search results |
+| `src/stratajanus/retrieval/autocomplete.py` | Trie, sorted-list, and optional marisa-trie vocabulary autocomplete |
 | `scripts/download_scifact.py` | Download source dataset |
 | `scripts/load_scifact.py` | Search the saved JSON index |
 | `scripts/prepare_scifact.py` | Validate and convert raw SciFact files |
@@ -63,7 +64,11 @@ the data flow and structures.
 | `scripts/convert_index_to_binary.py` | Convert JSON index to fixed-width binary |
 | `scripts/compress_scifact_index.py` | Create and verify compressed postings |
 | `scripts/benchmark_scifact.py` | Benchmark SciFact construction, storage, loading, and queries |
-| `tests/` | Tokenizer, index, BM25, and data preparation tests |
+| `scripts/autocomplete_scifact.py` | Suggest terms from the saved SciFact vocabulary |
+| `scripts/benchmark_autocomplete.py` | Compare autocomplete backends on a SciFact prefix workload |
+| `scripts/create_scifact_validation_split.py` | Create a fixed validation split from training qrels |
+| `scripts/evaluate_scifact.py` | Evaluate BM25 against SciFact relevance judgments |
+| `tests/` | Tokenizer, index, BM25, autocomplete, evaluation, and data-preparation tests |
 | `docs/` | MkDocs documentation pages |
 
 The `vb` conversion expects the fixed32 index to exist first.
@@ -146,3 +151,10 @@ python scripts/benchmark_scifact.py --output reports/benchmarks/my-run.json
 The script refuses to overwrite an existing report. See
 [Performance benchmarks](benchmarks/scifact.md) for the protocol and report
 summaries.
+
+## Retrieval evaluation
+
+BM25 parameter selection uses the fixed SciFact validation-query split. See
+[Retrieval evaluation](retrieval-evaluation.md) for the frozen grid, decision
+rule, validation comparison against the defaults, and retained reports.
+Official test judgments were not used for parameter selection.

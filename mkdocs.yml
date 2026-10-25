@@ -36,4 +36,5 @@ nav:
   - Autocompletion: autocomplete.md
   - API Reference: api.md
   - SciFact data: datasets/scifact.md
+  - Retrieval evaluation: retrieval-evaluation.md
   - Benchmarks: benchmarks/scifact.md

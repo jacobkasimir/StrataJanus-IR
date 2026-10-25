@@ -69,6 +69,17 @@ a format.
         - SearchResult
         - BM25
 
+## Vocabulary autocomplete
+
+::: stratajanus.retrieval.autocomplete
+    options:
+      heading_level: 3
+      members:
+        - Suggestion
+        - TrieAutocomplete
+        - SortedAutocomplete
+        - MarisaAutocomplete
+
 ## Benchmark utility
 
 ::: stratajanus.evaluation.performance
@@ -132,7 +143,6 @@ scripts can also be invoked from the repository root as shown on the
     options:
       heading_level: 4
       members:
-        - read_documents
         - main
 
 ### Build and convert indexes

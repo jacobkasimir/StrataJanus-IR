@@ -4,16 +4,18 @@
 
 The project currently uses the BEIR-formatted SciFact dataset as its example corpus. An index can be saved as readable JSON, fixed-width binary, or with gap-encoded variable-byte postings.
 
-> **Status:** stratajanus implements lexical search with JSON, fixed-width, and compressed-postings storage, plus an initial SciFact performance benchmark. Retrieval-quality evaluation, autocomplete, large-corpus scalability evaluation, dense/hybrid retrieval, learning to rank, and RAG are not implemented.
+> **Status:** stratajanus implements lexical search, vocabulary autocomplete, SciFact retrieval-quality evaluation, and an initial performance benchmark. Large-corpus scalability evaluation, dense/hybrid retrieval, learning to rank, and RAG are not implemented.
 
 ## Features
 
 - **Deterministic tokenization:** Unicode NFC normalization, lowercasing, and regex-based token extraction.
 - **Inverted indexing:** Posting lists containing internal document IDs and term frequencies.
 - **BM25 ranking:** Search results ranked using term frequency, document frequency, and document-length normalization.
+- **Vocabulary autocomplete:** Suggests indexed terms from typed prefixes. See the [autocomplete guide](docs/autocomplete.md) for behavior and the SciFact benchmark.
 - **Persistent index storage:** JSON, fixed-width binary, and gap-encoded variable-byte postings.
+- **Retrieval evaluation:** SciFact validation and held-out test metrics; see [retrieval evaluation](docs/retrieval-evaluation.md) for protocols and reports.
 - **Validation:** Checks for malformed indexes and incompatible tokenizer configurations.
-- **Automated tests:** Tests for tokenization, indexing, ranking, and index-storage round trips.
+- **Automated tests:** Cover tokenization, indexing, BM25, autocomplete, retrieval metrics, and storage validation.
 - **Performance benchmark:** Measures index construction, saving/loading, file sizes, and warmed sequential query latency on SciFact. Existing reports are initial small-corpus baselines, not scalability evidence.
 
 ## How it works
@@ -262,8 +264,8 @@ mkdocs build --strict
 ```
 
 The README is a quick-start guide. The [MkDocs pages](docs/index.md) cover
-architecture, indexing, storage formats, dataset preparation, benchmarks, and
-the public API.
+architecture, indexing, storage formats, autocomplete, retrieval evaluation,
+dataset preparation, benchmarks, and the public API.
 
 ## Repository structure
 
@@ -271,7 +273,8 @@ the public API.
 src/stratajanus/
 ├── text/                       Tokenization
 ├── index/                      Inverted index and storage formats
-└── retrieval/                  BM25 ranking
+├── retrieval/                  BM25 ranking and vocabulary autocomplete
+└── evaluation/                 Benchmarks, SciFact data, and retrieval metrics
 
 scripts/                       Dataset and index commands
 tests/                         Automated tests
@@ -284,12 +287,12 @@ The `data/` directory contains downloaded and generated files and should not be 
 ## Current limitations
 
 - Search is lexical: different words with similar meanings do not automatically match.
-- Search results are ranked with BM25, but retrieval quality has not yet been formally reported using SciFact relevance judgments.
+- BM25 retrieval quality has been evaluated on a fixed SciFact validation split. The parameter-selection protocol and results are documented in [retrieval evaluation](docs/retrieval-evaluation.md); official test judgments were not used for tuning.
 - Each search command loads the saved index into memory. The current implementation does not search postings directly from disk.
 - The `fixed32` index is uncompressed; the `vb` format compresses postings while document lengths remain fixed-width and the loader expands postings into memory.
-- Benchmarking currently covers the SciFact corpus only. It does not measure peak memory or retrieval quality, and its sequential query timings are not concurrent throughput results.
+- Benchmarking currently covers the SciFact corpus only. It does not measure peak memory, and its sequential query timings are not concurrent throughput results.
 - Result-title lookup may read the processed corpus separately.
-- Autocomplete, dense retrieval, learning to rank, and grounded answer generation are not yet implemented.
+- Dense retrieval, learning to rank, and grounded answer generation are not yet implemented.
 
 ## Roadmap
 
@@ -297,8 +300,8 @@ The `data/` directory contains downloaded and generated files and should not be 
 - [x] Add an initial SciFact benchmark for index size, build/save/load time, and warmed query latency.
 - [ ] Compare retrieval and storage behavior with a standard implementation.
 - [ ] Benchmark scalability on larger corpora.
-- [ ] Evaluate retrieval quality using relevance labels.
-- [ ] Add autocomplete using a trie or another measured approach.
+- [x] Evaluate retrieval quality using SciFact validation relevance labels.
+- [x] Add SciFact vocabulary autocomplete with trie, sorted-list, and optional marisa-trie backends.
 - [ ] Add dense and hybrid retrieval.
 - [ ] Train and evaluate a learning-to-rank model.
 - [ ] Add grounded answer generation with citations.
