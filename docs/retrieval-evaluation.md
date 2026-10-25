@@ -66,6 +66,57 @@ evaluation convention: an unjudged document is not thereby proven irrelevant.
 Recall and MRR count only documents with positive relevance judgments. Queries
 without any positive judgment are rejected.
 
+## Independent metric audit
+
+The metric implementation was cross-checked with the installed
+`pytrec_eval-terrier` 0.5.11 package (`pytrec_eval`). Its supported measures
+include `ndcg_cut`, `recall`, and `recip_rank`; it does not expose a bounded
+`MRR@10` measure. The audit uses `ndcg_cut.10` and `recall.100` directly, and
+reproduces MRR@10 by passing only the first ten ranked documents to
+`recip_rank`. Synthetic checks verify that a relevant document at rank 11
+therefore gives MRR@10 zero. Scores are generated as strictly descending
+rank-based values, preserving the saved ordering without display-rounded BM25
+scores.
+
+There is a convention difference for graded nDCG: this package's
+`ndcg_cut.10` uses raw relevance as gain, while StrataJanus-IR uses
+`2^relevance - 1`. A reversed grade-2/grade-1 synthetic ranking detects the
+difference (0.859719 versus 0.796708). Thus the measures are not generally
+equivalent for graded qrels. SciFact's audited validation qrels use binary
+positive labels, for which both gain functions coincide. Recall uses a
+positive relevance threshold and the total count of positive qrels as its
+denominator in both implementations. Unjudged retrieved documents receive
+zero gain / are not relevant. The audit explicitly supplies empty query runs
+so they remain in the macro average; the library returns zero metrics for
+these queries. StrataJanus-IR rejects queries with no positive judgments;
+pytrec_eval instead returns zero metrics for an explicit nonempty run against
+all-zero qrels (and an empty measure mapping if that run is empty). Duplicate
+ranked IDs are rejected by StrataJanus-IR; a score mapping cannot represent
+duplicate document IDs, so that rejection is tested separately.
+
+The synthetic checks cover perfect and reversed graded rankings, unjudged
+documents above relevant ones, ranks 10, 11, 100, and 101, multiple relevant
+documents, empty runs, and macro averaging. Run them with:
+
+```bash
+PYTHONPATH=src python -m pytest tests/test_metric_crosscheck.py tests/test_retrieval_metrics.py -v
+```
+
+The reproducible saved-report audit reads the ranking from the report, checks
+the qrels SHA-256 fingerprint, and never reruns BM25 or writes to the report:
+
+```bash
+PYTHONPATH=src python scripts/audit_scifact_metrics.py \
+  reports/evaluation/scifact-bm25-validation.json
+```
+
+On the saved validation report, the audit compared all 161 per-query rankings
+against the matching canonical training qrels. Per-query values and macro
+means agreed with the report for nDCG@10, Recall@100, and MRR@10; the maximum
+absolute difference was 0 for each metric. SciFact's audited relevance labels
+are binary. The saved final-test report was left untouched and was not audited
+in this cross-check.
+
 ## Recorded results
 
 The default-parameter validation report is
