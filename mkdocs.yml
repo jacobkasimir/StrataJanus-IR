@@ -37,4 +37,6 @@ nav:
   - API Reference: api.md
   - SciFact data: datasets/scifact.md
   - Retrieval evaluation: retrieval-evaluation.md
-  - Benchmarks: benchmarks/scifact.md
+  - Benchmarks:
+      - SciFact: benchmarks/scifact.md
+      - Wikipedia scalability: benchmarks/wikipedia.md

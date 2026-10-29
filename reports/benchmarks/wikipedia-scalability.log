@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/jacob/Documents/StrataJanus-IR/scripts/benchmark_scalability.py", line 336, in <module>
+    main()
+    ~~~~^^
+  File "/Users/jacob/Documents/StrataJanus-IR/scripts/benchmark_scalability.py", line 197, in main
+    if sha256_file(path) != entry["sha256"]:
+       ~~~~~~~~~~~^^^^^^
+  File "/Users/jacob/Documents/StrataJanus-IR/scripts/benchmark_scalability.py", line 28, in sha256_file
+    for block in iter(lambda: file.read(1024 * 1024), b""):
+                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jacob/Documents/StrataJanus-IR/scripts/benchmark_scalability.py", line 28, in <lambda>
+    for block in iter(lambda: file.read(1024 * 1024), b""):
+                              ~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: [Errno 60] Operation timed out

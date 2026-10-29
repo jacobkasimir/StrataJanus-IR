@@ -4,7 +4,7 @@
 
 The project currently uses the BEIR-formatted SciFact dataset as its example corpus. An index can be saved as readable JSON, fixed-width binary, or with gap-encoded variable-byte postings.
 
-> **Status:** stratajanus implements lexical search, vocabulary autocomplete, SciFact retrieval-quality evaluation, and an initial performance benchmark. Large-corpus scalability evaluation, dense/hybrid retrieval, learning to rank, and RAG are not implemented.
+> **Status:** StrataJanus-IR implements lexical search, vocabulary autocomplete, SciFact retrieval-quality evaluation, and a Wikipedia scalability benchmark through 100,000 documents. Dense/hybrid retrieval, learning to rank, and RAG are not implemented.
 
 ## Features
 
@@ -16,7 +16,7 @@ The project currently uses the BEIR-formatted SciFact dataset as its example cor
 - **Retrieval evaluation:** SciFact validation and held-out test metrics; see [retrieval evaluation](docs/retrieval-evaluation.md) for protocols and reports.
 - **Validation:** Checks for malformed indexes and incompatible tokenizer configurations.
 - **Automated tests:** Cover tokenization, indexing, BM25, autocomplete, retrieval metrics, and storage validation.
-- **Performance benchmark:** Measures index construction, saving/loading, file sizes, and warmed sequential query latency on SciFact. Existing reports are initial small-corpus baselines, not scalability evidence.
+- **Performance benchmarks:** SciFact baselines and a Wikipedia scalability benchmark through 100,000 documents. See [Wikipedia scalability](docs/benchmarks/wikipedia.md) for the workflow, measurement limits, and results.
 
 ## How it works
 
@@ -290,7 +290,7 @@ The `data/` directory contains downloaded and generated files and should not be 
 - BM25 retrieval quality has been evaluated on a fixed SciFact validation split. The parameter-selection protocol and results are documented in [retrieval evaluation](docs/retrieval-evaluation.md); official test judgments were not used for tuning.
 - Each search command loads the saved index into memory. The current implementation does not search postings directly from disk.
 - The `fixed32` index is uncompressed; the `vb` format compresses postings while document lengths remain fixed-width and the loader expands postings into memory.
-- Benchmarking currently covers the SciFact corpus only. It does not measure peak memory, and its sequential query timings are not concurrent throughput results.
+- The Wikipedia benchmark records sampled process RSS and warmed sequential query latency; it is not a concurrent throughput or retrieval-quality evaluation. See [Wikipedia scalability](docs/benchmarks/wikipedia.md#measurement-boundaries) for the limits.
 - Result-title lookup may read the processed corpus separately.
 - Dense retrieval, learning to rank, and grounded answer generation are not yet implemented.
 
@@ -299,7 +299,7 @@ The `data/` directory contains downloaded and generated files and should not be 
 - [x] Add document-ID gap encoding and variable-byte compression for postings.
 - [x] Add an initial SciFact benchmark for index size, build/save/load time, and warmed query latency.
 - [ ] Compare retrieval and storage behavior with a standard implementation.
-- [ ] Benchmark scalability on larger corpora.
+- [x] Benchmark index construction, storage, loading, and warmed queries on nested Wikipedia subsets through 100,000 documents.
 - [x] Evaluate retrieval quality using SciFact validation relevance labels.
 - [x] Add SciFact vocabulary autocomplete with trie, sorted-list, and optional marisa-trie backends.
 - [ ] Add dense and hybrid retrieval.

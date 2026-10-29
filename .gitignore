@@ -6,6 +6,8 @@ build/
 dist/
 .venv/
 venv/
+.venv_wikipedia/
+venv_wikipedia/
 
 # Tooling caches
 .pytest_cache/

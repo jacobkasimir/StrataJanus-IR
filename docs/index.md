@@ -17,9 +17,11 @@ BM25 ranking.
 - Suggest indexed SciFact vocabulary terms from a prefix using autocomplete.
 
 The index is loaded into memory for each search. The project includes SciFact
-retrieval-quality evaluation on a fixed validation split and an initial
-performance benchmark. Large-corpus scalability evaluation, learning-to-rank,
-dense or hybrid retrieval, and RAG remain future directions.
+retrieval-quality evaluation, an initial SciFact performance benchmark, and a
+Wikipedia scalability benchmark through 100,000 documents. See
+[Wikipedia scalability](benchmarks/wikipedia.md) for its workflow, results,
+and measurement boundaries. Learning-to-rank, dense or hybrid retrieval, and
+RAG remain future directions.
 
 ## Retrieval pipeline
 
@@ -64,6 +66,8 @@ the data flow and structures.
 | `scripts/convert_index_to_binary.py` | Convert JSON index to fixed-width binary |
 | `scripts/compress_scifact_index.py` | Create and verify compressed postings |
 | `scripts/benchmark_scifact.py` | Benchmark SciFact construction, storage, loading, and queries |
+| `scripts/prepare_wikipedia_subsets.py` | Prepare fingerprinted, nested Wikipedia JSONL subsets |
+| `scripts/benchmark_scalability.py` | Benchmark Wikipedia index construction, storage, loading, and queries |
 | `scripts/autocomplete_scifact.py` | Suggest terms from the saved SciFact vocabulary |
 | `scripts/benchmark_autocomplete.py` | Compare autocomplete backends on a SciFact prefix workload |
 | `scripts/create_scifact_validation_split.py` | Create a fixed validation split from training qrels |
