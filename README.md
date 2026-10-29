@@ -4,7 +4,7 @@
 
 The project currently uses the BEIR-formatted SciFact dataset as its example corpus. An index can be saved as readable JSON, fixed-width binary, or with gap-encoded variable-byte postings.
 
-> **Status:** StrataJanus-IR implements lexical search, vocabulary autocomplete, SciFact retrieval-quality evaluation, and a Wikipedia scalability benchmark through 100,000 documents. Dense/hybrid retrieval, learning to rank, and RAG are not implemented.
+> **Status:** StrataJanus-IR implements lexical search, vocabulary autocomplete, SciFact retrieval-quality evaluation, and a scalability benchmark harness. A completed Wikipedia study covers 10,000, 50,000, and 100,000 documents; see [the benchmark report and analysis](docs/benchmarks/wikipedia.md). Dense/hybrid retrieval, learning to rank, and RAG are not implemented.
 
 ## Features
 
@@ -16,7 +16,7 @@ The project currently uses the BEIR-formatted SciFact dataset as its example cor
 - **Retrieval evaluation:** SciFact validation and held-out test metrics; see [retrieval evaluation](docs/retrieval-evaluation.md) for protocols and reports.
 - **Validation:** Checks for malformed indexes and incompatible tokenizer configurations.
 - **Automated tests:** Cover tokenization, indexing, BM25, autocomplete, retrieval metrics, and storage validation.
-- **Performance benchmarks:** SciFact baselines and a Wikipedia scalability benchmark through 100,000 documents. See [Wikipedia scalability](docs/benchmarks/wikipedia.md) for the workflow, measurement limits, and results.
+- **Performance benchmarks:** SciFact baselines and a completed Wikipedia scalability study at 10,000, 50,000, and 100,000 documents. See [Wikipedia scalability](docs/benchmarks/wikipedia.md) for the workflow, measurement limits, and results.
 
 ## How it works
 
@@ -299,7 +299,8 @@ The `data/` directory contains downloaded and generated files and should not be 
 - [x] Add document-ID gap encoding and variable-byte compression for postings.
 - [x] Add an initial SciFact benchmark for index size, build/save/load time, and warmed query latency.
 - [ ] Compare retrieval and storage behavior with a standard implementation.
-- [x] Benchmark index construction, storage, loading, and warmed queries on nested Wikipedia subsets through 100,000 documents.
+- [x] Implement the Wikipedia scalability benchmark harness.
+- [x] Complete the Wikipedia comparison at 10,000, 50,000, and 100,000 documents across JSON, fixed32, and vb; see the recorded report and its limitations.
 - [x] Evaluate retrieval quality using SciFact validation relevance labels.
 - [x] Add SciFact vocabulary autocomplete with trie, sorted-list, and optional marisa-trie backends.
 - [ ] Add dense and hybrid retrieval.

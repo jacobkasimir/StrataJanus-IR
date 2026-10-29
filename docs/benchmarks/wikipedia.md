@@ -77,15 +77,27 @@ subset therefore has the smaller subset as its prefix. This produces nested
 subsets and makes size comparisons use the same initial source records. It
 does not make them representative random samples. The manifest records the
 selection rule, empty-body count, and SHA-256 of each exact serialized subset.
-The completed main manifest reports zero skipped empty bodies.
+The completed main manifest reports zero skipped empty bodies and these
+counts and fingerprints:
+
+| Documents | Manifest path | SHA-256 |
+| ---: | --- | --- |
+| 10,000 | `10000/documents.jsonl` | `f5f0d43d10e3139ec94db0b29588b38886ae4a4653267401f5249aff099af1a3` |
+| 50,000 | `50000/documents.jsonl` | `2e6e0c7954e95313d5314e549afd09ba720d76a5a0706fcb125bfa33f7b7eee2` |
+| 100,000 | `100000/documents.jsonl` | `e464f46e4b587f5496e0379fd62b874e2632feff0b20de81860dba7abf1a90c1` |
+
+These are manifest fingerprints, not a fresh verification of the current
+local files. The complete reports show the harness matched these fingerprints
+before starting their trials.
 
 ## Workload and correctness
 
 `configs/wikipedia_queries.json` contains a fixed set of 24 hand-written
-queries, ranging from topical phrases to broad terms and one deliberately
-unmatched term. These are synthetic benchmark inputs, not production queries
-or measured user traffic. Each run uses BM25 `k1=1.2`, `b=0.75`, top 10,
-five query repeats, one warm-up round, and seed 42.
+queries: topical phrases, broader terms such as `water`, `history`, and
+`music`, and a deliberately unmatched term. This is an engineering workload
+chosen to exercise varying posting-list sizes, not sampled or observed user
+traffic. Each timing trial uses BM25 `k1=1.2`, `b=0.75`, top 10, five
+measured sequential passes, one untimed warm-up pass, and seed 42.
 
 For each size, the coordinator executes separate fresh Python subprocesses
 for build/save and load/search. It runs timing and memory modes separately;
@@ -106,24 +118,33 @@ indexes and ranked outputs.
 - **Load/decode** times loading the saved index, including validation. The
   entire index is decoded into Python memory.
 - **BM25 initialization** is timed separately after load.
-- **Query latency** is collected after one warm-up round, for sequential
-  searches over the fixed workload. Each trial reports its own p95; the
-  summary below uses the median of those three trial-level p95 values.
+- **Query latency** times each `BM25.search()` call, including query
+  tokenization, postings traversal, scoring, top-k selection, and creation of
+  results. It excludes process startup, index loading, BM25 construction,
+  title lookup, output printing, and result bookkeeping. The workload has 24
+  queries × 5 rounds = 120 timed samples per trial. p50 and p95 use linear
+  interpolation at `(n - 1) * p / 100` among those samples. Table p50/p95
+  values are medians of the three independent trial-level p50/p95 values.
 - **File sizes** are logical file byte counts. `postings.bin` is the posting
   file for fixed32 and vb; JSON stores postings in `index.json`, so it has no
   separate posting-file size. Complete index size is the sum of every saved
   file, including metadata.
-- **Memory** is absolute process RSS before, after, and at the sampled peak,
-  sampled every 10 ms in separate runs. It is not an exact allocation size
-  or a guaranteed peak; brief peaks can fall between samples.
+- **Memory** is absolute process RSS before, after, and at the sampled peak
+  for ingest/build, save, load, BM25 initialization, and the query batch.
+  These are separate fresh-process runs from timing. RSS includes the process
+  and its libraries, and is not memory attributable only to the phase. The
+  sampler checks every 10 ms, so short-lived peaks may be missed; it is not an
+  exact peak-allocation measurement.
 
-Filesystem caches are not cleared. Fixed execution order (sizes ascending,
-then formats JSON/fixed32/vb, with timing before memory) can introduce time and
-order effects. Wikipedia article lengths vary, so document count alone does
-not describe input text volume. All three storage formats reconstruct the
-same in-memory posting representation; compressed storage does not imply
-lower search-time memory. The benchmark does not measure Wikipedia relevance
-metrics, and performance results provide no evidence about retrieval quality.
+Filesystem caches are not cleared, and there is no explicit `fsync`; load and
+save times therefore reflect the observed cache and operating-system write
+behavior, not cold-cache reads or durable-write latency. The fixed execution
+order (sizes ascending, then JSON/fixed32/vb, timing before memory) can
+introduce order effects. Article lengths vary, so document count alone does
+not represent input text volume. All formats reconstruct the same in-memory
+index and use the same BM25 implementation; compressed postings do not imply
+lower search-time memory. No Wikipedia relevance labels are used, so these
+performance measurements say nothing about retrieval quality.
 
 ## Recorded results
 
@@ -135,37 +156,79 @@ separate memory run. The retry report
 document run; the tooling smoke report `reports/benchmarks/wikipedia-smoke.json`
 is complete at 1,000 documents. The main results below come only from the
 complete main report. The accompanying
-`reports/benchmarks/wikipedia-scalability.log` records two earlier attempts
-that stopped during input fingerprinting with a file-read timeout, before
-benchmark trials began; these failed attempts are not included in the results.
+`reports/benchmarks/wikipedia-scalability.log` records earlier attempts that
+stopped while reading a subset for SHA-256 verification with
+`TimeoutError: [Errno 60] Operation timed out`, before any build/save/load or
+query trial began. Those attempts have no benchmark measurements and do not
+establish corruption. The timeout source is unconfirmed. Do not disable
+checksum verification to continue. A complete manifest alone does not prove
+that files remain readable. Using local, non-synced storage is a possible
+troubleshooting step, not a verified fix. The later complete reports establish
+that the procedure did subsequently pass preflight and finish; they do not
+explain the earlier I/O timeout.
 
 The environment was Python 3.14.9 on macOS 27.0.1 arm64 (`processor: arm`);
 the report contains no more specific hardware model or hardware notes.
 Defaults were used for BM25 (`k1=1.2`, `b=0.75`), 24 queries, top 10, five
-query repetitions, and three timing trials. Times and sizes are medians or
-file sizes from the first timing trial as applicable. Seconds are rounded to
-two decimals; query values are milliseconds.
+query repetitions, and three timing trials. Build, save, load, BM25-init, p50,
+and p95 figures below are medians across the three independent timing trials;
+size columns are logical file sizes from a timing trial. Times are rounded to
+two decimals for seconds and three decimals for query milliseconds. Filesystem
+cache state was not controlled, and trial-to-trial variability is material
+for some build phases.
 
-| Documents | Format | Ingest + build (s) | Save incl. validation (s) | Load/decode incl. validation (s) | BM25 init (ms) | Median trial p95 (ms) | Complete index (MiB) | Posting file (MiB) |
-| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 10,000 | JSON | 4.76 | 8.68 | 4.52 | 0.09 | 0.846 | 196.65 | — |
-| 10,000 | fixed32 | 5.40 | 4.50 | 1.76 | 0.08 | 0.846 | 58.01 | 37.19 |
-| 10,000 | vb | 5.96 | 5.39 | 4.09 | 0.08 | 0.841 | 37.08 | 10.17 |
-| 50,000 | JSON | 14.62 | 29.13 | 16.52 | 1.01 | 2.697 | 653.60 | — |
-| 50,000 | fixed32 | 14.16 | 13.94 | 4.80 | 0.34 | 2.684 | 167.61 | 122.49 |
-| 50,000 | vb | 14.07 | 16.89 | 8.48 | 0.35 | 2.690 | 92.65 | 34.44 |
-| 100,000 | JSON | 46.07 | 53.80 | 33.85 | 2.13 | 5.023 | 1,207.61 | — |
-| 100,000 | fixed32 | 25.79 | 26.53 | 8.83 | 0.68 | 5.037 | 292.93 | 226.31 |
-| 100,000 | vb | 26.08 | 31.51 | 16.32 | 0.64 | 4.996 | 149.35 | 64.07 |
+| Documents | Format | Ingest + build (s) | Save (s) | Load/decode (s) | BM25 init (ms) | Query p50 (ms) | Query p95 (ms) | Total index (MiB) | `postings.bin` (MiB) |
+| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 10,000 | JSON | 4.76 | 8.68 | 4.52 | 0.09 | 0.413 | 0.846 | 196.65 | — |
+| 10,000 | fixed32 | 5.40 | 4.50 | 1.76 | 0.08 | 0.414 | 0.846 | 58.01 | 37.19 |
+| 10,000 | vb | 5.96 | 5.39 | 4.09 | 0.08 | 0.410 | 0.841 | 37.08 | 10.17 |
+| 50,000 | JSON | 14.62 | 29.13 | 16.52 | 1.01 | 1.179 | 2.697 | 653.60 | — |
+| 50,000 | fixed32 | 14.16 | 13.94 | 4.80 | 0.34 | 1.173 | 2.684 | 167.61 | 122.49 |
+| 50,000 | vb | 14.07 | 16.89 | 8.48 | 0.35 | 1.179 | 2.690 | 92.65 | 34.44 |
+| 100,000 | JSON | 46.07 | 53.80 | 33.85 | 2.13 | 2.094 | 5.023 | 1,207.61 | — |
+| 100,000 | fixed32 | 25.79 | 26.53 | 8.83 | 0.68 | 2.064 | 5.037 | 292.93 | 226.31 |
+| 100,000 | vb | 26.08 | 31.51 | 16.32 | 0.64 | 2.074 | 4.996 | 149.35 | 64.07 |
 
-The memory report is a sampled absolute RSS value. At 100,000 documents, the
-timing-separate memory runs recorded these sampled peaks by phase (GiB):
+The fixed-width-to-vb `postings.bin` reduction, calculated from report byte
+counts as `(fixed32 - vb) / fixed32`, was 72.64% at 10,000, 71.87% at 50,000,
+and 71.69% at 100,000 documents. These are posting-file reductions, not total
+index-directory reductions; vb vocabulary metadata is larger in these
+reports. JSON postings are stored in `index.json`, so a posting-only JSON
+comparison is unavailable.
 
-| Format | Ingest + build | Save | Load/decode | BM25 init |
-| --- | ---: | ---: | ---: | ---: |
-| JSON | 2.28 | 2.34 | 2.84 | 2.43 |
-| fixed32 | 2.27 | 2.55 | 3.01 | 2.14 |
-| vb | 2.14 | 2.47 | 2.55 | 2.10 |
+The smaller vb posting files came with a load-time cost in these runs:
+median vb load/decode took 4.09 s versus 1.76 s for fixed32 at 10,000
+documents, 8.48 versus 4.80 s at 50,000, and 16.32 versus 8.83 s at
+100,000. vb save was also slower than fixed32 in each size. This is an
+observed tradeoff in these measurements, not a general format guarantee.
+
+Across these completed nested sizes, median query p50 and p95 rise with size
+in all three formats, while results remain close across formats because they
+search the same reconstructed index. At 100,000 documents, trial-level build
+times vary substantially (for example, JSON spans 26.07–53.28 s and vb spans
+25.60–46.53 s), so the reported medians should not be read as precise capacity
+limits. The dataset adds different article lengths at each prefix, and
+filesystem caching, fixed format order, system load, and memory pressure are
+possible contributors; the report does not isolate their effects.
+
+Per-query evidence is consistent with posting work contributing to query
+cost, without proving it is the only cause. For the fixed32 timing trials,
+`history` (`w15`) visits 4,024, 16,952, and 32,439 postings at 10k, 50k, and
+100k, with median individual latency across trial observations of 1.354,
+5.744, and 11.095 ms. The lower-posting `volcanic eruption` (`w05`) visits
+150, 351, and 591 postings and has corresponding medians of 0.062, 0.137,
+and 0.219 ms. The unmatched query (`w24`) visits zero postings and remains
+around 0.002 ms. These examples are observations from this fixed workload,
+not general latency guarantees.
+
+The memory report records one separate process per format and size. At
+100,000 documents, the sampled absolute RSS peaks by phase were (GiB):
+
+| Format | Ingest + build | Save | Load/decode | BM25 init | Query batch |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| JSON | 2.28 | 2.34 | 2.84 | 2.43 | 2.49 |
+| fixed32 | 2.27 | 2.55 | 3.01 | 2.14 | 2.15 |
+| vb | 2.14 | 2.47 | 2.55 | 2.10 | 2.04 |
 
 These are process RSS peaks sampled during the listed operation, not memory
 increments attributable to that operation. The complete report retains exact

@@ -18,7 +18,8 @@ BM25 ranking.
 
 The index is loaded into memory for each search. The project includes SciFact
 retrieval-quality evaluation, an initial SciFact performance benchmark, and a
-Wikipedia scalability benchmark through 100,000 documents. See
+completed Wikipedia scalability study at 10,000, 50,000, and 100,000
+documents. See
 [Wikipedia scalability](benchmarks/wikipedia.md) for its workflow, results,
 and measurement boundaries. Learning-to-rank, dense or hybrid retrieval, and
 RAG remain future directions.
